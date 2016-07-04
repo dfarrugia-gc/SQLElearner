@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.DynamicData;
 
 namespace SQLElearner.Models
 {
@@ -8,6 +10,18 @@ namespace SQLElearner.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Required]
+        [Display(Name = "Date Of Birth")]
+        public string DateOfBirth { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -64,6 +78,18 @@ namespace SQLElearner.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Birthday")]
+        public DateTime DateOfBirth { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

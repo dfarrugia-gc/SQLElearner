@@ -58,11 +58,11 @@ namespace SQLElearner
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1042174410602-b3nkg7ms4l0im4p3thmi904up1trjsgq.apps.googleusercontent.com",
+                ClientSecret = "A09AsK9N94hn8Wh7pz2LGS_x"
+            });
         }
     }
 }

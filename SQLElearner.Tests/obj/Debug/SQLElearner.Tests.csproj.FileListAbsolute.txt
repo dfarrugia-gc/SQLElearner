@@ -30,6 +30,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Security.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Owin.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Security.Google.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\EntityFramework.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
@@ -47,6 +48,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Security.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Security.Google.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\EntityFramework.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
