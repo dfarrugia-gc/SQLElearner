@@ -11,17 +11,14 @@ namespace SQLElearner.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
         [Display(Name = "Name")]
         public string FirstName { get; set; }
 
-        [Required]
         [Display(Name = "Surname")]
         public string Surname { get; set; }
 
-        [Required]
         [Display(Name = "Date Of Birth")]
-        public string DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 
     public class ExternalLoginListViewModel

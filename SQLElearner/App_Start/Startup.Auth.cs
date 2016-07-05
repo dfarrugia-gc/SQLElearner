@@ -54,9 +54,9 @@ namespace SQLElearner
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "376140209176889",
+               appSecret: "cc273247ec2e5ed4f4c76c93f69e5edb");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

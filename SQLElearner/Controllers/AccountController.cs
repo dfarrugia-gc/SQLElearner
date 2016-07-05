@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SQLElearner.Models;
+using Google.Apis.Oauth2.v2;
 
 namespace SQLElearner.Controllers
 {
@@ -323,6 +324,9 @@ namespace SQLElearner.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo2 = await HttpContext.GetOwinContext().Authentication.
+                GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
@@ -330,7 +334,15 @@ namespace SQLElearner.Controllers
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+
+            DateTime dob;
+            if (loginInfo2.FindFirstValue(ClaimTypes.DateOfBirth) == null)
+            {
+                dob = new DateTime(1900,01,01);
+            }
+            else { dob = Convert.ToDateTime(loginInfo2.FindFirstValue(ClaimTypes.DateOfBirth)); }
+
+                switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -343,7 +355,13 @@ namespace SQLElearner.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email});
+
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel {
+                        Email = loginInfo2.FindFirstValue(ClaimTypes.Email),
+                        FirstName = loginInfo2.FindFirstValue(ClaimTypes.GivenName),
+                        Surname = loginInfo2.FindFirstValue(ClaimTypes.Surname),
+                        DateOfBirth = dob
+                    });
             }
         }
 
@@ -367,7 +385,7 @@ namespace SQLElearner.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser {FirstName = model.FirstName, LastName = model.Surname, DateOfBirth = Convert.ToDateTime(model.DateOfBirth), UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {FirstName = model.FirstName, LastName = model.Surname, DateOfBirth = model.DateOfBirth, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
