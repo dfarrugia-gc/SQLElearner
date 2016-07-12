@@ -6,6 +6,9 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using SQLElearner.Models;
+using Microsoft.Owin.Security.Facebook;
+using static Google.Apis.Oauth2.v2.Oauth2Service;
+using System.Threading.Tasks;
 
 namespace SQLElearner
 {
@@ -34,7 +37,7 @@ namespace SQLElearner
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -54,9 +57,21 @@ namespace SQLElearner
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "376140209176889",
-               appSecret: "cc273247ec2e5ed4f4c76c93f69e5edb");
+            app.UseFacebookAuthentication(new FacebookAuthenticationOptions
+            {
+                AppId = "376140209176889",
+                AppSecret = "cc273247ec2e5ed4f4c76c93f69e5edb",
+                Scope = { "email" },
+                Provider = new FacebookAuthenticationProvider
+                {
+                    OnAuthenticated = context =>
+                    {
+                        context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+                        return Task.FromResult(true);
+                    }
+                }
+            });
+
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

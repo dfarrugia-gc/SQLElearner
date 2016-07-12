@@ -95,3 +95,5 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\log4net.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Zlib.Portable.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Release\SQLElearner.Migrations.Init.resources
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Facebook.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Facebook.xml

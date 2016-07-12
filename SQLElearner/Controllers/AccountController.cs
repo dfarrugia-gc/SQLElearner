@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SQLElearner.Models;
 using Google.Apis.Oauth2.v2;
+using Facebook;
 
 namespace SQLElearner.Controllers
 {
@@ -335,33 +336,68 @@ namespace SQLElearner.Controllers
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
 
-            DateTime dob;
-            if (loginInfo2.FindFirstValue(ClaimTypes.DateOfBirth) == null)
-            {
-                dob = new DateTime(1900,01,01);
-            }
-            else { dob = Convert.ToDateTime(loginInfo2.FindFirstValue(ClaimTypes.DateOfBirth)); }
+            //DateTime dob;
+            //if (loginInfo2.FindFirstValue(ClaimTypes.DateOfBirth) == null)
+            //{
+            //    dob = new DateTime(1900, 01, 01);
+            //}
+            //else { dob = Convert.ToDateTime(loginInfo2.FindFirstValue(ClaimTypes.DateOfBirth)); }
 
+            if (loginInfo.Login.LoginProvider.Equals("Facebook"))
+            {
                 switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    case SignInStatus.Failure:
+                    default:
+                        // If the user does not have an account, then prompt the user to create an account
+                        var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
 
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel {
-                        Email = loginInfo2.FindFirstValue(ClaimTypes.Email),
-                        FirstName = loginInfo2.FindFirstValue(ClaimTypes.GivenName),
-                        Surname = loginInfo2.FindFirstValue(ClaimTypes.Surname),
-                        DateOfBirth = dob
-                    });
+                        var access_token = identity.FindFirstValue("FacebookAccessToken");
+                        var fb = new FacebookClient(access_token);
+                        dynamic myInfo = fb.Get("/me?fields=email,birthday,name,first_name,last_name"); // specify the email field
+
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
+                        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel
+                        {
+                            Email = myInfo.email,
+                            DateOfBirth = myInfo.birthday,
+                            FirstName = myInfo.first_name,
+                            Surname = myInfo.last_name
+                        });
+                }
+                }
+            else
+            {
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    case SignInStatus.Failure:
+                    default:
+                        // If the user does not have an account, then prompt the user to create an account
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
+                        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel
+                        {
+                            Email = loginInfo2.FindFirstValue(ClaimTypes.Email),
+                            FirstName = loginInfo2.FindFirstValue(ClaimTypes.GivenName),
+                            Surname = loginInfo2.FindFirstValue(ClaimTypes.Surname),
+                            DateOfBirth = null
+                        });
+                }
             }
         }
 
