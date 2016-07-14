@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SQLElearner.Models.Course>
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using SQLElearner.Models
+
+@if (Request.IsAuthenticated)
+{
+    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+
+    {
+        ViewBag.Title = "Hello " + currentUser.FirstName.ToUpper();
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+        <h2>@ViewBag.Title</h2>
+        <h3>@ViewBag.Message</h3>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        }
+        else
+        {
+            {
+                ViewBag.Title = "Start Course";
+            }
+            <h2>@ViewBag.Title</h2>
+            <h3>@ViewBag.Message</h3>
+
+            <div>
+                <p>
+                    Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) Or
+                    @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
+                </p>
+            </div>
+        }
+
