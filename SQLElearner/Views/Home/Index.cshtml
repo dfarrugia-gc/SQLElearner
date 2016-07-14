@@ -26,7 +26,8 @@
         <div class="col-md-4">
             <h2 class="page-header">Get Started...</h2>
             <p>Click on the START button below to start your free online course!</p>
-            <a href="#" class="btn btn-primary">START</a>
+            @Html.ActionLink("START", "Course", "Course" , null,new { @class = "btn btn-default" })
+            @*<a href="~/Views/Course/Course.cshtml" class="btn btn-primary">START</a>*@
         </div>
     </div>
     <!-- /.row -->
