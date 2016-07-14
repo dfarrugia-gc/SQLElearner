@@ -11,113 +11,116 @@ using SQLElearner.Models;
 
 namespace SQLElearner.Controllers
 {
-    public class CourseController : Controller
+    public class CourseTopicsController : Controller
     {
         private CourseDbContext db = new CourseDbContext();
 
-        public ActionResult Course()
-        {
-            ViewBag.Message = "";
-            return View();
-        }
-
-        // GET: Courses
+        // GET: CourseTopics
         public async Task<ActionResult> Index()
         {
-            return View(await db.Courses.ToListAsync());
+            var courseTopics = db.CourseTopics.Include(c => c.Course).Include(c => c.Topic);
+            return View(await courseTopics.ToListAsync());
         }
 
-        // GET: Courses/Details/5
+        // GET: CourseTopics/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = await db.Courses.FindAsync(id);
-            if (course == null)
+            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
+            if (courseTopic == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(courseTopic);
         }
 
-        // GET: Courses/Create
+        // GET: CourseTopics/Create
         public ActionResult Create()
         {
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName");
             return View();
         }
 
-        // POST: Courses/Create
+        // POST: CourseTopics/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName")] Course course)
+        public async Task<ActionResult> Create([Bind(Include = "CourseTopicId,CourseId,TopicId")] CourseTopic courseTopic)
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
+                db.CourseTopics.Add(courseTopic);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(course);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", courseTopic.CourseId);
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", courseTopic.TopicId);
+            return View(courseTopic);
         }
 
-        // GET: Courses/Edit/5
+        // GET: CourseTopics/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = await db.Courses.FindAsync(id);
-            if (course == null)
+            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
+            if (courseTopic == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", courseTopic.CourseId);
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", courseTopic.TopicId);
+            return View(courseTopic);
         }
 
-        // POST: Courses/Edit/5
+        // POST: CourseTopics/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CourseID,CourseName")] Course course)
+        public async Task<ActionResult> Edit([Bind(Include = "CourseTopicId,CourseId,TopicId")] CourseTopic courseTopic)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(courseTopic).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(course);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", courseTopic.CourseId);
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", courseTopic.TopicId);
+            return View(courseTopic);
         }
 
-        // GET: Courses/Delete/5
+        // GET: CourseTopics/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = await db.Courses.FindAsync(id);
-            if (course == null)
+            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
+            if (courseTopic == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(courseTopic);
         }
 
-        // POST: Courses/Delete/5
+        // POST: CourseTopics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Course course = await db.Courses.FindAsync(id);
-            db.Courses.Remove(course);
+            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
+            db.CourseTopics.Remove(courseTopic);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

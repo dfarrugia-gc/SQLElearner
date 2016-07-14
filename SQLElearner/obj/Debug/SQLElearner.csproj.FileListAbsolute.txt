@@ -114,6 +114,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\BouncyCastle.Crypto.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\EntityFramework.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\EntityFramework.SqlServer.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Facebook.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Google.Apis.Auth.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Google.Apis.Auth.PlatformServices.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Google.Apis.Core.dll
@@ -148,6 +149,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Zlib.Portable.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Antlr3.Runtime.pdb
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\BouncyCastle.Crypto.pdb
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Facebook.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Google.Apis.pdb
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Google.Apis.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Google.Apis.Auth.pdb
@@ -191,6 +193,3 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.csproj.GenerateResource.Cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.pdb
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.csprojResolveAssemblyReference.cache
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Facebook.dll
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\bin\Facebook.xml

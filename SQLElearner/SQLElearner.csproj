@@ -211,10 +211,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <None Include="Controllers\CourseController.cs.old" />
-    <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\CourseTopicsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TopicsController.cs" />
+    <Compile Include="Controllers\TopicTypesController.cs" />
+    <Compile Include="Controllers\UserCourseTopicsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -315,6 +318,26 @@
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Topics\Create.cshtml" />
+    <Content Include="Views\Topics\Delete.cshtml" />
+    <Content Include="Views\Topics\Details.cshtml" />
+    <Content Include="Views\Topics\Edit.cshtml" />
+    <Content Include="Views\Topics\Index.cshtml" />
+    <Content Include="Views\TopicTypes\Create.cshtml" />
+    <Content Include="Views\TopicTypes\Delete.cshtml" />
+    <Content Include="Views\TopicTypes\Details.cshtml" />
+    <Content Include="Views\TopicTypes\Edit.cshtml" />
+    <Content Include="Views\TopicTypes\Index.cshtml" />
+    <Content Include="Views\CourseTopics\Create.cshtml" />
+    <Content Include="Views\CourseTopics\Delete.cshtml" />
+    <Content Include="Views\CourseTopics\Details.cshtml" />
+    <Content Include="Views\CourseTopics\Edit.cshtml" />
+    <Content Include="Views\CourseTopics\Index.cshtml" />
+    <Content Include="Views\UserCourseTopics\Create.cshtml" />
+    <Content Include="Views\UserCourseTopics\Delete.cshtml" />
+    <Content Include="Views\UserCourseTopics\Details.cshtml" />
+    <Content Include="Views\UserCourseTopics\Edit.cshtml" />
+    <Content Include="Views\UserCourseTopics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

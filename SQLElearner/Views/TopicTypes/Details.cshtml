@@ -1,4 +1,4 @@
-﻿@model SQLElearner.Models.Course
+﻿@model SQLElearner.Models.TopicType
 
 @{
     ViewBag.Title = "Details";
@@ -8,20 +8,20 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Course</h4>
+    <h4>TopicType</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CourseName)
+            @Html.DisplayNameFor(model => model.TopicTypeName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CourseName)
+            @Html.DisplayFor(model => model.TopicTypeName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TopicTypeId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

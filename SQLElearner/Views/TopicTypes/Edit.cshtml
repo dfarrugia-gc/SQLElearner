@@ -1,4 +1,4 @@
-﻿@model SQLElearner.Models.Course
+﻿@model SQLElearner.Models.TopicType
 
 @{
     ViewBag.Title = "Edit";
@@ -13,16 +13,16 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Course</h4>
+        <h4>TopicType</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.CourseId)
+        @Html.HiddenFor(model => model.TopicTypeId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CourseName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TopicTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CourseName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.TopicTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TopicTypeName, "", new { @class = "text-danger" })
             </div>
         </div>
 
