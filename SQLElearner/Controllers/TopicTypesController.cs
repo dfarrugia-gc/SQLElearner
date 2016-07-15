@@ -13,7 +13,7 @@ namespace SQLElearner.Controllers
 {
     public class TopicTypesController : Controller
     {
-        private CourseDbContext db = new CourseDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TopicTypes
         public async Task<ActionResult> Index()

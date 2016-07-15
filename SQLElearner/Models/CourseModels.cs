@@ -60,22 +60,22 @@ namespace SQLElearner.Models
         public virtual Topic Topic { get; set; }
     }
 
-    public class CourseDbContext :  DbContext
-    {
-        public CourseDbContext()
-            : base("DefaultConnection")
-        {
-        }
+    //public class CourseDbContext :  DbContext
+    //{
+    //    public CourseDbContext()
+    //        : base("DefaultConnection")
+    //    {
+    //    }
         
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Topic> Topics { get; set; }
-        public DbSet<TopicType> TopicTypes { get; set; }
-        public DbSet<CourseTopic> CourseTopics { get; set; }
-        public DbSet<UserCourseTopic> UserCourseTopics { get; set; }
+    //    public DbSet<Course> Courses { get; set; }
+    //    public DbSet<Topic> Topics { get; set; }
+    //    public DbSet<TopicType> TopicTypes { get; set; }
+    //    public DbSet<CourseTopic> CourseTopics { get; set; }
+    //    public DbSet<UserCourseTopic> UserCourseTopics { get; set; }
 
-        public static CourseDbContext Create()
-        {
-            return new CourseDbContext();
-        }
-    }
+    //    public static CourseDbContext Create()
+    //    {
+    //        return new CourseDbContext();
+    //    }
+    //}
 }

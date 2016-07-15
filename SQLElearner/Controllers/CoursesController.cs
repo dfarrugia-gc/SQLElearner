@@ -13,7 +13,7 @@ namespace SQLElearner.Controllers
 {
     public class CoursesController : Controller
     {
-        private CourseDbContext db = new CourseDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Courses
         public async Task<ActionResult> Index()
@@ -37,6 +37,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Courses/Create
+        [Authorize(Roles ="Admin")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +48,7 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind(Include = "CourseId,CourseName")] Course course)
         {
             if (ModelState.IsValid)
@@ -60,6 +62,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Courses/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,6 +82,7 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "CourseId,CourseName")] Course course)
         {
             if (ModelState.IsValid)
@@ -91,6 +95,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Courses/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -108,6 +113,7 @@ namespace SQLElearner.Controllers
         // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Course course = await db.Courses.FindAsync(id);

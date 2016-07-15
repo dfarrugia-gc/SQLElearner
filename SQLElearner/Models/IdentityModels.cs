@@ -30,6 +30,12 @@ namespace SQLElearner.Models
         {
         }
 
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<TopicType> TopicTypes { get; set; }
+        public DbSet<CourseTopic> CourseTopics { get; set; }
+        public DbSet<UserCourseTopic> UserCourseTopics { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

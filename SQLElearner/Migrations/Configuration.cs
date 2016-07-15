@@ -9,7 +9,7 @@ namespace SQLElearner.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "SQLElearner.Models.ApplicationDbContext";
         }
 
