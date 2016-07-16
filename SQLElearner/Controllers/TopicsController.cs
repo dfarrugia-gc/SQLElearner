@@ -16,6 +16,7 @@ namespace SQLElearner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Topics
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             var topics = db.Topics.Include(t => t.TopicType);
@@ -23,6 +24,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Topics/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Topics/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.TopicTypeId = new SelectList(db.TopicTypes, "TopicTypeId", "TopicTypeName");
@@ -49,6 +52,7 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind(Include = "TopicId,TopicTypeId,TopicName")] Topic topic)
         {
             if (ModelState.IsValid)
@@ -63,6 +67,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Topics/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,6 +88,7 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "TopicId,TopicTypeId,TopicName")] Topic topic)
         {
             if (ModelState.IsValid)
@@ -96,6 +102,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Topics/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -113,6 +120,7 @@ namespace SQLElearner.Controllers
         // POST: Topics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Topic topic = await db.Topics.FindAsync(id);

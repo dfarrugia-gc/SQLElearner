@@ -217,6 +217,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\TopicTypesController.cs" />
+    <Compile Include="Controllers\UserCourseTopicsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -331,6 +332,12 @@
     <Content Include="Views\CourseTopics\Details.cshtml" />
     <Content Include="Views\CourseTopics\Edit.cshtml" />
     <Content Include="Views\CourseTopics\Index.cshtml" />
+    <Content Include="Views\Courses\ManageCourses.cshtml" />
+    <Content Include="Views\UserCourseTopics\Create.cshtml" />
+    <Content Include="Views\UserCourseTopics\Delete.cshtml" />
+    <Content Include="Views\UserCourseTopics\Details.cshtml" />
+    <Content Include="Views\UserCourseTopics\Edit.cshtml" />
+    <Content Include="Views\UserCourseTopics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

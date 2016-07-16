@@ -38,6 +38,8 @@ namespace SQLElearner
                 var user = new ApplicationUser();
                 user.UserName = "farrdan@gmail.com";
                 user.Email = "farrdan@gmail.com";
+                user.FirstName = "Daniel";
+                user.LastName = "Farrugia";
 
                 string userPWD = "Dan1e1B0xer";
 

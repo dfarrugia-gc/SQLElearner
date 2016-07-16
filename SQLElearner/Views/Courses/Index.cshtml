@@ -3,26 +3,17 @@
 @using Microsoft.AspNet.Identity.EntityFramework;
 @using SQLElearner.Models
 
-@if (Request.IsAuthenticated)
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Courses</h2>
+
+@if (User.IsInRole("Admin"))
 {
     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
     var currentUser = manager.FindById(User.Identity.GetUserId());
-
-    {
-        if(currentUser.FirstName == null)
-        {
-            ViewBag.Title = "Hello " + currentUser.UserName;
-            Layout = "~/Views/Shared/_Layout.cshtml";
-        }
-        else
-        {
-            ViewBag.Title = "Hello " + currentUser.FirstName.ToUpper();
-            Layout = "~/Views/Shared/_Layout.cshtml";
-        }
-    }
-
-        <h2>@ViewBag.Title</h2>
-        <h3>@ViewBag.Message</h3>
 
         <p>
             @if (User.IsInRole("Admin"))
@@ -46,38 +37,45 @@
                         @Html.DisplayFor(modelItem => item.CourseName)
                     </td>
                     <td>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseId })
-                        }
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                        
                     </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.CourseId })                        
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")
+}
+else
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        <table class="table">
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td valign="middle">
+                        @Html.DisplayFor(modelItem => item.CourseName)
                     </td>
-                    <td>
-                        @if (User.IsInRole("Admin"))
+                    <td valign="middle">
+                        @if (User.IsInRole("Learner"))
                         {
-                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                            @Html.ActionLink("START LEARNING", "Index", "Courses", null, new { @class = "btn btn-info" })
                         }
                     </td>
                 </tr>
             }
-
         </table>
-}
-else
-{
-    {
-        ViewBag.Title = "Start Course";
     }
-            <h2>@ViewBag.Title</h2>
-            <h3>@ViewBag.Message</h3>
-
-            <div>
-                <p>
-                    Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) Or
-                    @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
-                </p>
-            </div>
+    else
+    {
+        <div>
+            <p>
+                Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) Or
+                @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
+            </p>
+        </div>
+    }
 }
-

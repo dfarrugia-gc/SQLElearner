@@ -51,7 +51,9 @@ namespace SQLElearner.Models
     {
         [Key]
         public int UserCourseTopicId { get; set; }
-        public int UserId { get; set; }
+        public string Id { get; set; }
+        [ForeignKey("Id")]
+        public virtual ApplicationUser User { get; set; }
         public int CourseId { get; set; }
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }

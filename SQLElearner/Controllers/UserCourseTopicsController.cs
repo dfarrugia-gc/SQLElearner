@@ -11,19 +11,19 @@ using SQLElearner.Models;
 
 namespace SQLElearner.Controllers
 {
-    public class CourseTopicsController : Controller
+    public class UserCourseTopicsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: CourseTopics
+        // GET: UserCourseTopics
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
-            var courseTopics = db.CourseTopics.Include(c => c.Course).Include(c => c.Topic);
-            return View(await courseTopics.ToListAsync());
+            var userCourseTopics = db.UserCourseTopics.Include(u => u.Course).Include(u => u.Topic).Include(u => u.User);
+            return View(await userCourseTopics.ToListAsync());
         }
 
-        // GET: CourseTopics/Details/5
+        // GET: UserCourseTopics/Details/5
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
@@ -31,44 +31,46 @@ namespace SQLElearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
-            if (courseTopic == null)
+            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            if (userCourseTopic == null)
             {
                 return HttpNotFound();
             }
-            return View(courseTopic);
+            return View(userCourseTopic);
         }
 
-        // GET: CourseTopics/Create
+        // GET: UserCourseTopics/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
             ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName");
+            ViewBag.Id = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
 
-        // POST: CourseTopics/Create
+        // POST: UserCourseTopics/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create([Bind(Include = "CourseTopicId,CourseId,TopicId")] CourseTopic courseTopic)
+        public async Task<ActionResult> Create([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId")] UserCourseTopic userCourseTopic)
         {
             if (ModelState.IsValid)
             {
-                db.CourseTopics.Add(courseTopic);
+                db.UserCourseTopics.Add(userCourseTopic);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", courseTopic.CourseId);
-            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", courseTopic.TopicId);
-            return View(courseTopic);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourseTopic.CourseId);
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", userCourseTopic.TopicId);
+            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourseTopic.Id);
+            return View(userCourseTopic);
         }
 
-        // GET: CourseTopics/Edit/5
+        // GET: UserCourseTopics/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
@@ -76,36 +78,38 @@ namespace SQLElearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
-            if (courseTopic == null)
+            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            if (userCourseTopic == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", courseTopic.CourseId);
-            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", courseTopic.TopicId);
-            return View(courseTopic);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourseTopic.CourseId);
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", userCourseTopic.TopicId);
+            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourseTopic.Id);
+            return View(userCourseTopic);
         }
 
-        // POST: CourseTopics/Edit/5
+        // POST: UserCourseTopics/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Edit([Bind(Include = "CourseTopicId,CourseId,TopicId")] CourseTopic courseTopic)
+        public async Task<ActionResult> Edit([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId")] UserCourseTopic userCourseTopic)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(courseTopic).State = EntityState.Modified;
+                db.Entry(userCourseTopic).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", courseTopic.CourseId);
-            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", courseTopic.TopicId);
-            return View(courseTopic);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourseTopic.CourseId);
+            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", userCourseTopic.TopicId);
+            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourseTopic.Id);
+            return View(userCourseTopic);
         }
 
-        // GET: CourseTopics/Delete/5
+        // GET: UserCourseTopics/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
@@ -113,22 +117,22 @@ namespace SQLElearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
-            if (courseTopic == null)
+            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            if (userCourseTopic == null)
             {
                 return HttpNotFound();
             }
-            return View(courseTopic);
+            return View(userCourseTopic);
         }
 
-        // POST: CourseTopics/Delete/5
+        // POST: UserCourseTopics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            CourseTopic courseTopic = await db.CourseTopics.FindAsync(id);
-            db.CourseTopics.Remove(courseTopic);
+            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            db.UserCourseTopics.Remove(userCourseTopic);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

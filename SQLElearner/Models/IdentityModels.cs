@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections;
 
 namespace SQLElearner.Models
 {
@@ -35,6 +36,7 @@ namespace SQLElearner.Models
         public DbSet<TopicType> TopicTypes { get; set; }
         public DbSet<CourseTopic> CourseTopics { get; set; }
         public DbSet<UserCourseTopic> UserCourseTopics { get; set; }
+        public IEnumerable ApplicationUsers { get; internal set; }
 
         public static ApplicationDbContext Create()
         {

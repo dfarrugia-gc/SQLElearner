@@ -21,6 +21,13 @@ namespace SQLElearner.Controllers
             return View(await db.Courses.ToListAsync());
         }
 
+        // GET: ManageCourses
+        [Authorize(Roles = "Admin")]
+        public ActionResult ManageCourses()
+        {
+            return View();
+        }
+
         // GET: Courses/Details/5
         public async Task<ActionResult> Details(int? id)
         {
