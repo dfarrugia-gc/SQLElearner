@@ -193,3 +193,4 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.csproj.GenerateResource.Cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.pdb
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner\obj\Debug\SQLElearner.csprojResolveAssemblyReference.cache

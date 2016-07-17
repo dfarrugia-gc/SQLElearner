@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SQLElearner.Models;
+using Microsoft.AspNet.Identity;
 
 namespace SQLElearner.Controllers
 {
@@ -40,12 +41,12 @@ namespace SQLElearner.Controllers
         }
 
         // GET: UserCourseTopics/Create
-        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
             ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName");
             ViewBag.Id = new SelectList(db.Users, "Id", "FirstName");
+
             return View();
         }
 
@@ -54,7 +55,6 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId")] UserCourseTopic userCourseTopic)
         {
             if (ModelState.IsValid)

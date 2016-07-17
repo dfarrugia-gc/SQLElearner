@@ -22,6 +22,12 @@
                 @Html.ActionLink("Hello " + currentUser.FirstName.ToUpper(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             }
         </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                @Html.ActionLink("Manage Courses", "ManageCourses", "Courses", routeValues: null, htmlAttributes: new { title = "Courses" })
+            </li>
+        }
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }

@@ -22,6 +22,11 @@ namespace SQLElearner.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public static implicit operator ApplicationUser(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -213,6 +213,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseTopicsController.cs" />
+    <Compile Include="Controllers\EnrollCourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
@@ -338,9 +339,11 @@
     <Content Include="Views\UserCourseTopics\Details.cshtml" />
     <Content Include="Views\UserCourseTopics\Edit.cshtml" />
     <Content Include="Views\UserCourseTopics\Index.cshtml" />
+    <None Include="Views\Courses\EnrollCourse.cshtml.old" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\EnrollCourse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

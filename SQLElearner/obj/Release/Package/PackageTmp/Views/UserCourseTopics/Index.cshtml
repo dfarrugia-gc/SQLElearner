@@ -1,11 +1,11 @@
-﻿@model IEnumerable<SQLElearner.Models.CourseTopic>
+﻿@model IEnumerable<SQLElearner.Models.UserCourseTopic>
 
 @{
-    ViewBag.Title = "Course Topics";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Course Topic</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,6 +17,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Topic.TopicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
         </th>
         <th></th>
     </tr>
@@ -30,11 +33,14 @@
             @Html.DisplayFor(modelItem => item.Topic.TopicName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseTopicId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseTopicId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseTopicId })
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserCourseTopicId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserCourseTopicId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserCourseTopicId })
         </td>
     </tr>
 }
+
 </table>
-@Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")

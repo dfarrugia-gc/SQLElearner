@@ -51,7 +51,7 @@ else
 {
     if (User.Identity.IsAuthenticated)
     {
-        <table class="table">
+        <table class="table" style="font-size:x-large">
 
             @foreach (var item in Model)
             {
@@ -62,7 +62,12 @@ else
                     <td valign="middle">
                         @if (User.IsInRole("Learner"))
                         {
-                            @Html.ActionLink("START LEARNING", "Index", "Courses", null, new { @class = "btn btn-info" })
+                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
+                                START LEARNING
+                            </button>
+
+                            //@Html.ActionLink("START LEARNING", "EnrollCourse", new { id = item.CourseId }, new { @class = "btn btn-info" })
+
                         }
                     </td>
                 </tr>
