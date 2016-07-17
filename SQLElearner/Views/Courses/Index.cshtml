@@ -62,6 +62,13 @@ else
                     <td valign="middle">
                         @if (User.IsInRole("Learner"))
                         {
+                            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+                            //if (currentUser.Id = item.CourseId)
+                            //{
+
+                            //}
                             <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
                                 START LEARNING
                             </button>

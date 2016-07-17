@@ -52,9 +52,9 @@ namespace SQLElearner.Controllers
                 db.UserCourseTopics.Add(userCourseTopic);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
             }
-            return RedirectToAction("Index");
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
         }
 
         // POST: EnrollCourse/Create
