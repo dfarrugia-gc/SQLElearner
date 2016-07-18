@@ -1,4 +1,8 @@
-﻿@model IEnumerable<SQLElearner.Models.Course>
+﻿@model IEnumerable<object>
+    @{ 
+        List<SQLElearner.Models.Course> lstCourses = Model.ToList()[0] as List<SQLElearner.Models.Course>;
+        List<SQLElearner.Models.UserCourseTopic> lstUserCourseTopic = Model.ToList()[1] as List<SQLElearner.Models.UserCourseTopic>;
+    }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
 @using SQLElearner.Models
@@ -19,28 +23,20 @@
             @if (User.IsInRole("Admin"))
             {
                 @Html.ActionLink("Create New", "Create")
-            }
-            
+            }      
         </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CourseName)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
+        <table class="table" style="font-size:large">
+            @foreach (var item in lstCourses)
             {
                 <tr>
-                    <td>
+                    <td valign="middle">
                         @Html.DisplayFor(modelItem => item.CourseName)
                     </td>
-                    <td>
+                    <td style="font-size:small">
                         @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
                         @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
-                        
+
                     </td>
                 </tr>
             }
@@ -51,9 +47,9 @@ else
 {
     if (User.Identity.IsAuthenticated)
     {
-        <table class="table" style="font-size:x-large">
+        <table class="table" style="font-size:large">
 
-            @foreach (var item in Model)
+            @foreach (var item in lstCourses)
             {
                 <tr>
                     <td valign="middle">
@@ -65,16 +61,24 @@ else
                             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                             var currentUser = manager.FindById(User.Identity.GetUserId());
 
-                            //if (currentUser.Id = item.CourseId)
-                            //{
-
-                            //}
-                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
-                                START LEARNING
-                            </button>
-
-                            //@Html.ActionLink("START LEARNING", "EnrollCourse", new { id = item.CourseId }, new { @class = "btn btn-info" })
-
+                            foreach (var item2 in lstUserCourseTopic)
+                            {
+                                if (currentUser.Id == item2.Id)
+                                {
+                                    if (item2.CourseId == item.CourseId)
+                                    {
+                                        <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
+                                            CONTINUE COURSE
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
+                                            START COURSE
+                                        </button>
+                                    }
+                                }
+                            }
                         }
                     </td>
                 </tr>
