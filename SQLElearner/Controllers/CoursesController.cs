@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SQLElearner.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SQLElearner.Controllers
 {
@@ -15,11 +12,20 @@ namespace SQLElearner.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Courses
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Courses.ToListAsync());
+            List<object> myModel = new List<object>();
+            myModel.Add(db.Courses.ToList());
+            myModel.Add(db.UserCourseTopics.ToList());
+
+            return View(myModel);
         }
+
+        //// GET: Courses
+        //public async Task<ActionResult> Index()
+        //{
+        //    return View(await db.Courses.ToListAsync());
+        //}
 
         // GET: ManageCourses
         [Authorize(Roles = "Admin")]

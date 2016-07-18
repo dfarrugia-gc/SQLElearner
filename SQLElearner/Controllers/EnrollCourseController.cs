@@ -16,6 +16,10 @@ namespace SQLElearner.Controllers
         // GET: EnrollCourse
         public ActionResult Index()
         {
+            var user = User.Identity.GetUserId();
+            var userCourseTopic = from t in new ApplicationDbContext().UserCourseTopics
+                                  where t.Id == user
+                                  select t;
             return View();
         }
 
