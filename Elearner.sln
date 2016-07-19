@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elearner", "SQLElearner\Elearner.csproj", "{B09D56E0-76A5-49E5-8017-D146A9C45482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elearner", "Elearner\Elearner.csproj", "{B09D56E0-76A5-49E5-8017-D146A9C45482}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elearner.Tests", "SQLElearner.Tests\Elearner.Tests.csproj", "{FEF90FCE-83EF-4B66-A1A1-53CF8C0153E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elearner.Tests", "Elearner.Tests\Elearner.Tests.csproj", "{FEF90FCE-83EF-4B66-A1A1-53CF8C0153E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

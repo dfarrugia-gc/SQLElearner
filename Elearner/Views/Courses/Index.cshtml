@@ -1,0 +1,89 @@
+﻿@model IEnumerable<object>
+    @{ 
+        List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
+        List<Elearner.Models.UserCourseTopic> lstUserCourseTopic = Model.ToList()[1] as List<Elearner.Models.UserCourseTopic>;
+    }
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Courses</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+
+        <p>
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Create New", "Create")
+            }      
+        </p>
+        <table class="table" style="font-size:large">
+            @foreach (var item in lstCourses)
+            {
+                <tr>
+                    <td valign="middle">
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                        <p style="font-size:small">@Html.DisplayFor(modelItem => item.CourseInformation)</p>
+                        <p style="font-size:smaller">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")
+}
+else
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+        var currentUser = manager.FindById(User.Identity.GetUserId());
+
+        <table class="table" style="font-size:large">
+            @foreach (var c in lstCourses)
+            {
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayFor(modelItem => c.CourseName)</strong>
+                        <p style="font-size:smaller">@Html.DisplayFor(modelItem => c.CourseInformation)</p>
+                    </td>
+                                        
+                    <td>
+                        @if (lstUserCourseTopic.Any(m => m.CourseId.Equals(c.CourseId)))
+                        {
+                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                RESUME COURSE
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                START COURSE
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>
+            <p>
+                Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) Or
+                @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
+            </p>
+        </div>
+    }
+}
