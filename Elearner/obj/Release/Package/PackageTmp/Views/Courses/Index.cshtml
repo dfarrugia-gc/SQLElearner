@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<object>
     @{ 
-        List<SQLElearner.Models.Course> lstCourses = Model.ToList()[0] as List<SQLElearner.Models.Course>;
-        List<SQLElearner.Models.UserCourseTopic> lstUserCourseTopic = Model.ToList()[1] as List<SQLElearner.Models.UserCourseTopic>;
+        List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
+        List<Elearner.Models.UserCourseTopic> lstUserCourseTopic = Model.ToList()[1] as List<Elearner.Models.UserCourseTopic>;
     }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
-@using SQLElearner.Models
+@using Elearner.Models
 
 @{
     ViewBag.Title = "Courses";

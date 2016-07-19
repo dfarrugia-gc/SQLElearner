@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<object>
 @{
-    List<SQLElearner.Models.Course> lstCourses = Model.ToList()[0] as List<SQLElearner.Models.Course>;
-    List<SQLElearner.Models.CourseTopic> lstCourseTopic = Model.ToList()[1] as List<SQLElearner.Models.CourseTopic>;
-    List<SQLElearner.Models.Topic> lstTopic = Model.ToList()[2] as List<SQLElearner.Models.Topic>;
+    List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
+    List<Elearner.Models.CourseTopic> lstCourseTopic = Model.ToList()[1] as List<Elearner.Models.CourseTopic>;
+    List<Elearner.Models.Topic> lstTopic = Model.ToList()[2] as List<Elearner.Models.Topic>;
 }
 @{
     ViewBag.Title = "E-Learner Home Page";

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:sqlel.database.windows.net,1433;Data Source=sqlel.database.windows.net;Initial Catalog=SQLEL;Persist Security Info=False;User ID=dfarrugia;Password=Dan1e1B0xer1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\dfarrugia\\Google\ Drive\\BSc\\BSc\ UH\\SNet\\S3EADD\\Project\\SQLElearner\\SQLElearner\\SQLElearner\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\dfarrugia\\Google\ Drive\\BSc\\BSc\ UH\\SNet\\S3EADD\\Project\\Elearner\\Elearner\\Elearner\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
   <parameter name="SQLELEntities-Web.config Connection String" description="SQLELEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.CourseModel.csdl|res://*/Models.CourseModel.ssdl|res://*/Models.CourseModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=sqlel.database.windows.net;initial catalog=SQLEL;persist security info=False;user id=dfarrugia;multipleactiveresultsets=False;connect timeout=30;encrypt=True;trustservercertificate=False;App=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\dfarrugia\\Google\ Drive\\BSc\\BSc\ UH\\SNet\\S3EADD\\Project\\SQLElearner\\SQLElearner\\SQLElearner\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SQLELEntities']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\dfarrugia\\Google\ Drive\\BSc\\BSc\ UH\\SNet\\S3EADD\\Project\\Elearner\\Elearner\\Elearner\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SQLELEntities']/@connectionString" />
   </parameter>
 </parameters>
