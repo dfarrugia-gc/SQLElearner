@@ -340,6 +340,7 @@
     <Content Include="Views\UserCourseTopics\Edit.cshtml" />
     <Content Include="Views\UserCourseTopics\Index.cshtml" />
     <None Include="Views\Courses\EnrollCourse.cshtml.old" />
+    <Content Include="Views\Home\Services1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

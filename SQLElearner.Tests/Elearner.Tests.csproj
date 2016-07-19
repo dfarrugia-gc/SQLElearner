@@ -97,9 +97,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SQLElearner\SQLElearner.csproj">
+    <ProjectReference Include="..\SQLElearner\Elearner.csproj">
       <Project>{B09D56E0-76A5-49E5-8017-D146A9C45482}</Project>
-      <Name>SQLElearner</Name>
+      <Name>Elearner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -47,38 +47,28 @@ else
 {
     if (User.Identity.IsAuthenticated)
     {
-        <table class="table" style="font-size:large">
+        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+        var currentUser = manager.FindById(User.Identity.GetUserId());
 
-            @foreach (var item in lstCourses)
+        <table class="table" style="font-size:large">
+            @foreach (var c in lstCourses)
             {
                 <tr>
-                    <td valign="middle">
-                        @Html.DisplayFor(modelItem => item.CourseName)
+                    <td>
+                        @Html.DisplayFor(modelItem => c.CourseName)
                     </td>
-                    <td valign="middle">
-                        @if (User.IsInRole("Learner"))
+                    <td>
+                        @if (lstUserCourseTopic.Any(m => m.CourseId.Equals(c.CourseId)))
                         {
-                            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                            var currentUser = manager.FindById(User.Identity.GetUserId());
-
-                            foreach (var item2 in lstUserCourseTopic)
-                            {
-                                if (currentUser.Id == item2.Id)
-                                {
-                                    if (item2.CourseId == item.CourseId)
-                                    {
-                                        <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
-                                            CONTINUE COURSE
-                                        </button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create","EnrollCourse",new { id = item.CourseId })'">
-                                            START COURSE
-                                        </button>
-                                    }
-                                }
-                            }
+                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                RESUME COURSE
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                START COURSE
+                            </button>
                         }
                     </td>
                 </tr>

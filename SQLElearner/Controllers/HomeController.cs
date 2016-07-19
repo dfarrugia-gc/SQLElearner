@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLElearner.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,16 @@ namespace SQLElearner.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            return View();
+            List<object> myModel = new List<object>();
+            myModel.Add(db.Courses.ToList());
+            myModel.Add(db.CourseTopics.ToList());
+            myModel.Add(db.Topics.ToList());
+
+            return View(myModel); ;
         }
 
         public ActionResult About()

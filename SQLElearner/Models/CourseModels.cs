@@ -17,6 +17,7 @@ namespace SQLElearner.Models
         [Key]
         public int CourseId { get; set; }
         public string CourseName { get; set; }
+        public string CourseInformation { get; set; }
     }
 
     public class Topic
@@ -26,6 +27,7 @@ namespace SQLElearner.Models
         public int TopicTypeId { get; set; }
         [ForeignKey("TopicTypeId")] public virtual TopicType TopicType{ get; set; }
         public string TopicName { get; set; }
+        public string TopicInformation { get; set; }
     }
 
     public class TopicType
@@ -49,6 +51,7 @@ namespace SQLElearner.Models
 
     public class UserCourseTopic
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserCourseTopicId { get; set; }
         [Key, Column(Order = 1)]
         public string Id { get; set; }
