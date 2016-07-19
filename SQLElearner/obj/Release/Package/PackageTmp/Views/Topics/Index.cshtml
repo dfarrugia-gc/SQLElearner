@@ -18,6 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.TopicName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicInformation)
+        </th>
         <th></th>
     </tr>
 
@@ -28,6 +31,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TopicName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicInformation)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TopicId }) |

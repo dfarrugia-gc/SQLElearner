@@ -31,12 +31,12 @@
                 <tr>
                     <td valign="middle">
                         @Html.DisplayFor(modelItem => item.CourseName)
-                    </td>
-                    <td style="font-size:small">
-                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
-
+                        <p style="font-size:small">@Html.DisplayFor(modelItem => item.CourseInformation)</p>
+                        <p style="font-size:smaller">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                        </p>
                     </td>
                 </tr>
             }
@@ -55,8 +55,10 @@ else
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => c.CourseName)
+                        <strong>@Html.DisplayFor(modelItem => c.CourseName)</strong>
+                        <p style="font-size:smaller">@Html.DisplayFor(modelItem => c.CourseInformation)</p>
                     </td>
+                                        
                     <td>
                         @if (lstUserCourseTopic.Any(m => m.CourseId.Equals(c.CourseId)))
                         {
