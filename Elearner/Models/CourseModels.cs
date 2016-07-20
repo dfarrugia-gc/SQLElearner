@@ -25,7 +25,8 @@ namespace Elearner.Models
         [Key]
         public int TopicId { get; set; }
         public int TopicTypeId { get; set; }
-        [ForeignKey("TopicTypeId")] public virtual TopicType TopicType{ get; set; }
+        [ForeignKey("TopicTypeId")]
+        public virtual TopicType TopicType{ get; set; }
         public string TopicName { get; set; }
         public string TopicInformation { get; set; }
     }
@@ -67,13 +68,41 @@ namespace Elearner.Models
         public int Grade { get; set; }
     }
 
+    public class UserTopic
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserTopicId { get; set; }
+        [Key, Column(Order = 1)]
+        public string Id { get; set; }
+        [ForeignKey("Id")]
+        public virtual ApplicationUser User { get; set; }
+        [Key, Column(Order = 2)]
+        public int CourseTopicId { get; set; }
+        [ForeignKey("CourseTopicId")]
+        public virtual CourseTopic CourseTopic { get; set; }
+        public bool Completed { get; set; }
+    }
+
+    public class CourseTopicSection
+    {
+        [Key]
+        public int CourseTopicSectionId { get; set; }
+        public int CourseTopicId { get; set; }
+        [ForeignKey("CourseTopicId")]
+        public virtual CourseTopic CourseTopic { get; set; }
+        public string CourseTopicSectionName { get; set; }
+        public string TopicSectionText { get; set; }
+        public string TopicSectionInstruction { get; set; }
+        public int Order { get; set; }
+    }
+
     //public class CourseDbContext :  DbContext
     //{
     //    public CourseDbContext()
     //        : base("DefaultConnection")
     //    {
     //    }
-        
+
     //    public DbSet<Course> Courses { get; set; }
     //    public DbSet<Topic> Topics { get; set; }
     //    public DbSet<TopicType> TopicTypes { get; set; }

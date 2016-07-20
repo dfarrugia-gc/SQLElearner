@@ -48,30 +48,33 @@
                 }
                 else
                 {
-                    <h2 class="page-header">Your Courses...</h2>
-                    foreach (var c in lstCourses)
+                    if (lstUserCourses.Any(m => m.Id == User.Identity.GetUserId()))
                     {
-                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId)))
+                        <h2 class="page-header">Your Courses...</h2>
+                        foreach (var c in lstCourses)
                         {
-                            <table>
-                                <tr>
-                                    <td width="100%">
-                                        <h4 class="text-info">
-                                            @Html.DisplayFor(modelItem => c.CourseName)                                            
-                                        </h4>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
-                                            RESUME COURSE
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
+                            if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
+                            {
+                                <table>
+                                    <tr>
+                                        <td width="100%">
+                                            <h4 class="text-info">
+                                                @Html.DisplayFor(modelItem => c.CourseName)
+                                            </h4>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                                RESUME COURSE
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
                         }
                     }
-                    <h2 class="page-header">Other Courses Available...</h2>
-                    <p>Click on the button below to see our free online course!</p>
-                    @Html.ActionLink("FREE COURSES", "Index", "Courses", null, new { @class = "btn btn-default" })
+                    <h2 class="page-header">Getting Started...</h2>
+                    <p>Click on the START button below to start your free online course!</p>
+                    @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
                 }
             }
             else

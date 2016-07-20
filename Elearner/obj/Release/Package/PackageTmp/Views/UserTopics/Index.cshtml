@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Elearner.Models.UserCourse>
+﻿@model IEnumerable<Elearner.Models.UserTopic>
 
 @{
     ViewBag.Title = "Index";
@@ -13,16 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Course.CourseName)
+            @Html.DisplayNameFor(model => model.CourseTopic.CourseTopicId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Completed)
+            @Html.DisplayNameFor(model => model.UserTopicId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Grade)
+            @Html.DisplayNameFor(model => model.Completed)
         </th>
         <th></th>
     </tr>
@@ -30,21 +30,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Course.CourseName)
+            @Html.DisplayFor(modelItem => item.CourseTopic.CourseTopicId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User.FirstName)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.UserTopicId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Completed)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Grade)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserCourseTopicId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserCourseTopicId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserCourseTopicId })
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

@@ -246,12 +246,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseTopicsController.cs" />
+    <Compile Include="Controllers\CourseTopicSectionsController.cs" />
     <Compile Include="Controllers\EnrollCourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\TopicTypesController.cs" />
     <Compile Include="Controllers\UserCoursesController.cs" />
+    <Compile Include="Controllers\UserTopicsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -378,6 +380,16 @@
     <Content Include="Views\UserCourses\Edit.cshtml" />
     <Content Include="Views\UserCourses\Index.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\UserTopics\Create.cshtml" />
+    <Content Include="Views\UserTopics\Delete.cshtml" />
+    <Content Include="Views\UserTopics\Details.cshtml" />
+    <Content Include="Views\UserTopics\Edit.cshtml" />
+    <Content Include="Views\UserTopics\Index.cshtml" />
+    <Content Include="Views\CourseTopicSections\Create.cshtml" />
+    <Content Include="Views\CourseTopicSections\Delete.cshtml" />
+    <Content Include="Views\CourseTopicSections\Details.cshtml" />
+    <Content Include="Views\CourseTopicSections\Edit.cshtml" />
+    <Content Include="Views\CourseTopicSections\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
