@@ -18,6 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Topic.TopicName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicOrder)
+        </th>
         <th></th>
     </tr>
 
@@ -28,6 +31,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Topic.TopicName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicOrder)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CourseTopicId }) |

@@ -47,9 +47,10 @@ namespace Elearner.Models
         public int TopicId { get; set; }
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
+        public int TopicOrder { get; set; }
     }
 
-    public class UserCourseTopic
+    public class UserCourse
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserCourseTopicId { get; set; }
@@ -62,9 +63,8 @@ namespace Elearner.Models
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
         [Key, Column(Order = 3)]
-        public int TopicId { get; set; }
-        [ForeignKey("TopicId")]
-        public virtual Topic Topic { get; set; }
+        public bool Completed { get; set; }
+        public int Grade { get; set; }
     }
 
     //public class CourseDbContext :  DbContext

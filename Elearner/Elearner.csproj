@@ -251,7 +251,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\TopicTypesController.cs" />
-    <Compile Include="Controllers\UserCourseTopicsController.cs" />
+    <Compile Include="Controllers\UserCoursesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -372,11 +372,11 @@
     <Content Include="Views\CourseTopics\Edit.cshtml" />
     <Content Include="Views\CourseTopics\Index.cshtml" />
     <Content Include="Views\Courses\ManageCourses.cshtml" />
-    <Content Include="Views\UserCourseTopics\Create.cshtml" />
-    <Content Include="Views\UserCourseTopics\Delete.cshtml" />
-    <Content Include="Views\UserCourseTopics\Details.cshtml" />
-    <Content Include="Views\UserCourseTopics\Edit.cshtml" />
-    <Content Include="Views\UserCourseTopics\Index.cshtml" />
+    <Content Include="Views\UserCourses\Create.cshtml" />
+    <Content Include="Views\UserCourses\Delete.cshtml" />
+    <Content Include="Views\UserCourses\Details.cshtml" />
+    <Content Include="Views\UserCourses\Edit.cshtml" />
+    <Content Include="Views\UserCourses\Index.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
   </ItemGroup>
   <ItemGroup>

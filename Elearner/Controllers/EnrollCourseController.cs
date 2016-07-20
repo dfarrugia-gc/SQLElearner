@@ -17,7 +17,7 @@ namespace Elearner.Controllers
         public ActionResult Index()
         {
             var user = User.Identity.GetUserId();
-            var userCourseTopic = from t in new ApplicationDbContext().UserCourseTopics
+            var userCourseTopic = from t in new ApplicationDbContext().UserCourses
                                   where t.Id == user
                                   select t;
             return View();
@@ -40,20 +40,18 @@ namespace Elearner.Controllers
                                where t.CourseId == id
                                select t.Topic.TopicId;
 
-            var userCourseTopic = new UserCourseTopic()
+            var userCourse = new UserCourse()
             {
                 Id = user,
-                CourseId = course.CourseId,
-                TopicId = courseTopics.FirstOrDefault()
+                CourseId = course.CourseId
             };
 
-            bool userCourseTopicExists = db.UserCourseTopics.Any(x => x.CourseId.Equals(userCourseTopic.CourseId) 
-            & x.TopicId.Equals(userCourseTopic.TopicId) 
-            & x.Id.Equals(userCourseTopic.Id));
+            bool userCourseTopicExists = db.UserCourses.Any(x => x.CourseId.Equals(userCourse.CourseId) 
+            & x.Id.Equals(userCourse.Id));
 
             if (!userCourseTopicExists)
             {
-                db.UserCourseTopics.Add(userCourseTopic);
+                db.UserCourses.Add(userCourse);
                 db.SaveChanges();
 
                 return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());

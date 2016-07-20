@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Elearner.Controllers
 {
-    public class UserCourseTopicsController : Controller
+    public class UserCoursesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -20,7 +20,7 @@ namespace Elearner.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
-            var userCourseTopics = db.UserCourseTopics.Include(u => u.Course).Include(u => u.Topic).Include(u => u.User);
+            var userCourseTopics = db.UserCourses.Include(u => u.Course).Include(u => u.User);
             return View(await userCourseTopics.ToListAsync());
         }
 
@@ -32,7 +32,7 @@ namespace Elearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            UserCourse userCourseTopic = await db.UserCourses.FindAsync(id);
             if (userCourseTopic == null)
             {
                 return HttpNotFound();
@@ -55,19 +55,18 @@ namespace Elearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId")] UserCourseTopic userCourseTopic)
+        public async Task<ActionResult> Create([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId,Completed,Grade")] UserCourse userCourse)
         {
             if (ModelState.IsValid)
             {
-                db.UserCourseTopics.Add(userCourseTopic);
+                db.UserCourses.Add(userCourse);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourseTopic.CourseId);
-            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", userCourseTopic.TopicId);
-            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourseTopic.Id);
-            return View(userCourseTopic);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourse.CourseId);
+            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourse.Id);
+            return View(userCourse);
         }
 
         // GET: UserCourseTopics/Edit/5
@@ -78,13 +77,12 @@ namespace Elearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            UserCourse userCourseTopic = await db.UserCourses.FindAsync(id);
             if (userCourseTopic == null)
             {
                 return HttpNotFound();
             }
             ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourseTopic.CourseId);
-            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", userCourseTopic.TopicId);
             ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourseTopic.Id);
             return View(userCourseTopic);
         }
@@ -95,7 +93,7 @@ namespace Elearner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Edit([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId")] UserCourseTopic userCourseTopic)
+        public async Task<ActionResult> Edit([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId,Completed,Grade")] UserCourse userCourseTopic)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +102,6 @@ namespace Elearner.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", userCourseTopic.CourseId);
-            ViewBag.TopicId = new SelectList(db.Topics, "TopicId", "TopicName", userCourseTopic.TopicId);
             ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "FirstName", userCourseTopic.Id);
             return View(userCourseTopic);
         }
@@ -117,7 +114,7 @@ namespace Elearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
+            UserCourse userCourseTopic = await db.UserCourses.FindAsync(id);
             if (userCourseTopic == null)
             {
                 return HttpNotFound();
@@ -131,8 +128,8 @@ namespace Elearner.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            UserCourseTopic userCourseTopic = await db.UserCourseTopics.FindAsync(id);
-            db.UserCourseTopics.Remove(userCourseTopic);
+            UserCourse userCourseTopic = await db.UserCourses.FindAsync(id);
+            db.UserCourses.Remove(userCourseTopic);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

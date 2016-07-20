@@ -3,7 +3,11 @@
     List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
     List<Elearner.Models.CourseTopic> lstCourseTopic = Model.ToList()[1] as List<Elearner.Models.CourseTopic>;
     List<Elearner.Models.Topic> lstTopic = Model.ToList()[2] as List<Elearner.Models.Topic>;
+    List<Elearner.Models.UserCourse> lstUserCourses = Model.ToList()[3] as List<Elearner.Models.UserCourse>;
 }
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
 @{
     ViewBag.Title = "E-Learner Home Page";
 }
@@ -30,15 +34,58 @@
             <p>E-Learner consists of series of interactive courses, lessons and exercises designed to help you quickly learn right in your browser from wherever you are.</p>
         </div>
         <div class="col-md-4">
-            <h2 class="page-header">Getting Started...</h2>
-            <p>Click on the START button below to start your free online course!</p>
-            @Html.ActionLink("START", "Index", "Courses" , null,new { @class = "btn btn-default" })
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+
+                if (lstUserCourses == null || lstUserCourses.Count() == 0)
+                {
+                    <h2 class="page-header">Getting Started...</h2>
+                    <p>Click on the START button below to start your free online course!</p>
+                    @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
+                }
+                else
+                {
+                    <h2 class="page-header">Your Courses...</h2>
+                    foreach (var c in lstCourses)
+                    {
+                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId)))
+                        {
+                            <table>
+                                <tr>
+                                    <td width="100%">
+                                        <h4 class="text-info">
+                                            @Html.DisplayFor(modelItem => c.CourseName)                                            
+                                        </h4>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                            RESUME COURSE
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    }
+                    <h2 class="page-header">Other Courses Available...</h2>
+                    <p>Click on the button below to see our free online course!</p>
+                    @Html.ActionLink("FREE COURSES", "Index", "Courses", null, new { @class = "btn btn-default" })
+                }
+            }
+            else
+            {
+                <h2 class="page-header">Getting Started...</h2>
+                <p>Click on the START button below to start your free online course!</p>
+                @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
+            }                    
         </div>
     </div>
     <!-- /.row -->
     <!-- Service Tabs -->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-8">
             <h2 class="page-header">Available Courses</h2>
             @foreach (var c in lstCourses)
             {

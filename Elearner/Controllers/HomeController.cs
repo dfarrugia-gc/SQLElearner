@@ -18,6 +18,7 @@ namespace Elearner.Controllers
             myModel.Add(db.Courses.ToList());
             myModel.Add(db.CourseTopics.ToList());
             myModel.Add(db.Topics.ToList());
+            myModel.Add(db.UserCourses.ToList());
 
             return View(myModel); ;
         }

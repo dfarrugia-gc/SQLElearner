@@ -54,7 +54,7 @@ namespace Elearner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create([Bind(Include = "CourseTopicId,CourseId,TopicId")] CourseTopic courseTopic)
+        public async Task<ActionResult> Create([Bind(Include = "CourseTopicId,CourseId,TopicId,TopicOrder")] CourseTopic courseTopic)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace Elearner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Edit([Bind(Include = "CourseTopicId,CourseId,TopicId")] CourseTopic courseTopic)
+        public async Task<ActionResult> Edit([Bind(Include = "CourseTopicId,CourseId,TopicId,TopicOrder")] CourseTopic courseTopic)
         {
             if (ModelState.IsValid)
             {
