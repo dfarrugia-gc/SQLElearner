@@ -209,3 +209,4 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.ApplicationInsights.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.ApplicationInsights.Log4NetAppender.xml
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Debug\Elearner.csprojResolveAssemblyReference.cache

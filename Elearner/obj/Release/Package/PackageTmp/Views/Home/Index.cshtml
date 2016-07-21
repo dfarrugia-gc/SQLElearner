@@ -50,7 +50,7 @@
                 {
                     if (lstUserCourses.Any(m => m.Id == User.Identity.GetUserId()))
                     {
-                        <h2 class="page-header">Your Courses...</h2>
+                        <h2 class="page-header">Welcome Back!</h2>
                         foreach (var c in lstCourses)
                         {
                             if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
@@ -64,7 +64,7 @@
                                         </td>
                                         <td>
                                             <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
-                                                RESUME COURSE
+                                                CONTINUE
                                             </button>
                                         </td>
                                     </tr>
@@ -72,7 +72,7 @@
                             }
                         }
                     }
-                    <h2 class="page-header">Getting Started...</h2>
+                    <h2 class="page-header">Courses...</h2>
                     <p>Click on the START button below to start your free online course!</p>
                     @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
                 }

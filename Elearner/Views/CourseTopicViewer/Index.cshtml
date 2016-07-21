@@ -1,0 +1,54 @@
+﻿@model IEnumerable<object>
+@{
+    List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
+    List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[1] as List<Elearner.Models.CourseTopic>;
+}
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Course Topics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @foreach (var c in lstCourses)
+    {
+        @Html.DisplayFor(modelItem => c.CourseName);
+    }
+</h2>
+
+<table class="table-hover col-lg-12" >
+    <tr>
+        <th>
+            Topic
+        </th>
+        <th>
+            Progress
+        </th>
+        <th>
+            
+        </th>
+    </tr>
+@foreach (var ct in lstCourseTopics)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => ct.Topic.TopicName)
+        </td>
+        <td>
+            0%
+        </td>
+        <td>
+            <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                LEARN
+            </button>
+        </td>
+    </tr>
+}
+</table>
+<p></p>
+
+
+        

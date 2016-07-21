@@ -54,7 +54,7 @@ namespace Elearner.Models
     public class UserCourse
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserCourseTopicId { get; set; }
+        public int UserCourseId { get; set; }
         [Key, Column(Order = 1)]
         public string Id { get; set; }
         [ForeignKey("Id")]
@@ -91,6 +91,7 @@ namespace Elearner.Models
         [ForeignKey("CourseTopicId")]
         public virtual CourseTopic CourseTopic { get; set; }
         public string CourseTopicSectionName { get; set; }
+        [System.Web.Mvc.AllowHtml]
         public string TopicSectionText { get; set; }
         public string TopicSectionInstruction { get; set; }
         public int Order { get; set; }

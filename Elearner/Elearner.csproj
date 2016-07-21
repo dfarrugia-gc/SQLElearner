@@ -247,6 +247,8 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseTopicsController.cs" />
     <Compile Include="Controllers\CourseTopicSectionsController.cs" />
+    <Compile Include="Controllers\CourseTopicViewerController.cs" />
+    <Compile Include="Controllers\EnrollTopicController.cs" />
     <Compile Include="Controllers\EnrollCourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -283,6 +285,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.css.def" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.Editor.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.ico.def" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -295,6 +303,10 @@
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jHtmlArea-0.8.js" />
+    <Content Include="Scripts\jHtmlArea-0.8.min.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.min.js" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -390,6 +402,7 @@
     <Content Include="Views\CourseTopicSections\Details.cshtml" />
     <Content Include="Views\CourseTopicSections\Edit.cshtml" />
     <Content Include="Views\CourseTopicSections\Index.cshtml" />
+    <Content Include="Views\CourseTopicViewer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

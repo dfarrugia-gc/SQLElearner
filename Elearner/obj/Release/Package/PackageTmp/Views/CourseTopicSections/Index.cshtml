@@ -15,6 +15,11 @@
         <th>
             @Html.DisplayNameFor(model => model.CourseTopic.CourseTopicId)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTopic.Topic.TopicName)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.CourseTopicSectionName)
         </th>
@@ -35,6 +40,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.CourseTopic.CourseTopicId)
         </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseTopic.Topic.TopicName)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.CourseTopicSectionName)
         </td>
@@ -56,4 +66,7 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 @Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")

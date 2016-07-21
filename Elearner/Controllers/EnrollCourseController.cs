@@ -54,9 +54,9 @@ namespace Elearner.Controllers
                 db.UserCourses.Add(userCourse);
                 db.SaveChanges();
 
-                return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+                return RedirectToAction("Index", "CourseTopicViewer", new { id = userCourse.CourseId });
             }
-            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+            return RedirectToAction("Index", "CourseTopicViewer", new { id = userCourse.CourseId });
         }
 
         // POST: EnrollCourse/Create

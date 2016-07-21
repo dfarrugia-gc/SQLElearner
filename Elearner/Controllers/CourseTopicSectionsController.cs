@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Elearner.Models;
 
-namespace SQLElearner.Controllers
+namespace Elearner.Controllers
 {
     public class CourseTopicSectionsController : Controller
     {
