@@ -16,6 +16,7 @@ namespace Elearner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: UserTopics
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             var userTopics = db.UserTopics.Include(u => u.CourseTopic).Include(u => u.User);
@@ -23,6 +24,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserTopics/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(string id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserTopics/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CourseTopicId = new SelectList(db.CourseTopics, "CourseTopicId", "CourseTopicId");
@@ -50,6 +53,7 @@ namespace Elearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind(Include = "Id,CourseTopicId,UserTopicId,Completed")] UserTopic userTopic)
         {
             if (ModelState.IsValid)
@@ -65,6 +69,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserTopics/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
@@ -86,6 +91,7 @@ namespace Elearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "Id,CourseTopicId,UserTopicId,Completed")] UserTopic userTopic)
         {
             if (ModelState.IsValid)
@@ -100,6 +106,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserTopics/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
@@ -117,6 +124,7 @@ namespace Elearner.Controllers
         // POST: UserTopics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             UserTopic userTopic = await db.UserTopics.FindAsync(id);

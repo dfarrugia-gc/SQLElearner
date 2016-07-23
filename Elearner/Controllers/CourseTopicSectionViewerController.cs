@@ -1,52 +1,38 @@
 ﻿using Elearner.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Elearner.Controllers
+namespace SQLElearner.Controllers
 {
-    public class CourseTopicViewerController : Controller
+    public class CourseTopicSectionViewerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: CourseTopicViewer
+        // GET: CourseTopicSectionViewer
         public ActionResult Index(int? id)
         {
             List<object> myModel = new List<object>();
-            myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
-            myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
-            myModel.Add(db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id).ToList());
+            myModel.Add(db.UserTopics.Where(ut => ut.CourseTopicId == id).ToList());
+            myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts =>cts.Order).ToList());
 
             return View(myModel);
         }
 
-        // GET: CourseTopicViewer/Details/5
-        public async Task<ActionResult> Details(int id)
+        // GET: CourseTopicSectionViewer/Details/5
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CourseTopic courseTopics = await db.CourseTopics.FindAsync(id);
-            if (courseTopics == null)
-            {
-                return HttpNotFound();
-            }
-            return View(courseTopics);
+            return View();
         }
 
-        // GET: CourseTopicViewer/Create
+        // GET: CourseTopicSectionViewer/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CourseTopicViewer/Create
+        // POST: CourseTopicSectionViewer/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -62,13 +48,13 @@ namespace Elearner.Controllers
             }
         }
 
-        // GET: CourseTopicViewer/Edit/5
+        // GET: CourseTopicSectionViewer/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: CourseTopicViewer/Edit/5
+        // POST: CourseTopicSectionViewer/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -84,13 +70,13 @@ namespace Elearner.Controllers
             }
         }
 
-        // GET: CourseTopicViewer/Delete/5
+        // GET: CourseTopicSectionViewer/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CourseTopicViewer/Delete/5
+        // POST: CourseTopicSectionViewer/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
