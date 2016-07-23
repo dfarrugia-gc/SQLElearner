@@ -404,7 +404,7 @@
     <Content Include="Views\CourseTopicSections\Edit.cshtml" />
     <Content Include="Views\CourseTopicSections\Index.cshtml" />
     <Content Include="Views\CourseTopicViewer\Index.cshtml" />
-    <Content Include="Views\CourseTopicSectionViewer\index.cshtml" />
+    <Content Include="Views\CourseTopicSectionViewer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

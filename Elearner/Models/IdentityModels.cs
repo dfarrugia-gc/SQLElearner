@@ -43,6 +43,7 @@ namespace Elearner.Models
         public DbSet<UserCourse> UserCourses { get; set; }
         public DbSet<UserTopic> UserTopics { get; set; }
         public DbSet<CourseTopicSection> CourseTopicSections { get; set; }
+        public DbSet<UserTopicSection> UserTopicSections { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
 
         public static ApplicationDbContext Create()

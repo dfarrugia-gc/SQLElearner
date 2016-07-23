@@ -96,6 +96,21 @@ namespace Elearner.Models
         public int Order { get; set; }
     }
 
+    public class UserTopicSection
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserTopicSectionId { get; set; }
+        [Key, Column(Order = 1)]
+        public string Id { get; set; }
+        [ForeignKey("Id")]
+        public virtual ApplicationUser User { get; set; }
+        [Key, Column(Order = 2)]
+        public int CourseTopicSectionId { get; set; }
+        [ForeignKey("CourseTopicSectionId")]
+        public virtual CourseTopicSection CourseTopicSection { get; set; }
+        public bool Completed { get; set; }
+    }
+
     //public class CourseDbContext :  DbContext
     //{
     //    public CourseDbContext()

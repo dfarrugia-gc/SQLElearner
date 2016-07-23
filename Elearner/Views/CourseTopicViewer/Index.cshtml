@@ -48,7 +48,7 @@
                     @if (lstUserTopics == null)
                     {
                         <td>
-                            <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                            <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Index", "CourseTopicSectionViewer", new { id = ct.CourseTopicId })'">
                                 LEARN
                             </button>
                         </td>
@@ -58,7 +58,7 @@
                         if (lstUserTopics.Any(m => m.CourseTopicId.Equals(ct.CourseTopicId)))
                         {
                             <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Index", "CourseTopicSectionViewer", new { id = ct.CourseTopicId })'">
                                     LEARN
                                 </button>
                             </td>
@@ -66,7 +66,7 @@
                         else
                         {
                             <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Index", "CourseTopicSectionViewer", new { id = ct.CourseTopicId })'" disabled>
                                     LEARN
                                 </button>
                             </td>
