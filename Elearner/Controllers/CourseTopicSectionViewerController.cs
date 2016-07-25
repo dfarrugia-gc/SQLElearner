@@ -22,6 +22,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: CourseTopicSectionViewer/Details/5
+        [Authorize(Roles = "Admin")]
         public async System.Threading.Tasks.Task<ActionResult> Details(int id)
         {
             if (id == null)
@@ -37,6 +38,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: CourseTopicSectionViewer/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -44,6 +46,7 @@ namespace SQLElearner.Controllers
 
         // POST: CourseTopicSectionViewer/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -59,6 +62,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: CourseTopicSectionViewer/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -66,6 +70,7 @@ namespace SQLElearner.Controllers
 
         // POST: CourseTopicSectionViewer/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -81,6 +86,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: CourseTopicSectionViewer/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -88,6 +94,7 @@ namespace SQLElearner.Controllers
 
         // POST: CourseTopicSectionViewer/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

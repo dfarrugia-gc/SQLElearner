@@ -1,4 +1,5 @@
 ﻿using Elearner.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,10 +18,12 @@ namespace Elearner.Controllers
         // GET: CourseTopicViewer
         public ActionResult Index(int? id)
         {
+            var user = User.Identity.GetUserId();
+
             List<object> myModel = new List<object>();
             myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
             myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
-            myModel.Add(db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id).ToList());
+            myModel.Add(db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id && ut.Id.Equals(user)).ToList());
 
             return View(myModel);
         }

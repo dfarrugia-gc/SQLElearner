@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Elearner.Controllers
 {
-    public class EnrollCourseController : Controller
+    public class EnrollTopicSectionController : Controller
     {
         public object Users { get; private set; }
 
@@ -17,7 +17,7 @@ namespace Elearner.Controllers
         public ActionResult Index()
         {
             var user = User.Identity.GetUserId();
-            var userCourseTopic = from t in new ApplicationDbContext().UserCourses
+            var userTopicSection = from t in new ApplicationDbContext().UserTopicSections
                                   where t.Id == user
                                   select t;
             return View();
@@ -36,31 +36,31 @@ namespace Elearner.Controllers
             var db = new ApplicationDbContext();
 
             var user = User.Identity.GetUserId();
-            var course = db.Courses.SingleOrDefault(c => c.CourseId == id);
-            var courseTopics = from t in new ApplicationDbContext().CourseTopics
-                               where t.CourseId == id
-                               select t.Topic.TopicId;
+            var courseTopicSections = db.CourseTopicSections.SingleOrDefault(c => c.CourseTopicId == id);
 
-            var userCourse = new UserCourse()
+            var userTopicSection = new UserTopicSection()
             {
                 Id = user,
-                CourseId = course.CourseId
+                CourseTopicSectionId = courseTopicSections.CourseTopicSectionId,
+                Completed = false
             };
 
-            bool userCourseExists = db.UserCourses.Any(x => x.CourseId.Equals(userCourse.CourseId) 
-            & x.Id.Equals(userCourse.Id));
+            bool userTopicSectionExists = db.UserTopics.Any(x => x.CourseTopicId.Equals(userTopicSection.CourseTopicSectionId) 
+            & x.Id.Equals(userTopicSection.Id));
 
-            if (!userCourseExists)
+            if (!userTopicSectionExists)
             {
-                db.UserCourses.Add(userCourse);
+                db.UserTopicSections.Add(userTopicSection);
                 db.SaveChanges();
+
+                return Redirect(Request.UrlReferrer.ToString());
             }
-            return RedirectToAction("Index", "CourseTopicViewer", new { id = userCourse.CourseId });
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // POST: EnrollCourse/Create
-        [Authorize(Roles = "Admin")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection collection)
         {
             try

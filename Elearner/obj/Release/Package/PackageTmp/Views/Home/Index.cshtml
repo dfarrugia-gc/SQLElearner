@@ -19,99 +19,113 @@
             </h1>
         </div>
     </div>
-    <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-            <img src="~/Images/index_banner.jpg" class="img-responsive">
+            <img src="~/Images/index_banner.jpg" class="img-responsive" width="100%">
         </div>
     </div>
-    <!-- /.row -->
-    <!-- Service Paragraphs -->
     <div class="row">
-        <div class="col-md-8">
-            <h2 class="page-header">Learn online with simple, interactive exercises.</h2>
-            <p>Welcome to E-learner!</p>
-            <p>E-Learner consists of series of interactive courses, lessons and exercises designed to help you quickly learn right in your browser from wherever you are.</p>
-        </div>
-        <div class="col-md-4">
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                var currentUser = manager.FindById(User.Identity.GetUserId());
-
-                if (lstUserCourses == null || lstUserCourses.Count() == 0)
-                {
-                    <h2 class="page-header">Getting Started...</h2>
-                    <p>Click on the START button below to start your free online course!</p>
-                    @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
-                }
-                else
-                {
-                    if (lstUserCourses.Any(m => m.Id == User.Identity.GetUserId()))
-                    {
-                        <h2 class="page-header">Welcome Back!</h2>
-                        foreach (var c in lstCourses)
-                        {
-                            if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
-                            {
-                                <table>
+      <table width="100%">
+          <tr>
+              <td width="65%">
+                  <div class="col-md-12">
+                      <h2 class="page-header">Learn online with simple, interactive exercises.</h2>
+                      <p>Welcome to E-learner!</p>
+                      <p>E-Learner consists of series of interactive courses, lessons and exercises designed to help you quickly learn right in your browser from wherever you are.</p>
+                  </div>
+                  
+                  <div class="col-md-12">
+                          <h2 class="page-header">Available Courses</h2>
+                          @foreach (var c in lstCourses)
+                          {
+                              <div class="modal-header">
+                                  <h3>
+                                      @c.CourseName
+                                  </h3>
+                                  
+                                  <h5>Course Description: @c.CourseInformation</h5>
+                                  
+                                  <p>
+                                      <h5>Topics</h5>
+                                      @foreach (var t in lstCourseTopic)
+                                      {
+                                          if (t.CourseId == c.CourseId)
+                                          {
+                                              <ul>
+                                                  <li>@t.Topic.TopicName - @t.Topic.TopicType.TopicTypeName</li>
+                                              </ul>
+                                              <ul>@t.Topic.TopicInformation</ul>
+                                          }
+                                      }
+                                  </p>
+                              </div>
+                          }
+                  </div>
+              </td>
+              <td width="35%" valign="top">
+                  <div class="col-md-12">
+                      @if (User.Identity.IsAuthenticated)
+                      {
+                          if (lstUserCourses == null || lstUserCourses.Count() == 0)
+                          {
+                              <h2 class="page-header text-info">Getting Started...</h2>
+                              <p>Click on the START button below to start your free online course!</p>
+                              @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-s btn-default" })
+                          }
+                          else
+                          {
+                              if (lstUserCourses.Any(m => m.Id == User.Identity.GetUserId()))
+                              {
+                                  <h2 class="page-header text-primary">Welcome Back!</h2>
+                                <table width="100%">
                                     <tr>
-                                        <td width="100%">
-                                            <h4 class="text-info">
-                                                @Html.DisplayFor(modelItem => c.CourseName)
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
-                                                CONTINUE
-                                            </button>
-                                        </td>
+                                        <th>
+                                            Enrolled Course
+                                        </th>
+                                        <th>
+                                            Progress
+                                        </th>
+                                        <th>
+
+                                        </th>
                                     </tr>
+                                    @foreach (var c in lstCourses)
+                                    {
+                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <h4>
+                                                        @Html.DisplayFor(modelItem => c.CourseName)
+                                                    </h4>
+                                                </td>
+                                                <td>
+                                                    0%
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                                        CONTINUE
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
                                 </table>
-                            }
-                        }
-                    }
-                    <h2 class="page-header">Courses...</h2>
-                    <p>Click on the START button below to start your free online course!</p>
-                    @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
-                }
-            }
-            else
-            {
-                <h2 class="page-header">Getting Started...</h2>
-                <p>Click on the START button below to start your free online course!</p>
-                @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-default" })
-            }                    
-        </div>
-    </div>
-    <!-- /.row -->
-    <!-- Service Tabs -->
-    <div class="row">
-        <div class="col-md-8">
-            <h2 class="page-header">Available Courses</h2>
-            @foreach (var c in lstCourses)
-            {
-                <div class="modal-header">
-                    <h3>
-                        @c.CourseName
-                    </h3>
-                    <h5>Course Description: @c.CourseInformation</h5>
-                    <p>
-                        <h5>Topics</h5>
-                        @foreach (var t in lstCourseTopic)
-                        {
-                            if (t.CourseId == c.CourseId)
-                            {
-                                <ul>
-                                    <li>@t.Topic.TopicName - @t.Topic.TopicType.TopicTypeName</li>
-                                </ul>
-                                <ul>@t.Topic.TopicInformation</ul>
-                            }
-                        }
-                    </p>
-                </div>
-            }
-        </div>
+                              }
+                              <h2 class="page-header text-primary">Free Online Courses...</h2>
+                              <p>Click on the START button below to start your free online course!</p>
+                              @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-s btn-default" })
+                          }
+                      }
+                      else
+                      {
+                          <h2 class="page-header text-info">Getting Started...</h2>
+                          <p>Click on the START button below to start your free online course!</p>
+                          @Html.ActionLink("START", "Index", "Courses", null, new { @class = "btn btn-s btn-default" })
+                      }
+                  </div>
+              </td>
+          </tr>
+      </table>
     </div>
 </div>

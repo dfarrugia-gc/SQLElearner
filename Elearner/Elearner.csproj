@@ -249,6 +249,7 @@
     <Compile Include="Controllers\CourseTopicSectionsController.cs" />
     <Compile Include="Controllers\CourseTopicSectionViewerController.cs" />
     <Compile Include="Controllers\CourseTopicViewerController.cs" />
+    <Compile Include="Controllers\EnrollTopicSectionController.cs" />
     <Compile Include="Controllers\EnrollTopicController.cs" />
     <Compile Include="Controllers\EnrollCourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -408,7 +409,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\EnrollCourse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -47,9 +47,6 @@ else
 {
     if (User.Identity.IsAuthenticated)
     {
-        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-        var currentUser = manager.FindById(User.Identity.GetUserId());
-
         <table class="table" style="font-size:large">
             @foreach (var c in lstCourses)
             {
@@ -60,7 +57,7 @@ else
                     </td>
                                         
                     <td>
-                        @if (lstUserCourses == null)
+                        @if (lstUserCourses == null || lstUserCourses.Count() == 0)
                         {
                             <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
                                 START COURSE
@@ -68,7 +65,7 @@ else
                         }
                         else
                         {
-                            if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId)))
+                            if (lstUserCourses.Any(uc => uc.CourseId.Equals(c.CourseId) && uc.Id == User.Identity.GetUserId()))
                             {
                                 <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
                                     CONTINUE

@@ -77,40 +77,40 @@
                               if (lstUserCourses.Any(m => m.Id == User.Identity.GetUserId()))
                               {
                                   <h2 class="page-header text-primary">Welcome Back!</h2>
-                                  foreach (var c in lstCourses)
-                                  {
-                                      if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
-                                      {
-                                          <table width="100%">
-                                              <tr>
-                                                  <th>
-                                                      Enrolled Course
-                                                  </th>
-                                                  <th>
-                                                      Progress
-                                                  </th>
-                                                  <th>
+                                <table width="100%">
+                                    <tr>
+                                        <th>
+                                            Enrolled Course
+                                        </th>
+                                        <th>
+                                            Progress
+                                        </th>
+                                        <th>
 
-                                                  </th>
-                                              </tr>
-                                              <tr>
-                                                  <td>
-                                                      <h4>
-                                                          @Html.DisplayFor(modelItem => c.CourseName)
-                                                      </h4>
-                                                  </td>
-                                                  <td>
-                                                      0%
-                                                  </td>
-                                                  <td>
-                                                      <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
-                                                          CONTINUE
-                                                      </button>
-                                                  </td>
-                                              </tr>
-                                          </table>
-                                      }
-                                  }
+                                        </th>
+                                    </tr>
+                                    @foreach (var c in lstCourses)
+                                    {
+                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <h4>
+                                                        @Html.DisplayFor(modelItem => c.CourseName)
+                                                    </h4>
+                                                </td>
+                                                <td>
+                                                    0%
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                                        CONTINUE
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
                               }
                               <h2 class="page-header text-primary">Free Online Courses...</h2>
                               <p>Click on the START button below to start your free online course!</p>

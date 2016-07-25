@@ -23,6 +23,7 @@ namespace Elearner.Controllers
         }
 
         // GET: CourseTopicSections/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,6 +39,7 @@ namespace Elearner.Controllers
         }
 
         // GET: CourseTopicSections/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CourseTopicId = new SelectList(db.CourseTopics, "CourseTopicId", "CourseTopicId");
@@ -49,6 +51,7 @@ namespace Elearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind(Include = "CourseTopicSectionId,CourseTopicId,CourseTopicSectionName,TopicSectionText,TopicSectionInstruction,Order")] CourseTopicSection courseTopicSection)
         {
             if (ModelState.IsValid)
@@ -63,6 +66,7 @@ namespace Elearner.Controllers
         }
 
         // GET: CourseTopicSections/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,6 +87,7 @@ namespace Elearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "CourseTopicSectionId,CourseTopicId,CourseTopicSectionName,TopicSectionText,TopicSectionInstruction,Order")] CourseTopicSection courseTopicSection)
         {
             if (ModelState.IsValid)
@@ -96,6 +101,7 @@ namespace Elearner.Controllers
         }
 
         // GET: CourseTopicSections/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -113,6 +119,7 @@ namespace Elearner.Controllers
         // POST: CourseTopicSections/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             CourseTopicSection courseTopicSection = await db.CourseTopicSections.FindAsync(id);

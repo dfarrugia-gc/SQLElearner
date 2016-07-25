@@ -24,6 +24,7 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollCourse/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
             return View();
@@ -51,14 +52,13 @@ namespace Elearner.Controllers
             {
                 db.UserTopics.Add(userTopic);
                 db.SaveChanges();
-
-                return Redirect(Request.UrlReferrer.ToString());
             }
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = courseTopics.CourseTopicId });
         }
 
         // POST: EnrollCourse/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -74,6 +74,7 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollCourse/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -81,6 +82,7 @@ namespace Elearner.Controllers
 
         // POST: EnrollCourse/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -96,6 +98,7 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollCourse/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -103,6 +106,7 @@ namespace Elearner.Controllers
 
         // POST: EnrollCourse/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

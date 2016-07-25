@@ -1,0 +1,22 @@
+﻿@model IEnumerable<object>
+@{
+    List<Elearner.Models.UserTopic> lstUserTopic = Model.ToList()[0] as List<Elearner.Models.UserTopic>;
+    List<Elearner.Models.CourseTopicSection> lstCourseTopicSection = Model.ToList()[1] as List<Elearner.Models.CourseTopicSection>;
+}
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Course Topic Sections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>
+        @foreach (var c in lstCourseTopicSection)
+        {
+            @Html.DisplayFor(modelItem => c.CourseTopicSectionName);
+        }
+    </h2>
+</div>

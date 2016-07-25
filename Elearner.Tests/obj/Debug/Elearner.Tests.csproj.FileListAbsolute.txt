@@ -70,6 +70,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLEl
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\obj\Debug\Elearner.Tests.csprojResolveAssemblyReference.cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\obj\Debug\SQLElearner.Tests.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\SQLElearner\SQLElearner\SQLElearner.Tests\obj\Debug\SQLElearner.Tests.pdb
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\ApplicationInsights.config
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\roslyn\csc.exe
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -142,4 +143,3 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\obj\Debug\Elearner.Tests.csprojResolveAssemblyReference.cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\obj\Debug\SQLElearner.Tests.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\obj\Debug\SQLElearner.Tests.pdb
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\ApplicationInsights.config

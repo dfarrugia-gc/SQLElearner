@@ -45,20 +45,12 @@
                     <td>
                         0%
                     </td>
-                    @if (lstUserTopics == null)
+                    @if (lstUserTopics == null || lstUserTopics.Count() == 0)
                     {
-                        <td>
-                            <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Index", "CourseTopicSectionViewer", new { id = ct.CourseTopicId })'">
-                                LEARN
-                            </button>
-                        </td>
-                    }
-                    else
-                    {
-                        if (lstUserTopics.Any(m => m.CourseTopicId.Equals(ct.CourseTopicId)))
+                        if ((lstCourseTopics.Min(mct => mct.TopicOrder) == ct.TopicOrder))
                         {
                             <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Index", "CourseTopicSectionViewer", new { id = ct.CourseTopicId })'">
+                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
                                     LEARN
                                 </button>
                             </td>
@@ -66,7 +58,27 @@
                         else
                         {
                             <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Index", "CourseTopicSectionViewer", new { id = ct.CourseTopicId })'" disabled>
+                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                    LEARN
+                                </button>
+                            </td>
+                        }
+
+                    }
+                    else
+                    {
+                        if (lstUserTopics.Any(ut => ut.CourseTopicId.Equals(ct.CourseTopicId) && ut.Id == User.Identity.GetUserId()))
+                        {
+                            <td>
+                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                    LEARN
+                                </button>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
                                     LEARN
                                 </button>
                             </td>
