@@ -18,8 +18,8 @@ namespace Elearner.Controllers
         {
             var user = User.Identity.GetUserId();
             var userTopicSection = from t in new ApplicationDbContext().UserTopicSections
-                                  where t.Id == user
-                                  select t;
+                                   where t.Id == user
+                                   select t;
             return View();
         }
 
@@ -31,12 +31,11 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollCourse/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, string user)
         {
             var db = new ApplicationDbContext();
 
-            var user = User.Identity.GetUserId();
-            var courseTopicSections = db.CourseTopicSections.SingleOrDefault(c => c.CourseTopicId == id);
+            var courseTopicSections = db.CourseTopicSections.SingleOrDefault(c => c.CourseTopicSectionId == id);
 
             var userTopicSection = new UserTopicSection()
             {
@@ -45,17 +44,15 @@ namespace Elearner.Controllers
                 Completed = false
             };
 
-            bool userTopicSectionExists = db.UserTopics.Any(x => x.CourseTopicId.Equals(userTopicSection.CourseTopicSectionId) 
+            bool userTopicSectionExists = db.UserTopicSections.Any(x => x.CourseTopicSectionId.Equals(userTopicSection.CourseTopicSectionId) 
             & x.Id.Equals(userTopicSection.Id));
 
             if (!userTopicSectionExists)
             {
                 db.UserTopicSections.Add(userTopicSection);
                 db.SaveChanges();
-
-                return Redirect(Request.UrlReferrer.ToString());
             }
-            return Redirect(Request.UrlReferrer.ToString());
+            return View("Index", "CourseTopicSectionViewer");
         }
 
         // POST: EnrollCourse/Create

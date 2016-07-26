@@ -1,4 +1,6 @@
-﻿using Elearner.Models;
+﻿using Elearner.Controllers;
+using Elearner.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,14 @@ namespace SQLElearner.Controllers
         // GET: CourseTopicSectionViewer
         public ActionResult Index(int? id)
         {
+            var user = User.Identity.GetUserId();
+
             List<object> myModel = new List<object>();
-            myModel.Add(db.UserTopics.Where(ut => ut.CourseTopicId == id).ToList());
-            myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts =>cts.Order).ToList());
+            var courseTopicSections = db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts => cts.Order).ToList();
+            var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
+                        
+            myModel.Add(courseTopicSections);
+            myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList());
             
             return View(myModel);
         }

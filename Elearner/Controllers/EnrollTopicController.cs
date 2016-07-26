@@ -52,6 +52,17 @@ namespace Elearner.Controllers
             {
                 db.UserTopics.Add(userTopic);
                 db.SaveChanges();
+
+                var courseTopicSections = db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts => cts.Order).ToList();
+                if(courseTopicSections.Count() == 0)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    var firstCourseTopicSection = new EnrollTopicSectionController().Create(courseTopicSections.Min(m => m.Order), user);
+                }
+                
             }
             return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = courseTopics.CourseTopicId });
         }

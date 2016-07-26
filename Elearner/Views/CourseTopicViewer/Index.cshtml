@@ -49,16 +49,16 @@
                     {
                         if ((lstCourseTopics.Min(mct => mct.TopicOrder) == ct.TopicOrder))
                         {
-                            <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                            <td style="padding:5px 5px 5px 5px">
+                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
                                     LEARN
                                 </button>
                             </td>
                         }
                         else
                         {
-                            <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                            <td style="padding:5px 5px 5px 5px">
+                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
                                     LEARN
                                 </button>
                             </td>
@@ -69,16 +69,16 @@
                     {
                         if (lstUserTopics.Any(ut => ut.CourseTopicId.Equals(ct.CourseTopicId) && ut.Id == User.Identity.GetUserId()))
                         {
-                            <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                            <td style="padding:5px 5px 5px 5px">
+                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
                                     LEARN
                                 </button>
                             </td>
                         }
                         else
                         {
-                            <td>
-                                <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                            <td style="padding:5px 5px 5px 5px">
+                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
                                     LEARN
                                 </button>
                             </td>
