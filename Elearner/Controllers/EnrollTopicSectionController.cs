@@ -57,22 +57,6 @@ namespace Elearner.Controllers
             return View("Index", "CourseTopicSectionViewer");
         }
 
-        public ActionResult MarkComplete(int? id)
-        {
-            var user = User.Identity.GetUserId();
-            var userTopicSection = db.UserTopicSections.SingleOrDefault(x => x.CourseTopicSectionId == id && x.Id.Equals(user));
-
-            if (ModelState.IsValid)
-            {                
-                userTopicSection.Completed = true;
-                
-                db.Entry(userTopicSection).State = EntityState.Modified;
-                db.SaveChanges();
-                //return View("Index", "CourseTopicSectionViewer");
-            }
-            return RedirectToAction("Index", "CourseTopicSectionViewer",new {id = userTopicSection.CourseTopicSection.CourseTopicId , page = id });
-        }
-
         // POST: EnrollCourse/Create
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -88,6 +72,28 @@ namespace Elearner.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult MarkAsComplete(int? id)
+        {
+            var user = User.Identity.GetUserId();
+            var userTopicSection = db.UserTopicSections.SingleOrDefault(x => x.CourseTopicSectionId == id && x.Id.Equals(user));
+            
+            if (ModelState.IsValid)
+            {
+                userTopicSection.Completed = true;
+
+                db.Entry(userTopicSection).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var nextTopic = from nt in db.UserTopicSections
+                                where nt.CourseTopicSectionId == userTopicSection.CourseTopicSectionId
+                                select nt.CourseTopicSection.Order + 1;
+
+                var entollNextTopicSection = new EnrollTopicSectionController().Create(nextTopic.FirstOrDefault(), user);
+            }           
+
+            return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = userTopicSection.CourseTopicSection.CourseTopicId, page = id });
         }
 
         // GET: EnrollCourse/Edit/5

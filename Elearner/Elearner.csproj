@@ -415,6 +415,7 @@
     <Content Include="Views\CourseTopicSections\Index.cshtml" />
     <Content Include="Views\CourseTopicViewer\Index.cshtml" />
     <Content Include="Views\CourseTopicSectionViewer\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutCourseMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

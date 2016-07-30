@@ -18,49 +18,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
 
     @foreach (var courseTopicSection in lstCourseTopicSection)
     {
-        //var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == courseTopicSection.CourseTopicSectionId).CourseTopicSectionId;
         var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
         var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
 
-        <div class="row">
             <h2>
-                @courseTopicSection.CourseTopicSectionName
+                @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
             </h2>
-            <div>
-                <div class="row col-md-10">
-                    <h3>Lesson</h3>
-                    @courseTopicSection.TopicSectionText
-                </div>
-            </div>
-            <div>
-                <div class="row col-md-10">
-                    <h4>Instruction</h4>
-                    @courseTopicSection.TopicSectionInstruction
-                </div>
-            </div>
-            <div>
-                <div class="row col-md-12">
-                    <h5>Code Editor</h5>
-                    @Html.TextArea("SQLCommand","SQL Command: ",10,300, new { rows = 10, columns = 100 })
-                </div>
-            </div>
-            <div>
-                <div class="row col-md-10">
-                    <p></p>
-                        <button class="btn btn-s btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("MarkComplete", "EnrollTopicSection", new {id = currentSection})'">
-                            Mark Completed
-                        </button>              
-                </div>
-            </div>            
-        </div>
+            <h3>
+                Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
+            </h3>
+                
+                @courseTopicSection.TopicSectionText
+
+                <br />
+
+                <h4>Instruction</h4>
+                @courseTopicSection.TopicSectionInstruction
+                <br />
+                
+                <h5>Code Editor</h5>
+
+        @Html.TextArea("SQLCommand", "SQL Command: ", 10, 500, new { rows = 10, columns = 500 })
+        <p></p>
+
+        if (lstUserTopicSection.Any(x => x.CourseTopicSectionId == courseTopicSection.CourseTopicSectionId && x.Completed == true))
+        {
+            <button type="button" class="btn btn-s btn-info" disabled>
+                <span class="glyphicon glyphicon-check"></span> Completed
+            </button>
+        }
+        else if (courseTopicSection.CourseTopicSectionId > studyingSection.CourseTopicSectionId)
+        {
+            <button type="button" class="btn btn-s btn-info" disabled>
+                <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSectionId first.
+            </button>
+        }
+        else
+        {
+            if (lstCourseTopicSection.IsLastPage)
+            {
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = courseTopicSection.CourseTopicId})'">
+                    Next Topic
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-s btn-info" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                    Mark as Complete
+                </button>
+            }
+
+        }
     }
-</div>
 
 <br />
+<br />
 Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 : lstCourseTopicSection.PageNumber) of @lstCourseTopicSection.PageCount
-
 @Html.PagedListPager(lstCourseTopicSection, page => Url.Action("Index", new { page }))
+
+@foreach (var course in lstCourseTopicSection)
+{
+    <button class="btn btn-xs btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopicId})'">
+        Bacl to Course Topics
+    </button>
+}

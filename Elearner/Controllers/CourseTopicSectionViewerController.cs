@@ -21,20 +21,13 @@ namespace SQLElearner.Controllers
             var courseTopicSections = db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts => cts.Order).ToList();
             var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
             var currentSection = userTopicSections.Find(f => f.CourseTopicSectionId == userTopicSections.Max(m => m.CourseTopicSectionId));
-
+            
             var pageNumber = (page ?? currentSection.CourseTopicSectionId);
             var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
-
-            foreach(var uts in userTopicSections)
-            {
-                if (uts.CourseTopicSectionId != pageNumber)
-                {
-                    var enrollCourseTopicSection = new EnrollTopicSectionController().Create(courseTopicSections.Find(x => x.Order == pageNumber).CourseTopicSectionId, user);
-                }
-            }           
-
+                       
             myModel.Add(courseTopicSectionsPages);
             myModel.Add(userTopicSections);
+                        
             return View(myModel);
         }
 
