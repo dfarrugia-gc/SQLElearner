@@ -43,7 +43,7 @@
                         @Html.DisplayFor(modelItem => ct.Topic.TopicName)
                     </td>
                     <td>
-                        0%
+                        @string.Format("{0}",(double)lstUserTopics.Count() / (double)lstCourseTopics.Count() *100)%
                     </td>
                     @if (lstUserTopics == null || lstUserTopics.Count() == 0)
                     {
@@ -69,11 +69,22 @@
                     {
                         if (lstUserTopics.Any(ut => ut.CourseTopicId.Equals(ct.CourseTopicId) && ut.Id == User.Identity.GetUserId()))
                         {
-                            <td style="padding:5px 5px 5px 5px">
-                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
-                                    LEARN
-                                </button>
-                            </td>
+                            if (lstUserTopics.Any(ut => ut.CourseTopicId.Equals(ct.CourseTopicId) && ut.Id == User.Identity.GetUserId() && ut.Completed == true))
+                            {
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button type="button" class="btn btn-xs btn-success" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                        <span class="glyphicon glyphicon-check"></span> Completed
+                                    </button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                        LEARN
+                                    </button>
+                                </td>
+                            }
                         }
                         else
                         {

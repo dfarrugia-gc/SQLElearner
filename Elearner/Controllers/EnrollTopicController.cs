@@ -6,11 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Elearner.Controllers
 {
     public class EnrollTopicController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public object Users { get; private set; }
 
         // GET: EnrollCourse
@@ -31,16 +33,16 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollCourse/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, string user)
         {
             var db = new ApplicationDbContext();
 
-            var user = User.Identity.GetUserId();
+            var usr = user ?? User.Identity.GetUserId();
             var courseTopics = db.CourseTopics.SingleOrDefault(c => c.CourseTopicId == id);
 
             var userTopic = new UserTopic()
             {
-                Id = user,
+                Id = usr,
                 CourseTopicId = courseTopics.CourseTopicId,
                 Completed = false
             };
@@ -60,11 +62,26 @@ namespace Elearner.Controllers
                 }
                 else
                 {
-                    var firstCourseTopicSection = new EnrollTopicSectionController().Create(courseTopicSections.Min(m => m.Order), user);
+                    var firstCourseTopicSection = new EnrollTopicSectionController().Create(courseTopicSections.FirstOrDefault(f => f.CourseTopicId == id).CourseTopicSectionId, usr);
                 }
                 
             }
             return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = courseTopics.CourseTopicId });
+        }
+
+        public ActionResult MarkAsComplete(int? id, string user)
+        {
+            var userTopic = db.UserTopics.SingleOrDefault(x => x.CourseTopicId == id && x.Id.Equals(user));
+            //var courseTopicSection = db.CourseTopicSections.Where(x => x.CourseTopicId == userTopicSection.CourseTopicSection.CourseTopicId);
+
+            if (ModelState.IsValid)
+            {
+                userTopic.Completed = true;
+
+                db.Entry(userTopic).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+                return null;
         }
 
         // POST: EnrollCourse/Create

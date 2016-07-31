@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<object>
 @{   
-    List<Elearner.Models.CourseTopicSection> lstCourseTopicSection = Model.ToList()[0] as List<Elearner.Models.CourseTopicSection>;
+    PagedList.IPagedList<Elearner.Models.CourseTopicSection> lstCourseTopicSection = Model.ToList()[0] as PagedList.IPagedList<Elearner.Models.CourseTopicSection>;
     List<Elearner.Models.UserTopicSection> lstUserTopicSection = Model.ToList()[1] as List<Elearner.Models.UserTopicSection>;
 }
+
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
 @using Elearner.Models
@@ -12,63 +18,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
 
-        @if (lstUserTopicSection == null || lstUserTopicSection.Count() == 0)
+    @foreach (var courseTopicSection in lstCourseTopicSection)
+    {
+        var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
+        var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
+
+            <h2>
+                @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
+            </h2>
+            <h3>
+                Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
+            </h3>
+                
+                @courseTopicSection.TopicSectionText
+
+                <br />
+
+                <h4>Instruction</h4>
+                @courseTopicSection.TopicSectionInstruction
+                <br />
+                
+                <h5>Code Editor</h5>
+
+        @Html.TextArea("SQLCommand", "SQL Command: ", 10, 500, new { rows = 10, columns = 500 })
+        <p></p>
+
+        if (lstUserTopicSection.Any(x => x.CourseTopicSectionId == courseTopicSection.CourseTopicSectionId && x.Completed == true))
         {
-            if (lstCourseTopicSection.Count() > 0)
-            {
-                var firstCourseTopicSection = lstCourseTopicSection.Min(m => m.Order);
-                @Html.Action("Create", "EnrollTopicSection", new { id = firstCourseTopicSection });
-            }
-            else
-            {
-                @Html.Action("Create", "CourseTopicSections");
-            }
+            <button type="button" class="btn btn-s btn-info" disabled>
+                <span class="glyphicon glyphicon-check"></span> Completed
+            </button>
+        }
+        else if (courseTopicSection.CourseTopicSectionId > studyingSection.CourseTopicSectionId)
+        {
+            <button type="button" class="btn btn-s btn-info" disabled>
+                <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSectionId first.
+            </button>
         }
         else
         {
-            var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
+            if (lstCourseTopicSection.IsLastPage)
+            {
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = courseTopicSection.CourseTopicId})'">
+                    Next Topic
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-s btn-info" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                    Mark as Complete
+                </button>
+            }
 
-            <div class="row">
-                @if (lstCourseTopicSection.Any(x => x.CourseTopicSectionId == currentSection.CourseTopicSectionId))
-                {
-                    <h2>
-                        @currentSection.CourseTopicSection.CourseTopicSectionName
-                    </h2>
-
-                    <div>
-                        
-                        <div class="row col-md-10">
-                            <h3>Lesson</h3>
-                            @currentSection.CourseTopicSection.TopicSectionText
-                        </div>
-                    </div>
-                    <div>
-                        
-                        <div class="row col-md-10">
-                            <h4>Instruction</h4>
-                            @currentSection.CourseTopicSection.TopicSectionInstruction
-                        </div>
-                    </div>
-                }
-            </div>
         }
-</div>
-<div class="container">
-    <ul class="pager">
-        <li><a href="#">Previous</a></li>
-        <li><a href="#">Next</a></li>
-    </ul>
-    
-    <ul class="pagination">
-        <li><a href="#">«</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">»</a></li>
-    </ul>
-</div>
+    }
+
+<br />
+<br />
+Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 : lstCourseTopicSection.PageNumber) of @lstCourseTopicSection.PageCount
+@Html.PagedListPager(lstCourseTopicSection, page => Url.Action("Index", new { page }))
+
+@foreach (var course in lstCourseTopicSection)
+{
+    <button class="btn btn-xs btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopicId})'">
+        Bacl to Course Topics
+    </button>
+}

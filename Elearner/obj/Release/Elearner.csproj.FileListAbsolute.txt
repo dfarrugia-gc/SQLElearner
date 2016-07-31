@@ -210,3 +210,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\Elearner.csproj.GenerateResource.Cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\SQLElearner.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\SQLElearner.pdb
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.Mvc.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.xml
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.Mvc.xml

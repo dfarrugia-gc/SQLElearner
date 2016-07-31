@@ -36,6 +36,7 @@ namespace Elearner.Controllers
         public ActionResult Create(int? id, string user)
         {
             var db = new ApplicationDbContext();
+            var userTopics = db.UserTopics.Where(ut => ut.Id == user).ToList();
 
             var courseTopicSections = db.CourseTopicSections.SingleOrDefault(c => c.CourseTopicSectionId == id);
 
@@ -78,22 +79,40 @@ namespace Elearner.Controllers
         {
             var user = User.Identity.GetUserId();
             var userTopicSection = db.UserTopicSections.SingleOrDefault(x => x.CourseTopicSectionId == id && x.Id.Equals(user));
+            var courseTopicSection = db.CourseTopicSections.Where(x=>x.CourseTopicId == userTopicSection.CourseTopicSection.CourseTopicId);
             
-            if (ModelState.IsValid)
+
+            userTopicSection.Completed = true;
+
+            db.Entry(userTopicSection).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var nextTopicSection = db.CourseTopicSections.Where(x => x.Order == userTopicSection.CourseTopicSection.Order + 1 && x.CourseTopicId == userTopicSection.CourseTopicSection.CourseTopicId).ToList();
+
+            if (nextTopicSection.Count() != 0)
             {
-                userTopicSection.Completed = true;
+                if (nextTopicSection.Max(x => x.Order) > courseTopicSection.Max(m => m.Order))
+                {
+                    var nextTopic = (from nt in db.CourseTopics
+                                     where nt.TopicOrder == (userTopicSection.CourseTopicSection.CourseTopic.TopicOrder + 1)
+                                     select nt.CourseTopicId).ToList();
 
-                db.Entry(userTopicSection).State = EntityState.Modified;
-                db.SaveChanges();
-
-                var nextTopic = from nt in db.UserTopicSections
-                                where nt.CourseTopicSectionId == userTopicSection.CourseTopicSectionId
-                                select nt.CourseTopicSection.Order + 1;
-
-                var entollNextTopicSection = new EnrollTopicSectionController().Create(nextTopic.FirstOrDefault(), user);
-            }           
-
-            return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = userTopicSection.CourseTopicSection.CourseTopicId, page = id });
+                    var markAsComplete = new EnrollTopicController().MarkAsComplete(userTopicSection.CourseTopicSection.CourseTopicId, user);
+                    var enrollNextTopic = new EnrollTopicController().Create(nextTopic.First(), user);
+                    return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+                }
+                else
+                {
+                    var entollNextTopicSection = new EnrollTopicSectionController().Create(nextTopicSection.Max(x => x.CourseTopicSectionId), user);
+                    return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = userTopicSection.CourseTopicSection.CourseTopicId, page = nextTopicSection.Max(x => x.Order) });
+                }
+            }
+            else
+            {
+                var markAsComplete = new EnrollTopicController().MarkAsComplete(userTopicSection.CourseTopicSection.CourseTopicId, user);
+                return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+            }                     
+            
         }
 
         // GET: EnrollCourse/Edit/5

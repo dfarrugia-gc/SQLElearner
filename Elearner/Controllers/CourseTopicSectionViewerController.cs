@@ -22,7 +22,7 @@ namespace SQLElearner.Controllers
             var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
             var currentSection = userTopicSections.Find(f => f.CourseTopicSectionId == userTopicSections.Max(m => m.CourseTopicSectionId));
             
-            var pageNumber = (page ?? currentSection.CourseTopicSectionId);
+            var pageNumber = (page ?? currentSection.CourseTopicSection.Order);
             var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
                        
             myModel.Add(courseTopicSectionsPages);
