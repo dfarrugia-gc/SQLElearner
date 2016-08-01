@@ -24,6 +24,8 @@ namespace Elearner.Controllers
             myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
             myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
             myModel.Add(db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id && ut.Id.Equals(user)).ToList());
+            myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopic.CourseId == id && uts.Id.Equals(user)).ToList());
+            myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopic.CourseId == id).ToList());
 
             return View(myModel);
         }

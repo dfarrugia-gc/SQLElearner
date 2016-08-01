@@ -4,6 +4,8 @@
     List<Elearner.Models.CourseTopic> lstCourseTopic = Model.ToList()[1] as List<Elearner.Models.CourseTopic>;
     List<Elearner.Models.Topic> lstTopic = Model.ToList()[2] as List<Elearner.Models.Topic>;
     List<Elearner.Models.UserCourse> lstUserCourses = Model.ToList()[3] as List<Elearner.Models.UserCourse>;
+    List<Elearner.Models.UserTopic> lstUserTopics = Model.ToList()[4] as List<Elearner.Models.UserTopic>;
+    List<Elearner.Models.UserTopicSection> lstUserTopicSection = Model.ToList()[5] as List<Elearner.Models.UserTopicSection>;
 }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
@@ -80,7 +82,7 @@
                                 <table width="100%">
                                     <tr>
                                         <th>
-                                            Enrolled Course
+                                            Courses in Progress
                                         </th>
                                         <th>
                                             Progress
@@ -91,7 +93,7 @@
                                     </tr>
                                     @foreach (var c in lstCourses)
                                     {
-                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId()))
+                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId() && m.Completed == false))
                                         {
                                             <tr>
                                                 <td>
@@ -100,11 +102,45 @@
                                                     </h4>
                                                 </td>
                                                 <td>
-                                                    @*@string.Format("{0}", (double)lstUserTopics.Count() / (double)lstCourseTopic.Count() * 100)%*@
+                                                    @string.Format("{0}", (double)lstUserTopics.Where(x=>x.Id == User.Identity.GetUserId() && x.CourseTopic.CourseId == c.CourseId).Count() / (double)lstCourseTopic.Where(w=>w.CourseId == c.CourseId).Count() * 100) %
                                                 </td>
-                                                <td>
+                                                <td align="right">
                                                     <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
                                                         CONTINUE
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                                <table width="100%">
+                                    <tr>
+                                        <th>
+                                            Courses Completed
+                                        </th>
+                                        <th>
+                                            
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                    </tr>
+                                    @foreach (var c in lstCourses)
+                                    {
+                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId() && m.Completed == false))
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <h4>
+                                                        @Html.DisplayFor(modelItem => c.CourseName)
+                                                    </h4>
+                                                </td>
+                                                <td>
+                                                    
+                                                </td>
+                                                <td align="right">
+                                                    <button class="btn btn-xs btn-success" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                                        COMPLETED
                                                     </button>
                                                 </td>
                                             </tr>

@@ -3,6 +3,8 @@
     List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
     List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[1] as List<Elearner.Models.CourseTopic>;
     List<Elearner.Models.UserTopic> lstUserTopics = Model.ToList()[2] as List<Elearner.Models.UserTopic>;
+    List<Elearner.Models.UserTopicSection> lstUserTopicSections = Model.ToList()[3] as List<Elearner.Models.UserTopicSection>;
+    List<Elearner.Models.CourseTopicSection> lstCourseTopicSections = Model.ToList()[4] as List<Elearner.Models.CourseTopicSection>;
 }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
@@ -43,7 +45,17 @@
                         @Html.DisplayFor(modelItem => ct.Topic.TopicName)
                     </td>
                     <td>
-                        @string.Format("{0}",(double)lstUserTopics.Count() / (double)lstCourseTopics.Count() *100)%
+                        @if (lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId).Count() == 0)
+                        {
+                            <h6>0%</h6>
+                        }
+                        else
+                        {
+                            var percentage = (double)lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId).Count() / (double)lstCourseTopicSections.Where(cts => cts.CourseTopicId == ct.CourseTopicId).Count() * 100;
+                            <h6>
+                                @percentage%
+                            </h6>
+                        }                        
                     </td>
                     @if (lstUserTopics == null || lstUserTopics.Count() == 0)
                     {
@@ -110,7 +122,7 @@
             </p>
         </div>
     }
-    
-    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
-
 </div>
+<button class="btn btn-xs btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "Courses")'">
+    Back to Courses
+</button>

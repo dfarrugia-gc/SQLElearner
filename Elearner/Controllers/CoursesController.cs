@@ -15,9 +15,13 @@ namespace Elearner.Controllers
 
         public ActionResult Index()
         {
+            var user = User.Identity.GetUserId();
+
             List<object> myModel = new List<object>();
             myModel.Add(db.Courses.ToList());
-            myModel.Add(db.UserCourses.ToList());
+            myModel.Add(db.UserCourses.Where(x=>x.Id.Equals(user)).ToList());
+            myModel.Add(db.UserTopics.Where(x => x.Id.Equals(user)).ToList());
+            myModel.Add(db.CourseTopics.ToList());
 
             return View(myModel);
         }

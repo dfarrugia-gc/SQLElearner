@@ -6,11 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Elearner.Controllers
 {
     public class EnrollCourseController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         public object Users { get; private set; }
 
         // GET: EnrollCourse
@@ -33,8 +35,6 @@ namespace Elearner.Controllers
         // GET: EnrollCourse/Create
         public ActionResult Create(int? id)
         {
-            var db = new ApplicationDbContext();
-
             var user = User.Identity.GetUserId();
             var course = db.Courses.SingleOrDefault(c => c.CourseId == id);
             var courseTopics = from t in new ApplicationDbContext().CourseTopics
@@ -56,6 +56,21 @@ namespace Elearner.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "CourseTopicViewer", new { id = userCourse.CourseId });
+        }
+
+        public ActionResult MarkAsComplete(int? id, string user)
+        {
+            var userCourse = db.UserCourses.SingleOrDefault(x => x.CourseId == id && x.Id.Equals(user));
+            //var courseTopicSection = db.CourseTopicSections.Where(x => x.CourseTopicId == userTopicSection.CourseTopicSection.CourseTopicId);
+
+            if (ModelState.IsValid)
+            {
+                userCourse.Completed = true;
+
+                db.Entry(userCourse).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return null;
         }
 
         // POST: EnrollCourse/Create

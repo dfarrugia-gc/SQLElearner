@@ -81,6 +81,11 @@ namespace Elearner.Controllers
                 db.Entry(userTopic).State = EntityState.Modified;
                 db.SaveChanges();
             }
+
+            if (userTopic.CourseTopicId == db.CourseTopics.Max(ct=>ct.CourseTopicId))
+            {
+                var markAsComplete = new EnrollCourseController().MarkAsComplete(userTopic.CourseTopic.CourseId, user);
+            }
                 return null;
         }
 
