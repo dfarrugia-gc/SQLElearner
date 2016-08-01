@@ -53,14 +53,14 @@
         else if (courseTopicSection.CourseTopicSectionId > studyingSection.CourseTopicSectionId)
         {
             <button type="button" class="btn btn-s btn-info" disabled>
-                <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSectionId first.
+                <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSection.Order first.
             </button>
         }
         else
         {
             if (lstCourseTopicSection.IsLastPage)
             {
-                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = courseTopicSection.CourseTopicId})'">
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId})'">
                     Next Topic
                 </button>
             }
@@ -81,7 +81,7 @@ Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 
 
 @foreach (var course in lstCourseTopicSection)
 {
-    <button class="btn btn-xs btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopicId})'">
-        Bacl to Course Topics
+    <button class="btn btn-xs btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopic.CourseId})'">
+        Back to Course Topics
     </button>
 }

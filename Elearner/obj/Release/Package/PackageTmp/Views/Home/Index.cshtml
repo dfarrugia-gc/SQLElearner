@@ -100,7 +100,7 @@
                                                     </h4>
                                                 </td>
                                                 <td>
-                                                    0%
+                                                    @*@string.Format("{0}", (double)lstUserTopics.Count() / (double)lstCourseTopic.Count() * 100)%*@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
