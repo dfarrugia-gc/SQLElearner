@@ -18,6 +18,7 @@ namespace SQLElearner.Controllers
             var user = User.Identity.GetUserId();
 
             List<object> myModel = new List<object>();
+            var totalCourseTopicSections = db.CourseTopicSections.ToList();
             var courseTopicSections = db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts => cts.Order).ToList();
             var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
             var courseTopics = db.CourseTopics.Where(ct => ct.CourseTopicId == id).OrderBy(ct => ct.TopicOrder).ToList();
@@ -29,6 +30,7 @@ namespace SQLElearner.Controllers
             myModel.Add(courseTopicSectionsPages);
             myModel.Add(userTopicSections);
             myModel.Add(courseTopics);
+            myModel.Add(totalCourseTopicSections);
 
             return View(myModel);
         }

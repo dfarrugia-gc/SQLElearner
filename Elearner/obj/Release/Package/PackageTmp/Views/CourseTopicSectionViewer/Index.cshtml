@@ -2,6 +2,7 @@
 @{   
     PagedList.IPagedList<Elearner.Models.CourseTopicSection> lstCourseTopicSection = Model.ToList()[0] as PagedList.IPagedList<Elearner.Models.CourseTopicSection>;
     List<Elearner.Models.UserTopicSection> lstUserTopicSection = Model.ToList()[1] as List<Elearner.Models.UserTopicSection>;
+    List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[2] as List<Elearner.Models.CourseTopic>;
 }
 
 @using PagedList.Mvc;
@@ -58,7 +59,14 @@
         }
         else
         {
-            if (lstCourseTopicSection.IsLastPage)
+
+            if (lstCourseTopicSection.IsLastPage && courseTopicSection.CourseTopic.TopicOrder == lstCourseTopics.Max(m => m.TopicOrder))
+            {
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId})'">
+                    Finish Course
+                </button>
+            }
+            else if (lstCourseTopicSection.IsLastPage)
             {
                 <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId})'">
                     Next Topic
@@ -70,7 +78,6 @@
                     Mark as Complete
                 </button>
             }
-
         }
     }
 

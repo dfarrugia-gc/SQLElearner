@@ -109,8 +109,22 @@ namespace Elearner.Controllers
             }
             else
             {
+                var nextTopic = (from nt in db.CourseTopics
+                                 where nt.TopicOrder == (userTopicSection.CourseTopicSection.CourseTopic.TopicOrder + 1)
+                                 select nt.CourseTopicId).ToList();
+
                 var markAsComplete = new EnrollTopicController().MarkAsComplete(userTopicSection.CourseTopicSection.CourseTopicId, user);
-                return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+                if(nextTopic.Count() == 0)
+                {
+                    var markCourseAsComplete = new EnrollCourseController().MarkAsComplete(userTopicSection.CourseTopicSection.CourseTopic.CourseId, user);
+                    return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+                }
+                else
+                {
+                    var enrollNextTopic = new EnrollTopicController().Create(nextTopic.First(), user);
+                    return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+                }                
+                
             }                     
             
         }

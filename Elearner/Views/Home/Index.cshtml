@@ -80,17 +80,35 @@
                               {
                                   <h2 class="page-header text-primary">Welcome Back!</h2>
                                 <table width="100%">
-                                    <tr>
-                                        <th>
-                                            Courses in Progress
-                                        </th>
-                                        <th>
-                                            Progress
-                                        </th>
-                                        <th>
 
-                                        </th>
-                                    </tr>
+                                    @if (lstUserCourses.Any(x => x.Completed) == true)
+                                    {
+                                        <tr>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <th>
+                                                Courses in Progress
+                                            </th>
+                                            <th>
+                                                Progress
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    }                                    
                                     @foreach (var c in lstCourses)
                                     {
                                         if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId() && m.Completed == false))
@@ -102,7 +120,7 @@
                                                     </h4>
                                                 </td>
                                                 <td>
-                                                    @string.Format("{0}", (double)lstUserTopics.Where(x=>x.Id == User.Identity.GetUserId() && x.CourseTopic.CourseId == c.CourseId).Count() / (double)lstCourseTopic.Where(w=>w.CourseId == c.CourseId).Count() * 100) %
+                                                    @string.Format("{0}", (double)lstUserTopics.Where(x => x.Id == User.Identity.GetUserId() && x.CourseTopic.CourseId == c.CourseId).Count() / (double)lstCourseTopic.Where(w => w.CourseId == c.CourseId).Count() * 100) %
                                                 </td>
                                                 <td align="right">
                                                     <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
@@ -127,7 +145,7 @@
                                     </tr>
                                     @foreach (var c in lstCourses)
                                     {
-                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId() && m.Completed == false))
+                                        if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId() && m.Completed == true))
                                         {
                                             <tr>
                                                 <td>

@@ -2,6 +2,8 @@
     @{ 
         List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
         List<Elearner.Models.UserCourse> lstUserCourses = Model.ToList()[1] as List<Elearner.Models.UserCourse>;
+        List<Elearner.Models.UserTopic> lstUserTopics = Model.ToList()[2] as List<Elearner.Models.UserTopic>;
+        List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[3] as List<Elearner.Models.CourseTopic>;
     }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
@@ -65,10 +67,18 @@ else
                         }
                         else
                         {
-                            if (lstUserCourses.Any(uc => uc.CourseId.Equals(c.CourseId) && uc.Id == User.Identity.GetUserId()))
+                            if (lstUserCourses.Any(x => x.CourseId == c.CourseId && x.Completed == true))
                             {
+                                <button class="btn btn-success" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                    COMPLETED
+                                </button>
+                            }
+                            else if (lstUserCourses.Any(uc => uc.CourseId == c.CourseId && uc.Id == User.Identity.GetUserId()))
+                            {
+                                var percentage = (double)lstUserTopics.Where(x => x.Id == User.Identity.GetUserId() && x.CourseTopic.CourseId == c.CourseId).Count() / (double)lstCourseTopics.Where(w => w.CourseId == c.CourseId).Count() * 100;
+
                                 <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
-                                    CONTINUE
+                                    CONTINUE - @percentage%
                                 </button>
                             }
                             else

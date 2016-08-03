@@ -53,7 +53,7 @@
                         {
                             var percentage = (double)lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId).Count() / (double)lstCourseTopicSections.Where(cts => cts.CourseTopicId == ct.CourseTopicId).Count() * 100;
                             <h6>
-                                @percentage%
+                                @Convert.ToInt32(percentage)%
                             </h6>
                         }                        
                     </td>

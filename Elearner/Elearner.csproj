@@ -303,13 +303,14 @@
     <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
     <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="E-1024x1024.ico" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.ico.def" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\E-1024x1024.ico" />
     <Content Include="Images\E-1024x1024.png" />
-    <Content Include="Images\e_1024x1024_0d5_icon.ico" />
     <Content Include="Images\index_banner.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
