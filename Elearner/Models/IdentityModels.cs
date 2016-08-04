@@ -46,6 +46,12 @@ namespace Elearner.Models
         public DbSet<UserTopicSection> UserTopicSections { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
 
+        public DbSet<Quiz> Quizes { get; set; }
+        public DbSet<UserQuiz> UserQuizes { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        public DbSet<QuizContent> QuizContents { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

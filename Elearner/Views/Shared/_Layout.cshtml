@@ -4,19 +4,34 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - E-learner</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css")    
     @Scripts.Render("~/bundles/jquery")
-    <link href="~/Content/theme/jquery-ui.css" rel="stylesheet"/>
+    <link href="~/Content/theme/jquery-ui.min.css" rel="stylesheet"/>
+    @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Content/theme/jquery-ui.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")  
     <script>
         $(function () {
-            $("#dialog-modal").dialog({
-                height: 140,
+            $("#dialog-modal-with-ok").dialog({
+                height: 200,
                 width: 450,
-                modal: true
+                modal: true,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close"); //closing on Ok click
+                    }
+                },
             });
         });
+
+        $(function () {
+            $("#dialog-modal").dialog({
+                height: 200,
+                width: 450,
+                modal: true                
+            });
+        });
+
     </script>  
 
     <!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
@@ -52,10 +67,7 @@
         <footer>
             <p>&copy; @DateTime.Now.Year - Daniel Farrugia (SN:14191770) E-learner Project</p>
         </footer>
-    </div>
-
-    
-    @Scripts.Render("~/bundles/bootstrap")
+    </div>    
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -37,7 +37,7 @@
                   </div>
                   
                   <div class="col-md-12">
-                          <h2 class="page-header">Available Courses</h2>
+                          <h2 class="page-header">Our Courses...</h2>
                           @foreach (var c in lstCourses)
                           {
                               <div class="modal-header">
@@ -45,7 +45,7 @@
                                       @c.CourseName
                                   </h3>
                                   
-                                  <h5>Course Description: @c.CourseInformation</h5>
+                                  <h5 align="justify">Course Description: @c.CourseInformation</h5>
                                   
                                   <p>
                                       <h5>Topics</h5>
@@ -54,9 +54,8 @@
                                           if (t.CourseId == c.CourseId)
                                           {
                                               <ul>
-                                                  <li>@t.Topic.TopicName - @t.Topic.TopicType.TopicTypeName</li>
+                                                  <li>@t.Topic.TopicName</li>
                                               </ul>
-                                              <ul>@t.Topic.TopicInformation</ul>
                                           }
                                       }
                                   </p>
@@ -79,27 +78,13 @@
                               if (lstUserCourses.Any(m => m.Id == User.Identity.GetUserId()))
                               {
                                   <h2 class="page-header text-primary">Welcome Back!</h2>
-                                <table width="100%">
-
+                                    
+                                  <table width="100%">
                                     @if (lstUserCourses.Any(x => x.Completed) == true)
-                                    {
+                                    {                                       
                                         <tr>
                                             <th>
-                                                
-                                            </th>
-                                            <th>
-                                                
-                                            </th>
-                                            <th>
-
-                                            </th>
-                                        </tr>
-                                    }
-                                    else
-                                    {
-                                        <tr>
-                                            <th>
-                                                Courses in Progress
+                                                <strong>Courses in Progress</strong>
                                             </th>
                                             <th>
                                                 Progress
@@ -115,9 +100,7 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    <h4>
-                                                        @Html.DisplayFor(modelItem => c.CourseName)
-                                                    </h4>
+                                                    @Html.DisplayFor(modelItem => c.CourseName)
                                                 </td>
                                                 <td>
                                                     @string.Format("{0}", (double)lstUserTopics.Where(x => x.Id == User.Identity.GetUserId() && x.CourseTopic.CourseId == c.CourseId).Count() / (double)lstCourseTopic.Where(w => w.CourseId == c.CourseId).Count() * 100) %
@@ -134,7 +117,7 @@
                                 <table width="100%">
                                     <tr>
                                         <th>
-                                            Courses Completed
+                                            <strong>Courses Completed</strong>
                                         </th>
                                         <th>
                                             
@@ -149,9 +132,7 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    <h4>
-                                                        @Html.DisplayFor(modelItem => c.CourseName)
-                                                    </h4>
+                                                    @Html.DisplayFor(modelItem => c.CourseName)
                                                 </td>
                                                 <td>
                                                     

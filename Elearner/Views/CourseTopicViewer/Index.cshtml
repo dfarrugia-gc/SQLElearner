@@ -69,11 +69,23 @@
                         }
                         else
                         {
-                            <td style="padding:5px 5px 5px 5px">
-                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
-                                    LEARN
-                                </button>
-                            </td>
+
+                            if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
+                            {
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseTopicId })'" disabled>
+                                        Take Quiz
+                                    </button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                        LEARN
+                                    </button>
+                                </td>
+                            }
                         }
 
                     }
@@ -91,21 +103,45 @@
                             }
                             else
                             {
-                                <td style="padding:5px 5px 5px 5px">
-                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
-                                        LEARN
-                                    </button>
-                                </td>
+                                if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
+                                {
+                                    <td style="padding:5px 5px 5px 5px">
+                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseTopicId })'">
+                                            Take Quiz
+                                        </button>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="padding:5px 5px 5px 5px">
+                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                            LEARN
+                                        </button>
+                                    </td>
+                                }
                             }
                         }
                         else
                         {
-                            <td style="padding:5px 5px 5px 5px">
-                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
-                                    LEARN
-                                </button>
-                            </td>
-
+                            if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
+                            {
+                                if (lstCourseTopics.Max(m => m.CourseTopicId) == lstUserTopicSections.Max(m => m.CourseTopicSection.CourseTopic.CourseTopicId))
+                                {
+                                    <td style="padding:5px 5px 5px 5px">
+                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseTopicId })'">
+                                            Take Quiz
+                                        </button>
+                                    </td>
+                                }
+                            }
+                            else
+                            {
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                        LEARN
+                                    </button>
+                                </td>
+                            }
                         }
                     }
 

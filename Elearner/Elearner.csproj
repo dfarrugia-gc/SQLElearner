@@ -263,9 +263,14 @@
     <Compile Include="Controllers\EnrollCourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QuestionAnswersController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\QuizContentsController.cs" />
+    <Compile Include="Controllers\QuizsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\TopicTypesController.cs" />
     <Compile Include="Controllers\UserCoursesController.cs" />
+    <Compile Include="Controllers\UserQuizsController.cs" />
     <Compile Include="Controllers\UserTopicsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +289,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\QuizModels.cs" />
     <Compile Include="Models\CourseModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -304,6 +310,16 @@
     <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\theme\AUTHORS.txt" />
+    <Content Include="Content\theme\external\jquery\jquery.js" />
+    <Content Include="Content\theme\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
+    <Content Include="Content\theme\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
+    <Content Include="Content\theme\images\ui-bg_glass_55_fbf8ee_1x400.png" />
+    <Content Include="Content\theme\images\ui-bg_highlight-hard_100_eeeeee_1x100.png" />
+    <Content Include="Content\theme\images\ui-bg_highlight-hard_100_f6f6f6_1x100.png" />
+    <Content Include="Content\theme\images\ui-bg_highlight-soft_15_cc0000_1x100.png" />
+    <Content Include="Content\theme\images\ui-icons_004276_256x240.png" />
+    <Content Include="Content\theme\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\theme\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\theme\index.html" />
     <Content Include="Content\theme\jquery-ui.css" />
     <Content Include="Content\theme\jquery-ui.js" />
@@ -430,11 +446,34 @@
     <Content Include="Views\CourseTopicSections\Index.cshtml" />
     <Content Include="Views\CourseTopicViewer\Index.cshtml" />
     <Content Include="Views\CourseTopicSectionViewer\Index.cshtml" />
+    <Content Include="Views\Quizs\Create.cshtml" />
+    <Content Include="Views\Quizs\Delete.cshtml" />
+    <Content Include="Views\Quizs\Details.cshtml" />
+    <Content Include="Views\Quizs\Edit.cshtml" />
+    <Content Include="Views\Quizs\Index.cshtml" />
+    <Content Include="Views\UserQuizs\Create.cshtml" />
+    <Content Include="Views\UserQuizs\Delete.cshtml" />
+    <Content Include="Views\UserQuizs\Details.cshtml" />
+    <Content Include="Views\UserQuizs\Edit.cshtml" />
+    <Content Include="Views\UserQuizs\Index.cshtml" />
+    <Content Include="Views\Questions\Create.cshtml" />
+    <Content Include="Views\Questions\Delete.cshtml" />
+    <Content Include="Views\Questions\Details.cshtml" />
+    <Content Include="Views\Questions\Edit.cshtml" />
+    <Content Include="Views\Questions\Index.cshtml" />
+    <Content Include="Views\QuestionAnswers\Create.cshtml" />
+    <Content Include="Views\QuestionAnswers\Delete.cshtml" />
+    <Content Include="Views\QuestionAnswers\Details.cshtml" />
+    <Content Include="Views\QuestionAnswers\Edit.cshtml" />
+    <Content Include="Views\QuestionAnswers\Index.cshtml" />
+    <Content Include="Views\QuizContents\Create.cshtml" />
+    <Content Include="Views\QuizContents\Delete.cshtml" />
+    <Content Include="Views\QuizContents\Details.cshtml" />
+    <Content Include="Views\QuizContents\Edit.cshtml" />
+    <Content Include="Views\QuizContents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\theme\external\" />
-    <Folder Include="Content\theme\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -466,7 +505,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>E-1024x1024.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

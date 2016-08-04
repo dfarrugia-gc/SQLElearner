@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using PagedList;
 using Elearner.Controllers;
+using System.Web;
 
 namespace SQLElearner.Controllers
 {
@@ -23,16 +24,23 @@ namespace SQLElearner.Controllers
             var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
             var courseTopics = db.CourseTopics.Where(ct => ct.CourseTopicId == id).OrderBy(ct => ct.TopicOrder).ToList();
             var currentSection = userTopicSections.Find(f => f.CourseTopicSectionId == userTopicSections.Max(m => m.CourseTopicSectionId));
-            
-            var pageNumber = (page ?? currentSection.CourseTopicSection.Order);
-            var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
-                       
-            myModel.Add(courseTopicSectionsPages);
-            myModel.Add(userTopicSections);
-            myModel.Add(courseTopics);
-            myModel.Add(totalCourseTopicSections);
+            try
+            {
 
-            return View(myModel);
+                var pageNumber = (page ?? currentSection.CourseTopicSection.Order);
+                var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
+
+                myModel.Add(courseTopicSectionsPages);
+                myModel.Add(userTopicSections);
+                myModel.Add(courseTopics);
+                myModel.Add(totalCourseTopicSections);
+
+                return View(myModel);
+            }
+            catch
+            {
+                return new HttpNotFoundResult("Content Not Found");
+            }
         }
 
         // GET: CourseTopicSectionViewer/Details/5
