@@ -303,6 +303,17 @@
     <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
     <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\theme\AUTHORS.txt" />
+    <Content Include="Content\theme\index.html" />
+    <Content Include="Content\theme\jquery-ui.css" />
+    <Content Include="Content\theme\jquery-ui.js" />
+    <Content Include="Content\theme\jquery-ui.min.css" />
+    <Content Include="Content\theme\jquery-ui.min.js" />
+    <Content Include="Content\theme\jquery-ui.structure.css" />
+    <Content Include="Content\theme\jquery-ui.structure.min.css" />
+    <Content Include="Content\theme\jquery-ui.theme.css" />
+    <Content Include="Content\theme\jquery-ui.theme.min.css" />
+    <Content Include="Content\theme\LICENSE.txt" />
     <Content Include="E-1024x1024.ico" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.ico.def" />
@@ -332,6 +343,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\theme\package.json" />
     <None Include="Properties\PublishProfiles\Elearner - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\SQLElearner - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -418,10 +430,11 @@
     <Content Include="Views\CourseTopicSections\Index.cshtml" />
     <Content Include="Views\CourseTopicViewer\Index.cshtml" />
     <Content Include="Views\CourseTopicSectionViewer\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutCourseMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\theme\external\" />
+    <Folder Include="Content\theme\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
