@@ -89,6 +89,7 @@
 <br />
 <br />
 Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 : lstCourseTopicSection.PageNumber) of @lstCourseTopicSection.PageCount
+
 @Html.PagedListPager(lstCourseTopicSection, page => Url.Action("Index", new { page }))
 
 @foreach (var course in lstCourseTopicSection)

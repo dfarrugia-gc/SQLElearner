@@ -95,11 +95,9 @@ else
     }
     else
     {
-        <div id="dialog-modal" title="Warning">
-            <p style="text-align:center">
-                Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) or
-                @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
-            </p>
-        </div>
+        <p>
+            Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) or
+            @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
+        </p>
     }
 }

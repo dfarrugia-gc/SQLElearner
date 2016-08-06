@@ -47,6 +47,7 @@ namespace Elearner.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Course course = await db.Courses.FindAsync(id);
+
             if (course == null)
             {
                 return HttpNotFound();
