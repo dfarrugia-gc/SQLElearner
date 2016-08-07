@@ -15,11 +15,11 @@
         <li>
             @if(currentUser.FirstName == null)
             {
-                @Html.ActionLink("Hello " + currentUser.UserName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             }
             else
             {
-                @Html.ActionLink("Hello " + currentUser.FirstName.ToUpper(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             }
         </li>
         @if (User.IsInRole("Admin"))

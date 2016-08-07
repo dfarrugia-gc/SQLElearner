@@ -323,6 +323,7 @@
     <Content Include="Images\E-1024x1024.ico" />
     <Content Include="Images\E-1024x1024.png" />
     <Content Include="Images\header.jpg" />
+    <Content Include="Images\home_icon.gif" />
     <Content Include="Images\home_icon.png" />
     <Content Include="Images\icon_004240_256-1024x1024.png" />
     <Content Include="Images\index_banner.jpg" />

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Elearner.Controllers
 {
@@ -33,29 +34,36 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollCourse/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, string user)
         {
-            var user = User.Identity.GetUserId();
-            var course = db.Courses.SingleOrDefault(c => c.CourseId == id);
-            var courseTopics = from t in new ApplicationDbContext().CourseTopics
-                               where t.CourseId == id
-                               select t.Topic.TopicId;
-
-            var userCourse = new UserCourse()
+            if(string.IsNullOrEmpty(user))
             {
-                Id = user,
-                CourseId = course.CourseId
-            };
-
-            bool userCourseExists = db.UserCourses.Any(x => x.CourseId.Equals(userCourse.CourseId) 
-            & x.Id.Equals(userCourse.Id));
-
-            if (!userCourseExists)
-            {
-                db.UserCourses.Add(userCourse);
-                db.SaveChanges();
+                return RedirectToAction("Details", "Courses");
             }
-            return RedirectToAction("Index", "CourseTopicViewer", new { id = userCourse.CourseId });
+            else
+            {
+                var course = db.Courses.SingleOrDefault(c => c.CourseId == id);
+                var courseTopics = from t in new ApplicationDbContext().CourseTopics
+                                   where t.CourseId == id
+                                   select t.Topic.TopicId;
+
+                var userCourse = new UserCourse()
+                {
+                    Id = user,
+                    CourseId = course.CourseId
+                };
+
+                bool userCourseExists = db.UserCourses.Any(x => x.CourseId.Equals(userCourse.CourseId)
+                & x.Id.Equals(userCourse.Id));
+
+                if (!userCourseExists)
+                {
+                    db.UserCourses.Add(userCourse);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index", "CourseTopicViewer", new { id = userCourse.CourseId });
+            }
+            
         }
 
         public ActionResult MarkAsComplete(int? id, string user)

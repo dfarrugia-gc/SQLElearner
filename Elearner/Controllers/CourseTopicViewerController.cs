@@ -18,16 +18,41 @@ namespace Elearner.Controllers
         // GET: CourseTopicViewer
         public ActionResult Index(int? id)
         {
-            var user = User.Identity.GetUserId();
+            if(User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity.GetUserId();
+                var userTopic = db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id && ut.Id.Equals(user)).ToList();
+                var userCourses = db.UserCourses.Where(uc => uc.CourseId == id && uc.Id.Equals(user)).ToList();
 
-            List<object> myModel = new List<object>();
-            myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
-            myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
-            myModel.Add(db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id && ut.Id.Equals(user)).ToList());
-            myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopic.CourseId == id && uts.Id.Equals(user)).ToList());
-            myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopic.CourseId == id).ToList());
+                List<object> myModel = new List<object>();
+                myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
+                myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
+                myModel.Add(userTopic);
+                myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopic.CourseId == id && uts.Id.Equals(user)).ToList());
+                myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopic.CourseId == id).ToList());
 
-            return View(myModel);
+                if (userCourses.Count() == 0)
+                {
+                    var enrollCourse = new EnrollCourseController().Create(id, user);
+                }
+
+                return View(myModel);
+            }
+            else
+            {
+                var user = User.Identity.GetUserId();
+                var userTopic = db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id && ut.Id.Equals(user)).ToList();
+
+                List<object> myModel = new List<object>();
+                myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
+                myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
+                myModel.Add(userTopic);
+                myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopic.CourseId == id && uts.Id.Equals(user)).ToList());
+                myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopic.CourseId == id).ToList());
+
+                return View(myModel);
+            }
+
         }
 
         // GET: CourseTopicViewer/Details/5

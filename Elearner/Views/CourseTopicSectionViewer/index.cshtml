@@ -20,20 +20,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<div class="container text-justify">
     @foreach (var courseTopicSection in lstCourseTopicSection)
     {
         var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
         var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
 
-            <h2>
-                @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
-            </h2>
-            <h3>
-                Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
-            </h3>
+        <h2>
+            @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
+        </h2>
+        <h3>
+            Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
+        </h3>
             @courseTopicSection.TopicSectionText
-        <br />
+            <br />
         if (courseTopicSection.TopicSectionInstruction == null)
         {
             <br />
@@ -41,13 +41,13 @@
         else
         {
             <h4>Instruction</h4>
-            @Html.Encode(courseTopicSection.TopicSectionInstruction)
+            @Html.Encode(courseTopicSection.TopicSectionInstruction.ToString())
             <br />
 
-                <h5>Code Editor</h5>
+            <h5>Code Editor</h5>
 
-                @Html.TextArea("SQLCommand", "SQL Command: ", 10, 500, new { rows = 10, columns = 500 })
-                <p></p>
+            @Html.TextArea("SQLCommand", "SQL Command: ", 10, 500, new { rows = 10, columns = 500 })
+            <p></p>
         }
 
 
@@ -86,15 +86,16 @@
         }
     }
 
-<br />
-<br />
-Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 : lstCourseTopicSection.PageNumber) of @lstCourseTopicSection.PageCount
+    <br />
+    <br />
+    Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 : lstCourseTopicSection.PageNumber) of @lstCourseTopicSection.PageCount
 
-@Html.PagedListPager(lstCourseTopicSection, page => Url.Action("Index", new { page }))
+    @Html.PagedListPager(lstCourseTopicSection, page => Url.Action("Index", new { page }))
 
-@foreach (var course in lstCourseTopicSection)
-{
-    <button class="btn btn-xs btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopic.CourseId})'">
-        Back to Course Topics
-    </button>
-}
+    @foreach (var course in lstCourseTopicSection)
+    {
+        <button class="btn btn-s btn-default" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopic.CourseId})'">
+            Back to Course Topics
+        </button>
+    }
+</div>
