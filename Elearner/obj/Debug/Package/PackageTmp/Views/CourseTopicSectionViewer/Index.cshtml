@@ -1,0 +1,101 @@
+﻿@model IEnumerable<object>
+@{   
+    PagedList.IPagedList<Elearner.Models.CourseTopicSection> lstCourseTopicSection = Model.ToList()[0] as PagedList.IPagedList<Elearner.Models.CourseTopicSection>;
+    List<Elearner.Models.UserTopicSection> lstUserTopicSection = Model.ToList()[1] as List<Elearner.Models.UserTopicSection>;
+    List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[2] as List<Elearner.Models.CourseTopic>;
+    List<Elearner.Models.CourseTopicSection> lstTotalCourseTopics = Model.ToList()[3] as List<Elearner.Models.CourseTopicSection>;
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Course Topic Sections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container text-justify">
+    @foreach (var courseTopicSection in lstCourseTopicSection)
+    {
+        var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
+        var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
+
+        <h2>
+            @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
+        </h2>
+        <h3>
+            Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
+        </h3>
+            @courseTopicSection.TopicSectionText
+            <br />
+        if (courseTopicSection.TopicSectionInstruction == null)
+        {
+            <br />
+        }
+        else
+        {
+            <h4>Instruction</h4>
+            @Html.Encode(courseTopicSection.TopicSectionInstruction.ToString())
+            <br />
+
+            <h5>Code Editor</h5>
+
+            @Html.TextArea("SQLCommand", "SQL Command: ", 10, 500, new { rows = 10, columns = 500 })
+            <p></p>
+        }
+
+
+        if (lstUserTopicSection.Any(x => x.CourseTopicSectionId == courseTopicSection.CourseTopicSectionId && x.Completed == true))
+        {
+            <button type="button" class="btn btn-s btn-info" disabled>
+                <span class="glyphicon glyphicon-check"></span> Completed
+            </button>
+        }
+        else if (courseTopicSection.CourseTopicSectionId > studyingSection.CourseTopicSectionId)
+        {
+            <button type="button" class="btn btn-s btn-info" disabled>
+                <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSection.Order first.
+            </button>
+        }
+        else
+        {
+            if (lstCourseTopicSection.IsLastPage && courseTopicSection.CourseTopic.TopicOrder == lstCourseTopics.Max(m => m.TopicOrder))
+            {
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                    Finish Topic
+                </button>
+            }
+            else if (lstCourseTopicSection.IsLastPage)
+            {
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId})'">
+                    Next Topic
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-s btn-info" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                    Mark as Complete
+                </button>
+            }
+        }
+    }
+
+    <br />
+    <br />
+    Lesson @(lstCourseTopicSection.PageCount < lstCourseTopicSection.PageNumber ? 0 : lstCourseTopicSection.PageNumber) of @lstCourseTopicSection.PageCount
+
+    @Html.PagedListPager(lstCourseTopicSection, page => Url.Action("Index", new { page }))
+
+    @foreach (var course in lstCourseTopicSection)
+    {
+        <button class="btn btn-s btn-default" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = course.CourseTopic.CourseId})'">
+            < GO Back
+        </button>
+    }
+</div>

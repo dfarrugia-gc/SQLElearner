@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Elearner.Models.UserQuizResult>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.QuizContentQuestion.QuizContentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponseSpecifiedAnswer.AnswerText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserQuiz.Id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuizContentQuestion.QuizContentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponseSpecifiedAnswer.AnswerText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserQuiz.Id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserQuizResultId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserQuizResultId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserQuizResultId })
+        </td>
+    </tr>
+}
+
+</table>

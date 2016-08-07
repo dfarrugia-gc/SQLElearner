@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Elearner.Models.CourseTopic>
+
+@{
+    ViewBag.Title = "Course Topics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Course Topic</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.CourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Topic.TopicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicOrder)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Topic.TopicName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicOrder)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CourseTopicId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CourseTopicId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CourseTopicId })
+        </td>
+    </tr>
+}
+</table>
+@Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")

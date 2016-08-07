@@ -1,0 +1,103 @@
+﻿@model IEnumerable<object>
+    @{ 
+        List<Elearner.Models.Course> lstCourses = Model.ToList()[0] as List<Elearner.Models.Course>;
+        List<Elearner.Models.UserCourse> lstUserCourses = Model.ToList()[1] as List<Elearner.Models.UserCourse>;
+        List<Elearner.Models.UserTopic> lstUserTopics = Model.ToList()[2] as List<Elearner.Models.UserTopic>;
+        List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[3] as List<Elearner.Models.CourseTopic>;
+    }
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Courses</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+
+        <p>
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Create New", "Create")
+            }      
+        </p>
+        <table class="table" style="font-size:large">
+            @foreach (var item in lstCourses)
+            {
+                <tr>
+                    <td valign="middle">
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                        <p style="font-size:small">@Html.DisplayFor(modelItem => item.CourseInformation)</p>
+                        <p style="font-size:smaller">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")
+}
+else
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        <table class="table" style="font-size:large">
+            @foreach (var c in lstCourses)
+            {
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayFor(modelItem => c.CourseName)</strong>
+                        <p style="font-size:small">@Html.DisplayFor(modelItem => c.CourseInformation)</p>
+                    </td>
+                                        
+                    <td>
+                        @if (lstUserCourses == null || lstUserCourses.Count() == 0)
+                        {
+                            <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                START COURSE
+                            </button>
+                        }
+                        else
+                        {
+                            if (lstUserCourses.Any(x => x.CourseId == c.CourseId && x.Completed == true))
+                            {
+                                <button class="btn btn-success" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                    COMPLETED
+                                </button>
+                            }
+                            else if (lstUserCourses.Any(uc => uc.CourseId == c.CourseId && uc.Id == User.Identity.GetUserId()))
+                            {
+                                var percentage = (double)lstUserTopics.Where(x => x.Id == User.Identity.GetUserId() && x.CourseTopic.CourseId == c.CourseId).Count() / (double)lstCourseTopics.Where(w => w.CourseId == c.CourseId).Count() * 100;
+
+                                <button class="btn btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                    CONTINUE - @percentage%
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-primary" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollCourse", new { id = c.CourseId })'">
+                                    START COURSE
+                                </button>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>
+            Please @Html.ActionLink("SIGN UP", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) or
+            @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to be able to start the course!
+        </p>
+    }
+}

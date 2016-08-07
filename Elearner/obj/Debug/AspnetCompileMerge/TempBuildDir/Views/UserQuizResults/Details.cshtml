@@ -1,0 +1,51 @@
+﻿@model Elearner.Models.UserQuizResult
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserQuizResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QuizContentQuestion.QuizContentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuizContentQuestion.QuizContentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponseSpecifiedAnswer.AnswerText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResponseSpecifiedAnswer.AnswerText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserQuiz.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserQuiz.Id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserQuizResultId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

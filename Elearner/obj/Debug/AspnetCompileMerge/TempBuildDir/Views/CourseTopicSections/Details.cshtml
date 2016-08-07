@@ -1,0 +1,59 @@
+﻿@model Elearner.Models.CourseTopicSection
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CourseTopicSection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseTopic.CourseTopicId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseTopic.CourseTopicId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseTopicSectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseTopicSectionName)
+        </dd>
+
+        <dt>
+                @Html.DisplayNameFor(model => model.TopicSectionText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TopicSectionText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TopicSectionInstruction)
+        </dt>
+
+        <dd>
+            @Html.DisplayNameFor(model => model.TopicSectionInstruction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseTopicSectionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

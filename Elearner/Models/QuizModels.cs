@@ -95,4 +95,22 @@ namespace Elearner.Models
         public bool IsCorrect { get; set; }
     }
 
+    public class UserQuizResult
+    {
+        [Key]
+        public int UserQuizResultId { get; set; }
+        public string Id { get; set; }
+        [ForeignKey("Id")]
+        public virtual ApplicationUser User { get; set; }
+        public int UserQuizId { get; set; }
+        [ForeignKey("UserQuizId")]
+        public virtual UserQuiz UserQuiz { get; set; }
+        public int QuestionId { get; set; }
+        [ForeignKey("QuestionId")]
+        public virtual QuizContent QuizContentQuestion { get; set; }
+        public int SpecifiedAnswerId { get; set; }
+        [ForeignKey("SpecifiedAnswerId")]
+        public virtual SpecifiedAnswer ResponseSpecifiedAnswer { get; set; }
+    }
+
 }

@@ -36,9 +36,9 @@
             @Html.DisplayFor(modelItem => item.QuizContentSpecifiedAnswerId)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.QuizContentSpecifiedAnswerId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.QuizContentSpecifiedAnswerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.QuizContentSpecifiedAnswerId })
         </td>
     </tr>
 }

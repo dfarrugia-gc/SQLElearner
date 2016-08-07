@@ -275,6 +275,7 @@
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\TopicTypesController.cs" />
     <Compile Include="Controllers\UserCoursesController.cs" />
+    <Compile Include="Controllers\UserQuizResultsController.cs" />
     <Compile Include="Controllers\UserQuizsController.cs" />
     <Compile Include="Controllers\UserTopicsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -387,6 +388,7 @@
     <Content Include="fonts\font-awesome\scss\_screen-reader.scss" />
     <Content Include="fonts\font-awesome\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\Elearner - Web Deploy %282%29.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -579,6 +581,11 @@
     <Content Include="Views\QuizContents\Details.cshtml" />
     <Content Include="Views\QuizContents\Edit.cshtml" />
     <Content Include="Views\QuizContents\Index.cshtml" />
+    <Content Include="Views\UserQuizResults\Create.cshtml" />
+    <Content Include="Views\UserQuizResults\Delete.cshtml" />
+    <Content Include="Views\UserQuizResults\Details.cshtml" />
+    <Content Include="Views\UserQuizResults\Edit.cshtml" />
+    <Content Include="Views\UserQuizResults\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
