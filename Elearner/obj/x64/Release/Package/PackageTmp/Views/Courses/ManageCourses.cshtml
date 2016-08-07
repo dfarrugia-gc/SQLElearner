@@ -1,0 +1,111 @@
+﻿@model Elearner.Models.Course
+
+@{
+    ViewBag.Title = "ManageCourses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Content Manager</h2>
+
+
+<div class="container text-justify">
+    <div>
+        <table class="table-striped" width="100%">
+            <tr>
+                <td>
+                    <h4>Manage Admin Users:  @Html.ActionLink("Manage", "", "")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>This page helps you to administer the site adminstrators</i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div>
+        <table class="table-striped" width="100%">
+            <tr>
+                <td>
+                    <h4>Courses:  @Html.ActionLink("Manage", "Index")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>This page helps you to creat new Courses and manage existing ones</i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h4>Topic Types:  @Html.ActionLink("Manage", "Index", "TopicTypes")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>This page helps you to setup and manage the Topic Types. A topic type for example can be a <strong>Beginner</strong> or <strong>Advanced</strong></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h4>Topics:  @Html.ActionLink("Manage", "Index", "Topics")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>This page helps you to creat new Topics and manage existing ones</i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h4>Course Topics:  @Html.ActionLink("Manage", "Index", "CourseTopics")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>This page helps you to <strong>link</strong> a Course to a Topic and also manage existing ones</i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h4>Course Topic Sections:  @Html.ActionLink("Manage", "Index", "CourseTopicSections")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>This page helps you to create the topic sections (topic learning content) and instruction (learning exercises) of a course topic and also manage existing ones</i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h4>User Courses:  @Html.ActionLink("Manage", "Index", "UserCourses")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>....</i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h4>User Topics:  @Html.ActionLink("Manage", "Index", "UserTopics")</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i>....</i>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
