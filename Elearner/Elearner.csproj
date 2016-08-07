@@ -44,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -440,7 +441,6 @@
     <Content Include="Content.old\bootstrap.css.map" />
     <Content Include="Content.old\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\Elearner - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\SQLElearner - Web Deploy.pubxml" />
     <Content Include="Scripts\jqBootstrapValidation.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

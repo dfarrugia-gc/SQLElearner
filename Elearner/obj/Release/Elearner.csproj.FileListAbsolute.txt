@@ -148,6 +148,8 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Newtonsoft.Json.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Owin.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.dll
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.Mvc.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\System.Web.Helpers.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\System.Web.Mvc.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\System.Web.Optimization.dll
@@ -181,6 +183,8 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.ApplicationInsights.Log4NetAppender.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Newtonsoft.Json.xml
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.xml
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.Mvc.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\System.Web.Helpers.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\System.Web.Mvc.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\System.Web.Optimization.xml
@@ -203,14 +207,9 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\Elearner.csprojResolveAssemblyReference.cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\Elearner.Migrations.InitialCreate.resources
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\Elearner.Migrations.FirstName.resources
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\Elearner.Migrations.Init.resources
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\Elearner.csproj.GenerateResource.Cache
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\SQLElearner.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\obj\Release\SQLElearner.pdb
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.dll
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.Mvc.dll
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.xml
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner\bin\PagedList.Mvc.xml
