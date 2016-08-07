@@ -169,11 +169,22 @@
     }
     else
     {
-        foreach (var c in lstCourses)
-        {
-            <h3>@Html.DisplayFor(modelItem => c.CourseName)</h3>
-            @c.CourseInformation
-        }
+        <br />
+        <br />
+
+        <h3>
+            @foreach (var c in lstCourses)
+            {
+                @Html.DisplayFor(modelItem => c.CourseName);                
+            }
+        </h3>
+
+        <h4>
+            @foreach (var c in lstCourses)
+            {
+                @Html.DisplayFor(modelItem => c.CourseInformation);
+            }
+        </h4>
 
         <h5>The topics covering this course are:</h5>
 
