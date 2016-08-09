@@ -39,7 +39,7 @@
         var user_courses = lstUserCourses.Any(uc => uc.Id == currentUser.Id);
 
         <section id="user_course" class="text-center">
-            <div class="container text-center" style="height:100vh">
+            <div class="container text-center">
                 <div class="row text-center">
                     <div class="col-lg-12 text-center">
                         <h2>Welcome Back @currentUser.FirstName</h2>
@@ -61,7 +61,7 @@
                                 <h4>
                                     Please see our Courses and start your free course
                                 </h4>
-                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-default">
+                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
                                     Courses
                                 </a>
                             </div>                            
@@ -101,7 +101,7 @@
                                         <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">@progress %</strong></span>
                                     </div>
                                     <div class="caption-content">
-                                        <br>@Html.ActionLink("Continue", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-s btn-info" })
+                                        <br>@Html.ActionLink("Continue", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-s btn-default" })
                                     </div>
                                 </div>
                             }
@@ -112,7 +112,7 @@
                                 <h4>
                                     Please see our other Courses and start your free course
                                 </h4>
-                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-default">
+                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
                                     Courses
                                 </a>
                             </div>
@@ -183,7 +183,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="success" id="about" style="height:100vh">
+    <section class="success" id="about">
         <div class="container">
             <div class="row">
                 <p>

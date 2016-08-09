@@ -89,12 +89,11 @@
                         }
                         else
                         {
-
                             if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
                             {
                                 <td width="25%" style="padding:5px 5px 5px 5px">
-                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseTopicId })'" disabled>
-                                        Take Quiz
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                        TAKE QUIZ
                                     </button>
                                 </td>
                             }
@@ -107,7 +106,6 @@
                                 </td>
                             }
                         }
-
                     }
                     else
                     {
@@ -126,8 +124,8 @@
                                 if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
                                 {
                                     <td width="25%" style="padding:5px 5px 5px 5px">
-                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseTopicId })'">
-                                            Take Quiz
+                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseId, user = User.Identity.GetUserId() })'">
+                                            TAKE QUIZ
                                         </button>
                                     </td>
                                 }
@@ -145,12 +143,11 @@
                         {
                             if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
                             {
-                               
-                                    <td width="25%" style="padding:5px 5px 5px 5px">
-                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseTopicId })'">
-                                            Take Quiz
-                                        </button>
-                                    </td>
+                                <td width="25%" style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                        TAKE QUIZ
+                                    </button>
+                                </td>
                             }
                             else
                             {
@@ -162,7 +159,6 @@
                             }
                         }
                     }
-
                 </tr>
             }
         </table>
@@ -206,7 +202,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <button class="btn btn-s btn-default" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "Home")#user_course'">
-        Back to Courses
+        < Go Back
     </button>
 }
 else

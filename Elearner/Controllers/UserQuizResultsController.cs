@@ -18,7 +18,7 @@ namespace Elearner.Controllers
         // GET: UserQuizResults
         public async Task<ActionResult> Index()
         {
-            var userQuizResult = db.UserQuizResult.Include(u => u.QuizContentQuestion).Include(u => u.ResponseSpecifiedAnswer).Include(u => u.User).Include(u => u.UserQuiz);
+            var userQuizResult = db.UserQuizResult.Include(u => u.QuizContent).Include(u => u.ResponseSpecifiedAnswer).Include(u => u.User).Include(u => u.UserQuiz);
             return View(await userQuizResult.ToListAsync());
         }
 

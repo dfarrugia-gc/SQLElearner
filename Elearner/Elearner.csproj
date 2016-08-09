@@ -258,8 +258,11 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseTopicsController.cs" />
     <Compile Include="Controllers\CourseTopicSectionsController.cs" />
+    <Compile Include="Controllers\EnrollUserQuizResultsController.cs" />
+    <Compile Include="Controllers\QuizViewerController.cs" />
     <Compile Include="Controllers\CourseTopicSectionViewerController.cs" />
     <Compile Include="Controllers\CourseTopicViewerController.cs" />
+    <Compile Include="Controllers\EnrollQuizController.cs" />
     <Compile Include="Controllers\EnrollTopicSectionController.cs" />
     <Compile Include="Controllers\EnrollTopicController.cs" />
     <Compile Include="Controllers\EnrollCourseController.cs" />
@@ -586,6 +589,7 @@
     <Content Include="Views\UserQuizResults\Details.cshtml" />
     <Content Include="Views\UserQuizResults\Edit.cshtml" />
     <Content Include="Views\UserQuizResults\Index.cshtml" />
+    <Content Include="Views\QuizViewer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

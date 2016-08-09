@@ -1,0 +1,74 @@
+﻿@model IEnumerable<object>
+@{   
+    PagedList.IPagedList<Elearner.Models.QuizContent> lstQuestions = Model.ToList()[0] as PagedList.IPagedList<Elearner.Models.QuizContent>;
+    List<Elearner.Models.QuizContent> lstQuizContents = Model.ToList()[1] as List<Elearner.Models.QuizContent>;
+    List<Elearner.Models.UserQuizResult> lstUserQuizResults = Model.ToList()[2] as List<Elearner.Models.UserQuizResult>;
+    List<Elearner.Models.QuizContentSpecifiedAnswer> lstQuizContentSpeciedAnswer = Model.ToList()[3] as List<Elearner.Models.QuizContentSpecifiedAnswer>;
+    List<Elearner.Models.UserQuiz> lstUserQuizzes = Model.ToList()[4] as List<Elearner.Models.UserQuiz>;
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Quiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container text-justify">
+    @foreach (var question in lstQuestions)
+    {
+        //var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
+        //var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
+        <br />
+        <br />
+        <h3>
+            @lstQuizContents.First(f=>f.QuestionId == question.QuestionId).Quiz.QuizName
+        </h3>
+        <br />
+        <h4>
+            @question.Question.QuestionOder. @question.Question.QuestionText
+        </h4>
+        <br />
+        if (question.QuestionTypeId == 1)
+        {
+            <ul>
+                @foreach (var answer in lstQuizContentSpeciedAnswer)
+                {
+                    if (answer.QuizContent.QuestionId == question.QuestionId)
+                    {
+                        <li>
+                            <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Create", "EnrollUserQuizResults", new { questionId = question.QuestionId , specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId, user = User.Identity.GetUserId(), userQuizId = lstUserQuizzes.SingleOrDefault().UserQuizId})'">
+                                @answer.SpecifiedAnswer.AnswerText
+                            </button>
+                        </li>
+                        <br />
+                    }
+                }
+            </ul>            
+        }
+        else
+        {
+           @Html.TextArea("Answer", "Insert Answer Here...", 10, 500, new { rows = 10, columns = 500 })
+            <p></p>
+        }
+    }
+    <br />
+    <br />
+    Question @(lstQuestions.PageCount < lstQuestions.PageNumber ? 0 : lstQuestions.PageNumber) of @lstQuestions.PageCount
+
+    @Html.PagedListPager(lstQuestions, page => Url.Action("Index", new { page }))
+
+    @foreach (var question in lstQuestions)
+    {
+        <button class="btn btn-s btn-default" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = question.Quiz.CourseId})'">
+            < Go Back
+        </button>
+    }
+</div>

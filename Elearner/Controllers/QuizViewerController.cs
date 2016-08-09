@@ -10,41 +10,66 @@ using System.Web;
 
 namespace SQLElearner.Controllers
 {
-    public class CourseTopicSectionViewerController : Controller
+    public class QuizViewerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: CourseTopicSectionViewer
+        // GET: QuizViewer
         public ActionResult Index(int? id, int? page)
         {
             var user = User.Identity.GetUserId();
 
             List<object> myModel = new List<object>();
-            var totalCourseTopicSections = db.CourseTopicSections.ToList();
-            var courseTopicSections = db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts => cts.Order).ToList();
-            var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
-            var courseTopics = db.CourseTopics.Where(ct => ct.CourseTopicId == id).OrderBy(ct => ct.TopicOrder).ToList();
+            var quiz = db.Quizs.Where(q => q.QuizId == id).ToList();
+            var quizContents = db.QuizContents.Where(qc => qc.QuizId == id).ToList();
+            var userQuizResults = db.UserQuizResult.Where(uqr => uqr.UserQuiz.QuizId == id && uqr.Id.Equals(user)).ToList();
+            var quizContentSpecifiedAnswers = db.QuizContentSpecifiedAnswers.Where(x=>x.QuizContent.QuizId == id).ToList();
+            var userQuizes = db.UserQuizs.Where(uq=>uq.QuizId == id).ToList();
 
-            var currentSection = userTopicSections.Find(f => f.CourseTopicSectionId == userTopicSections.Max(m => m.CourseTopicSectionId));
-            try
+            if (userQuizResults.Count() == 0)
             {
+                try
+                {
 
-                var pageNumber = (page ?? currentSection.CourseTopicSection.Order);
-                var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
+                    var pageNumber = (page ?? 1);
+                    var questionPages = quizContents.ToPagedList(pageNumber, 1);
 
-                myModel.Add(courseTopicSectionsPages);
-                myModel.Add(userTopicSections);
-                myModel.Add(courseTopics);
-                myModel.Add(totalCourseTopicSections);
+                    myModel.Add(questionPages);
+                    myModel.Add(quizContents);
+                    myModel.Add(userQuizResults);
+                    myModel.Add(quizContentSpecifiedAnswers);
+                    myModel.Add(userQuizes);
 
-                return View(myModel);
+                    return View(myModel);
+                }
+                catch
+                {
+                    return new HttpNotFoundResult("Content Not Found");
+                }
             }
-            catch
+            else
             {
-                return new HttpNotFoundResult("Content Not Found");
-            }
+                var currentquestion = quizContents.First(f => f.QuestionId == userQuizResults.Max(m => m.QuestionId));
+
+                try
+                {
+
+                    var pageNumber = (page ?? currentquestion.Question.QuestionOder);
+                    var questionPages = quizContents.ToPagedList(pageNumber, 1);
+
+                    myModel.Add(questionPages);
+                    myModel.Add(quizContents);
+                    myModel.Add(userQuizResults);
+
+                    return View(myModel);
+                }
+                catch
+                {
+                    return new HttpNotFoundResult("Content Not Found");
+                }
+            }            
         }
 
-        // GET: CourseTopicSectionViewer/Details/5
+        // GET: QuizViewer/Details/5
         [Authorize(Roles = "Admin")]
         public async System.Threading.Tasks.Task<ActionResult> Details(int id)
         {
@@ -60,14 +85,14 @@ namespace SQLElearner.Controllers
             return View(courseTopicSections);
         }
 
-        // GET: CourseTopicSectionViewer/Create
+        // GET: QuizViewer/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CourseTopicSectionViewer/Create
+        // POST: QuizViewer/Create
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection collection)
@@ -84,14 +109,14 @@ namespace SQLElearner.Controllers
             }
         }
 
-        // GET: CourseTopicSectionViewer/Edit/5
+        // GET: QuizViewer/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: CourseTopicSectionViewer/Edit/5
+        // POST: QuizViewer/Edit/5
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, FormCollection collection)
@@ -108,14 +133,14 @@ namespace SQLElearner.Controllers
             }
         }
 
-        // GET: CourseTopicSectionViewer/Delete/5
+        // GET: QuizViewer/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CourseTopicSectionViewer/Delete/5
+        // POST: QuizViewer/Delete/5
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)

@@ -110,7 +110,8 @@ namespace Elearner.Controllers
             else
             {
                 var nextTopic = (from nt in db.CourseTopics
-                                 where nt.TopicOrder == (userTopicSection.CourseTopicSection.CourseTopic.TopicOrder + 1)
+                                 where nt.CourseId == userTopicSection.CourseTopicSection.CourseTopic.CourseId 
+                                 && nt.TopicOrder == (userTopicSection.CourseTopicSection.CourseTopic.TopicOrder + 1)
                                  select nt.CourseTopicId).ToList();
 
                 var markAsComplete = new EnrollTopicController().MarkAsComplete(userTopicSection.CourseTopicSection.CourseTopicId, user);
