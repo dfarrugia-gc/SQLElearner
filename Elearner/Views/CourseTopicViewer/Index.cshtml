@@ -5,6 +5,8 @@
     List<Elearner.Models.UserTopic> lstUserTopics = Model.ToList()[2] as List<Elearner.Models.UserTopic>;
     List<Elearner.Models.UserTopicSection> lstUserTopicSections = Model.ToList()[3] as List<Elearner.Models.UserTopicSection>;
     List<Elearner.Models.CourseTopicSection> lstCourseTopicSections = Model.ToList()[4] as List<Elearner.Models.CourseTopicSection>;
+    List<Elearner.Models.QuizContent> lstQuizContents = Model.ToList()[5] as List<Elearner.Models.QuizContent>;
+    List<Elearner.Models.UserQuizResult> lstUserQuizResults = Model.ToList()[6] as List<Elearner.Models.UserQuizResult>;
 }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
@@ -65,9 +67,19 @@
                     <td width="50%">
                         @if (lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId).Count() == 0)
                         {
-                            <div class="progressbar" style="text-align:center" rel="0">
-                                <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">0 %</strong></span>
-                            </div>
+                            if (ct.Topic.TopicTypeId == 5)
+                            {
+                                double percentage = (double)lstUserQuizResults.Count() / (double)lstQuizContents.Count() * 100;
+                                <div class="progressbar" style="text-align:center" rel="@percentage">
+                                    <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">@percentage %</strong></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="progressbar" style="text-align:center" rel="0">
+                                    <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">0 %</strong></span>
+                                </div>
+                            }
                         }
                         else
                         {

@@ -20,19 +20,56 @@ namespace SQLElearner.Controllers
 
             List<object> myModel = new List<object>();
             var quiz = db.Quizs.Where(q => q.QuizId == id).ToList();
-            var quizContents = db.QuizContents.Where(qc => qc.QuizId == id).ToList();
-            var userQuizResults = db.UserQuizResult.Where(uqr => uqr.UserQuiz.QuizId == id && uqr.Id.Equals(user)).ToList();
+            var quizContents = db.QuizContents.Where(qc => qc.QuizId == id).ToList();            
             var quizContentSpecifiedAnswers = db.QuizContentSpecifiedAnswers.Where(x=>x.QuizContent.QuizId == id).ToList();
             var userQuizes = db.UserQuizs.Where(uq=>uq.QuizId == id).ToList();
+
+            var userQuizResults = db.UserQuizResults.Where(uqr => uqr.UserQuiz.QuizId == id && uqr.Id.Equals(user)).ToList();
+
+            var currentquestion = userQuizResults.Find(f => f.QuestionId == userQuizResults.Max(m => m.QuestionId));
+            var nextQuestion = db.Questions.Where(q => q.QuestionOder == currentquestion.Question.QuestionOder).SingleOrDefault();
+
+            var pageNumber = (page ?? 1);
+            var questionPages = quizContents.ToPagedList(pageNumber, 1);
 
             if (userQuizResults.Count() == 0)
             {
                 try
                 {
+                    myModel.Add(questionPages);
+                    myModel.Add(quizContents);
+                    myModel.Add(userQuizResults);
+                    myModel.Add(quizContentSpecifiedAnswers);
+                    myModel.Add(userQuizes);
 
-                    var pageNumber = (page ?? 1);
-                    var questionPages = quizContents.ToPagedList(pageNumber, 1);
+                    return View(myModel);
+                }
+                catch
+                {
+                    return new HttpNotFoundResult("No Quiz Setup fo this Course");
+                }
+            }
+            //else if(nextQuestion == null)
+            //{
+            //    try
+            //    {
+            //        myModel.Add(questionPages);
+            //        myModel.Add(quizContents);
+            //        myModel.Add(userQuizResults);
+            //        myModel.Add(quizContentSpecifiedAnswers);
+            //        myModel.Add(userQuizes);
 
+            //        return View(myModel);
+            //    }
+            //    catch
+            //    {
+            //        return new HttpNotFoundResult("Content Not Found");
+            //    }
+            //}
+            else
+            {
+                try
+                {
                     myModel.Add(questionPages);
                     myModel.Add(quizContents);
                     myModel.Add(userQuizResults);
@@ -45,28 +82,7 @@ namespace SQLElearner.Controllers
                 {
                     return new HttpNotFoundResult("Content Not Found");
                 }
-            }
-            else
-            {
-                var currentquestion = quizContents.First(f => f.QuestionId == userQuizResults.Max(m => m.QuestionId));
-
-                try
-                {
-
-                    var pageNumber = (page ?? currentquestion.Question.QuestionOder);
-                    var questionPages = quizContents.ToPagedList(pageNumber, 1);
-
-                    myModel.Add(questionPages);
-                    myModel.Add(quizContents);
-                    myModel.Add(userQuizResults);
-
-                    return View(myModel);
-                }
-                catch
-                {
-                    return new HttpNotFoundResult("Content Not Found");
-                }
-            }            
+            }    
         }
 
         // GET: QuizViewer/Details/5

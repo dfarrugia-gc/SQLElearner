@@ -42,12 +42,12 @@
             <div class="container text-center">
                 <div class="row text-center">
                     <div class="col-lg-12 text-center">
-                        <h2>Welcome Back @currentUser.FirstName</h2>
+                        <h3>Welcome Back @currentUser.FirstName</h3>
                         @if (user_courses == true)
                         {
-                            <h4>You are currently enrolled in the below courses<br />Click Continue to resume your course</h4>
-                        }                        
-                        <hr class="star-primary">
+                            <h5 class="text-muted">You are currently enrolled in the below courses<br />Click Continue to resume your course</h5>
+                        }
+                        <br />
                     </div>
                 </div>
                 <div class="row text-center">                    
@@ -55,12 +55,12 @@
                     {
                         <div class="caption-centred">
                             <div class="col-lg-12 text-center">
-                                <h3>
+                                <h5>
                                     You have no courses in progress
-                                </h3>
-                                <h4>
+                                </h5>
+                                <h5>
                                     Please see our Courses and start your free course
-                                </h4>
+                                </h5>
                                 <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
                                     Courses
                                 </a>
@@ -89,10 +89,10 @@
                                 <div class="col-lg-12 text-center">
                                     <div class="caption-centred">
                                         <div class="skills">
-                                            <h3>
+                                            <h4>
                                                 @c.CourseName
-                                            </h3>
-                                            <h6>
+                                            </h4>
+                                            <h6 class="text-muted">
                                                 Percentage Complete
                                             </h6>
                                         </div>                           
@@ -100,18 +100,17 @@
                                     <div class="progressbar" style="text-align:center" rel="@progress">
                                         <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">@progress %</strong></span>
                                     </div>
-                                    <div class="caption-content">
-                                        <br>@Html.ActionLink("Continue", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-s btn-default" })
-                                    </div>
+                                    @Html.ActionLink("Continue", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-s btn-default text-info" })   
+                                    <br />
+                                    <br />                             
                                 </div>
-                            }
+                            }                            
                         }
                         <div class="caption-content">
                             <div class="col-lg-12 text-center">
-                                <hr class="star-light">
-                                <h4>
+                                <h5>
                                     Please see our other Courses and start your free course
-                                </h4>
+                                </h5>
                                 <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
                                     Courses
                                 </a>
@@ -157,7 +156,7 @@
                     <br />
                 </p>
                 <div class="col-lg-12 text-center">
-                    <h2>Our Courses</h2>
+                    <h3>Our Courses</h3>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -173,7 +172,7 @@
                                     <img src="~/Images/icon_004240_256-1024x1024.png" alt=""> @c.CourseName
                                 </h3>
                             </div>                            
-                            <p>@c.CourseInformation</p>
+                            <p class="text-muted">@c.CourseInformation</p>
                         </div>
                         @Html.ActionLink("More Information", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-lg btn-info" })
                     </div>

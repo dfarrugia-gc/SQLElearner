@@ -53,7 +53,7 @@ namespace Elearner.Models
         public DbSet<QuizContent> QuizContents { get; set; }
         public DbSet<QuizContentSpecifiedAnswer> QuizContentSpecifiedAnswers { get; set; }
         public DbSet<SpecifiedAnswer> SpecifiedAnswers { get; set; }
-        public DbSet<UserQuizResult> UserQuizResult { get; set; }
+        public DbSet<UserQuizResult> UserQuizResults { get; set; }
 
         public static ApplicationDbContext Create()
         {

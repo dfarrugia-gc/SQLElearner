@@ -38,25 +38,49 @@
         <br />
         if (question.QuestionTypeId == 1)
         {
-            <ul>
-                @foreach (var answer in lstQuizContentSpeciedAnswer)
+
+            foreach (var answer in lstQuizContentSpeciedAnswer)
+            {
+                if (answer.QuizContent.QuestionId == question.QuestionId)
                 {
-                    if (answer.QuizContent.QuestionId == question.QuestionId)
+                    if (lstUserQuizResults.Any(x => x.SpecifiedAnswerId == answer.SpecifiedAnswer.SpecifiedAnswerId))
                     {
-                        <li>
-                            <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Create", "EnrollUserQuizResults", new { questionId = question.QuestionId , specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId, user = User.Identity.GetUserId(), userQuizId = lstUserQuizzes.SingleOrDefault().UserQuizId})'">
+                        <button type="button" class="btn btn-s btn-info" disabled>
+                            @answer.SpecifiedAnswer.AnswerText  <span class="glyphicon glyphicon-record"></span>
+                        </button>
+                        <br />
+                    }
+                    else
+                    {
+                        <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" onclick="location.href=
+                                    '@Url.Action("Create", "EnrollUserQuizResults",
+                                    new {
+                                        questionId = question.QuestionId ,
+                                        specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId,
+                                        user = User.Identity.GetUserId(),
+                                        userQuizId = lstUserQuizzes.SingleOrDefault().UserQuizId,
+                                        quizid = lstUserQuizzes.SingleOrDefault().QuizId
+                                    })'">
                                 @answer.SpecifiedAnswer.AnswerText
-                            </button>
-                        </li>
+                        </button>
                         <br />
                     }
                 }
-            </ul>            
+            }
         }
         else
         {
            @Html.TextArea("Answer", "Insert Answer Here...", 10, 500, new { rows = 10, columns = 500 })
             <p></p>
+        }
+
+        if (lstQuestions.IsLastPage && question.Question.QuestionOder == lstQuizContents.Max(m => m.Question.QuestionOder))
+        {
+            <br />
+            <br />
+            <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollUserQuizResults", new {id = lstUserQuizzes.SingleOrDefault().UserQuizId, user = User.Identity.GetUserId() })'">
+                Finish Quiz
+            </button>
         }
     }
     <br />

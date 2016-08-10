@@ -18,7 +18,7 @@ namespace Elearner.Controllers
 
 
         // GET: EnrollUserQuizResults/Create
-        public ActionResult Create(int questionId, int specifiedAnswerId, string user, int userQuizId)
+        public ActionResult Create(int questionId, int specifiedAnswerId, string user, int userQuizId, int quizId)
         {
             if(string.IsNullOrEmpty(user))
             {
@@ -27,19 +27,49 @@ namespace Elearner.Controllers
             else
             {
                 
+                var userquiz = db.UserQuizs.FirstOrDefault(uq=>uq.UserQuizId == userQuizId);
+                var quizContents = db.QuizContents.Where(qc => qc.QuizId == quizId).ToList();
+                var usrQzResult = db.UserQuizResults.FirstOrDefault(x => x.UserQuizId == userquiz.UserQuizId & x.QuestionId == questionId & x.Id.Equals(user));
+                
                 var userQuizResults = new UserQuizResult()
                 {
                     Id = user,
                     QuestionId = questionId,
-                    UserQuizId = userQuizId,
+                    UserQuizId = userquiz.UserQuizId,
                     SpecifiedAnswerId = specifiedAnswerId
                 };
 
-                db.UserQuizResult.Add(userQuizResults);
-                db.SaveChanges();
+                bool userQuizReaultExists = db.UserQuizResults.Any(x => x.UserQuizId == userquiz.UserQuizId
+                &x.QuestionId == questionId
+                & x.Id.Equals(user));
 
-                return RedirectToAction("Index", "QuizViewer", new { id = userQuizResults.UserQuiz.QuizId});
+                if (!userQuizReaultExists)
+                {
+                    db.UserQuizResults.Add(userQuizResults);
+                    db.SaveChanges();
+                }else
+                {
+                    UserQuizResult uqr = db.UserQuizResults.FirstOrDefault(x => x.UserQuizResultId == usrQzResult.UserQuizResultId);
+                    uqr.SpecifiedAnswerId = specifiedAnswerId;
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index", "QuizViewer", new { id = quizId});
             }
+        }
+
+        public ActionResult MarkAsComplete(int? id, string user)
+        {
+            var userquiz = db.UserQuizs.FirstOrDefault(uq => uq.UserQuizId == id);
+            //var courseTopicSection = db.CourseTopicSections.Where(x => x.CourseTopicId == userTopicSection.CourseTopicSection.CourseTopicId);
+
+            if (ModelState.IsValid)
+            {
+                userquiz.DateTimeCompleted = DateTime.Now;
+
+                db.Entry(userquiz).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "CourseTopicViewer", new { id = userquiz.Quiz.CourseId });
         }
     }
 }

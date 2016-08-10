@@ -30,6 +30,8 @@ namespace Elearner.Controllers
                 myModel.Add(userTopic);
                 myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopic.CourseId == id && uts.Id.Equals(user)).ToList());
                 myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopic.CourseId == id).ToList());
+                myModel.Add(db.QuizContents.Where(f=>f.Quiz.CourseId == id).ToList());
+                myModel.Add(db.UserQuizResults.Where(f => f.UserQuiz.Quiz.CourseId == id).ToList());
 
                 if (userCourses.Count() == 0)
                 {

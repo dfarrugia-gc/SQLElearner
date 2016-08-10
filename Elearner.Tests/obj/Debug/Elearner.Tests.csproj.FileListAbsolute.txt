@@ -86,11 +86,11 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\SQLElearner.Tests.dll.config
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\SQLElearner.Tests.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\SQLElearner.Tests.pdb
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Elearner.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Facebook.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Newtonsoft.Json.dll
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\SQLElearner.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\System.Web.Helpers.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\System.Web.Mvc.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\System.Web.Razor.dll
@@ -114,7 +114,7 @@ C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Google.Apis.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Google.Apis.Core.dll
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Zlib.Portable.dll
-C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\SQLElearner.pdb
+C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Elearner.pdb
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Facebook.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\Newtonsoft.Json.xml
 C:\Users\dfarrugia\Google Drive\BSc\BSc UH\SNet\S3EADD\Project\Elearner\Elearner\Elearner.Tests\bin\Debug\System.Web.Helpers.xml

@@ -18,7 +18,7 @@ namespace Elearner.Controllers
         // GET: UserQuizResults
         public async Task<ActionResult> Index()
         {
-            var userQuizResult = db.UserQuizResult.Include(u => u.QuizContent).Include(u => u.ResponseSpecifiedAnswer).Include(u => u.User).Include(u => u.UserQuiz);
+            var userQuizResult = db.UserQuizResults.Include(u => u.Question).Include(u => u.ResponseSpecifiedAnswer).Include(u => u.User).Include(u => u.UserQuiz);
             return View(await userQuizResult.ToListAsync());
         }
 
@@ -29,7 +29,7 @@ namespace Elearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserQuizResult userQuizResult = await db.UserQuizResult.FindAsync(id);
+            UserQuizResult userQuizResult = await db.UserQuizResults.FindAsync(id);
             if (userQuizResult == null)
             {
                 return HttpNotFound();
@@ -56,7 +56,7 @@ namespace Elearner.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.UserQuizResult.Add(userQuizResult);
+                db.UserQuizResults.Add(userQuizResult);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -75,7 +75,7 @@ namespace Elearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserQuizResult userQuizResult = await db.UserQuizResult.FindAsync(id);
+            UserQuizResult userQuizResult = await db.UserQuizResults.FindAsync(id);
             if (userQuizResult == null)
             {
                 return HttpNotFound();
@@ -114,7 +114,7 @@ namespace Elearner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserQuizResult userQuizResult = await db.UserQuizResult.FindAsync(id);
+            UserQuizResult userQuizResult = await db.UserQuizResults.FindAsync(id);
             if (userQuizResult == null)
             {
                 return HttpNotFound();
@@ -127,8 +127,8 @@ namespace Elearner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            UserQuizResult userQuizResult = await db.UserQuizResult.FindAsync(id);
-            db.UserQuizResult.Remove(userQuizResult);
+            UserQuizResult userQuizResult = await db.UserQuizResults.FindAsync(id);
+            db.UserQuizResults.Remove(userQuizResult);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

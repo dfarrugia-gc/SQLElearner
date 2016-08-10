@@ -47,8 +47,8 @@ namespace Elearner.Controllers
                     QuizId = quiz.QuizId
                 };
 
-                bool userQuizExists = db.UserQuizs.Any(x => x.Quiz.QuizId.Equals(quiz.QuizId)
-                & x.Id == user);
+                bool userQuizExists = db.UserQuizs.Any(x => x.QuizId == quiz.QuizId
+                & x.Id.Equals(user));
                 
                 if (!userQuizExists)
                 {
