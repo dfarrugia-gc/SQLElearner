@@ -27,9 +27,18 @@ namespace SQLElearner.Controllers
             var userQuizResults = db.UserQuizResults.Where(uqr => uqr.UserQuiz.QuizId == id && uqr.Id.Equals(user)).ToList();
 
             var currentquestion = userQuizResults.Find(f => f.QuestionId == userQuizResults.Max(m => m.QuestionId));
-            var nextQuestion = db.Questions.Where(q => q.QuestionOder == currentquestion.Question.QuestionOder).SingleOrDefault();
 
-            var pageNumber = (page ?? 1);
+             if (currentquestion == null)
+            {
+                var firstquestion = db.QuizContents.Min(x=>x.Question.QuestionOder);
+                page = firstquestion;
+            }else
+            {
+                var nextQuestion = db.Questions.Where(q => q.QuestionOder == currentquestion.Question.QuestionOder).SingleOrDefault();
+            }
+            
+
+            var pageNumber = (page ?? currentquestion.Question.QuestionOder);
             var questionPages = quizContents.ToPagedList(pageNumber, 1);
 
             if (userQuizResults.Count() == 0)

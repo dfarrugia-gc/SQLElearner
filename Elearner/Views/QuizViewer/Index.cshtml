@@ -22,10 +22,9 @@
 }
 
 <div class="container text-justify">
+
     @foreach (var question in lstQuestions)
     {
-        //var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
-        //var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
         <br />
         <br />
         <h3>
@@ -52,18 +51,34 @@
                     }
                     else
                     {
-                        <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" onclick="location.href=
+                        var questionId = question.QuestionId;
+                        var specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId;
+                        var user = User.Identity.GetUserId();
+                        var userQuizId = lstUserQuizzes.FirstOrDefault(x => x.Id == User.Identity.GetUserId() && x.QuizId == question.QuizId);
+                        var quizid = lstUserQuizzes.FirstOrDefault(x => x.Id == User.Identity.GetUserId() && x.QuizId == question.QuizId).QuizId;
+
+                        if (lstUserQuizResults.Any(x => x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
+                        {
+                            <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" disabled>
+                                @answer.SpecifiedAnswer.AnswerText
+                            </button>
+                            <br />
+                        }
+                        else
+                        {
+                            <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" onclick="location.href=
                                     '@Url.Action("Create", "EnrollUserQuizResults",
                                     new {
-                                        questionId = question.QuestionId ,
-                                        specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId,
-                                        user = User.Identity.GetUserId(),
-                                        userQuizId = lstUserQuizzes.SingleOrDefault().UserQuizId,
-                                        quizid = lstUserQuizzes.SingleOrDefault().QuizId
+                                        questionId = questionId ,
+                                        specifiedAnswerId = specifiedAnswerId,
+                                        user = user,
+                                        userQuizId = userQuizId.UserQuizId,
+                                        quizid = quizid
                                     })'">
                                 @answer.SpecifiedAnswer.AnswerText
-                        </button>
-                        <br />
+                            </button>
+                            <br />
+                        }
                     }
                 }
             }
@@ -74,13 +89,23 @@
             <p></p>
         }
 
-        if (lstQuestions.IsLastPage && question.Question.QuestionOder == lstQuizContents.Max(m => m.Question.QuestionOder))
+        if (lstQuestions.IsLastPage && question.Question.QuestionOder == lstQuizContents.Max(m => m.Question.QuestionOder) 
+            && lstUserQuizResults.Any(x=>x.QuestionId == lstQuizContents.Max(m => m.Question.QuestionId)))
         {
             <br />
             <br />
-            <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollUserQuizResults", new {id = lstUserQuizzes.SingleOrDefault().UserQuizId, user = User.Identity.GetUserId() })'">
-                Finish Quiz
-            </button>
+            if (lstUserQuizResults.Any(x => x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
+            {
+                //show nothing
+            }
+            else
+            {
+                var userQuizId = lstUserQuizzes.FirstOrDefault(x => x.Id == User.Identity.GetUserId() && x.QuizId == question.QuizId);
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollUserQuizResults", new {id = userQuizId.UserQuizId, user = User.Identity.GetUserId() })'">
+                    Finish Quiz
+                </button>
+            }
+
         }
     }
     <br />

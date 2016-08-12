@@ -17,19 +17,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- jQuery code for progress bar % calculation -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $('.progressbar').each(function () {
-            var val = $(this).attr('rel');
-            $(this).progressbar({ value: parseInt(val) });
-        });
-    });
-</script>
+
 
 <div class="container">    
 
@@ -61,40 +49,53 @@
             {
 
                 <tr>
-                    <td width="25%">
-                        @Html.DisplayFor(modelItem => ct.Topic.TopicName)
+                    <td>
+                        @if (ct.Topic.TopicTypeId == 5 && lstQuizContents.Count() == 0)
+                        {
+                            //show nothing
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => ct.Topic.TopicName)
+                        }
                     </td>
-                    <td width="50%">
+                    <td >
                         @if (lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId).Count() == 0)
                         {
                             if (ct.Topic.TopicTypeId == 5)
                             {
-                                double percentage = (double)lstUserQuizResults.Count() / (double)lstQuizContents.Count() * 100;
-                                <div class="progressbar" style="text-align:center" rel="@percentage">
-                                    <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">@percentage %</strong></span>
-                                </div>
+                                if (lstQuizContents.Count() == 0)
+                                {
+                                    //show nothing
+                                }
+                                else
+                                {
+                                    double percentage = (double)lstUserQuizResults.Where(x => x.Id == User.Identity.GetUserId()).Count() / (double)lstQuizContents.Count() * 100;
+                                    percentage = Math.Round(percentage, 0);
+                                    <div><progress id="progressbar" value="@percentage" max="100"></progress> @percentage%</div>
+                                }
+
                             }
                             else
                             {
-                                <div class="progressbar" style="text-align:center" rel="0">
-                                    <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">0 %</strong></span>
-                                </div>
+                                <div><progress id="progressbar" value="0" max="100"></progress> 0%</div>
                             }
                         }
                         else
                         {
-                            double percentage = (double)lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId).Count() / (double)lstCourseTopicSections.Where(cts => cts.CourseTopicId == ct.CourseTopicId).Count() * 100;
-                            <div class="progressbar" style="text-align:center" rel="@percentage">
-                                <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">@percentage %</strong></span>
-                            </div>
+                            double percentage = (double)lstUserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == ct.CourseTopicId 
+                            && uts.Id == User.Identity.GetUserId()).Count() / (double)lstCourseTopicSections.Where(cts => cts.CourseTopicId == ct.CourseTopicId).Count() * 100;
+                            percentage = Math.Round(percentage, 0);
+                            <div><progress id="progressbar" value="@percentage" max="100"></progress> @percentage%</div>
                         }                        
                     </td>
                     @if (lstUserTopics == null || lstUserTopics.Count() == 0)
                     {
                         if ((lstCourseTopics.Min(mct => mct.TopicOrder) == ct.TopicOrder))
                         {
-                            <td width="25%" style="padding:5px 5px 5px 5px">
-                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                            <td style="padding:5px 5px 5px 5px">
+                                <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                        onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
                                     LEARN
                                 </button>
                             </td>
@@ -103,16 +104,26 @@
                         {
                             if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
                             {
-                                <td width="25%" style="padding:5px 5px 5px 5px">
-                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
-                                        TAKE QUIZ
-                                    </button>
-                                </td>
+                                if (lstQuizContents.Count() == 0)
+                                {
+                                    //no quiz available
+                                }
+                                else
+                                {
+                                    <td style="padding:5px 5px 5px 5px">
+                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                                onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseId, user = User.Identity.GetUserId() })'" disabled>
+                                            QUIZ
+                                        </button>
+                                    </td>
+                                }
+
                             }
                             else
                             {
-                                <td width="25%" style="padding:5px 5px 5px 5px">
-                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                            onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
                                         LEARN
                                     </button>
                                 </td>
@@ -125,9 +136,10 @@
                         {
                             if (lstUserTopics.Any(ut => ut.CourseTopicId.Equals(ct.CourseTopicId) && ut.Id == User.Identity.GetUserId() && ut.Completed == true))
                             {
-                                <td width="25%" style="padding:5px 5px 5px 5px">
-                                    <button type="button" class="btn btn-xs btn-success" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
-                                        <span class="glyphicon glyphicon-check"></span> Completed
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button type="button" class="btn btn-xs btn-success" id="enrollCourse" 
+                                            onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                        Completed <span class="glyphicon glyphicon-check"></span>
                                     </button>
                                 </td>
                             }
@@ -135,16 +147,30 @@
                             {
                                 if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
                                 {
-                                    <td width="25%" style="padding:5px 5px 5px 5px">
-                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseId, user = User.Identity.GetUserId() })'">
-                                            TAKE QUIZ
-                                        </button>
-                                    </td>
+                                    if (lstUserQuizResults.Any(x => x.UserQuiz.Quiz.CourseId == ct.CourseId && x.Id == User.Identity.GetUserId() && x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
+                                    {
+                                        <td style="padding:5px 5px 5px 5px">
+                                            <button class="btn btn-xs btn-info btn-success" type="button" id="enrollCourse" 
+                                                    onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseId, user = User.Identity.GetUserId() })'">
+                                                Completed <span class="glyphicon glyphicon-check"></span>
+                                            </button>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="padding:5px 5px 5px 5px">
+                                            <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                                    onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseId, user = User.Identity.GetUserId() })'">
+                                                TAKE QUIZ
+                                            </button>
+                                        </td>
+                                    }
                                 }
                                 else
                                 {
-                                    <td width="25%" style="padding:5px 5px 5px 5px">
-                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
+                                    <td style="padding:5px 5px 5px 5px">
+                                        <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                                onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'">
                                             LEARN
                                         </button>
                                     </td>
@@ -155,16 +181,18 @@
                         {
                             if (ct.Topic.TopicType.TopicTypeName.Equals("Quiz"))
                             {
-                                <td width="25%" style="padding:5px 5px 5px 5px">
-                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                            onclick="location.href='@Url.Action("Create", "EnrollQuiz", new { id = ct.CourseId, user = User.Identity.GetUserId() })'" disabled>
                                         TAKE QUIZ
                                     </button>
                                 </td>
                             }
                             else
                             {
-                                <td width="25%" style="padding:5px 5px 5px 5px">
-                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
+                                <td style="padding:5px 5px 5px 5px">
+                                    <button class="btn btn-xs btn-info" type="button" id="enrollCourse" 
+                                            onclick="location.href='@Url.Action("Create", "EnrollTopic", new { id = ct.CourseTopicId })'" disabled>
                                         LEARN
                                     </button>
                                 </td>
