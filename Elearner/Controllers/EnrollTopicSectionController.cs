@@ -112,7 +112,7 @@ namespace Elearner.Controllers
                 CourseTopic nextTopic = (from nt in db.CourseTopics
                                  where nt.CourseId == userTopicSection.CourseTopicSection.CourseTopic.CourseId 
                                  && nt.TopicOrder == (userTopicSection.CourseTopicSection.CourseTopic.TopicOrder + 1)
-                                 select nt).SingleOrDefault();
+                                 select nt).SingleOrDefault();                
 
                 var markAsComplete = new EnrollTopicController().MarkAsComplete(userTopicSection.CourseTopicSection.CourseTopicId, user);
                 if(nextTopic == null)
@@ -123,7 +123,15 @@ namespace Elearner.Controllers
                 else
                 {
                     var enrollNextTopic = new EnrollTopicController().Create(nextTopic.CourseTopicId, user);
-                    return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+                    var newNextTopicSection = db.CourseTopicSections.SingleOrDefault(x => x.CourseTopicId == nextTopic.CourseTopicId);
+                    if (newNextTopicSection == null)
+                    {
+                        return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "CourseTopicSectionViewer", new { id = nextTopic.CourseTopicId });
+                    }                    
                 }                
                 
             }                     

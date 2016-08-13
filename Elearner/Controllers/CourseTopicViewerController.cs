@@ -23,7 +23,7 @@ namespace Elearner.Controllers
                 var user = User.Identity.GetUserId();
                 var userTopic = db.UserTopics.Where(ut => ut.CourseTopic.CourseId == id && ut.Id.Equals(user)).ToList();
                 var userCourses = db.UserCourses.Where(uc => uc.CourseId == id && uc.Id.Equals(user)).ToList();
-
+                
                 List<object> myModel = new List<object>();
                 myModel.Add(db.Courses.Where(c => c.CourseId == id).ToList());
                 myModel.Add(db.CourseTopics.Where(ct => ct.CourseId == id).ToList());
@@ -31,7 +31,9 @@ namespace Elearner.Controllers
                 myModel.Add(db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopic.CourseId == id && uts.Id.Equals(user)).ToList());
                 myModel.Add(db.CourseTopicSections.Where(cts => cts.CourseTopic.CourseId == id).ToList());
                 myModel.Add(db.QuizContents.Where(f=>f.Quiz.CourseId == id).ToList());
-                myModel.Add(db.UserQuizResults.Where(f => f.UserQuiz.Quiz.CourseId == id).ToList());
+                myModel.Add(db.UserQuizResults.Where(f => f.UserQuiz.Quiz.CourseId == id && f.Id == user).ToList());
+                myModel.Add(db.UserQuizs.Where(f => f.Quiz.CourseId == id && f.Id == user).ToList());
+                myModel.Add(db.SpecifiedAnswers.Where(f => f.IsCorrect == true).ToList());
 
                 if (userCourses.Count() == 0)
                 {

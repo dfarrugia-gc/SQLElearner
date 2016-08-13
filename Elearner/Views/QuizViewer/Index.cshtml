@@ -4,7 +4,7 @@
     List<Elearner.Models.QuizContent> lstQuizContents = Model.ToList()[1] as List<Elearner.Models.QuizContent>;
     List<Elearner.Models.UserQuizResult> lstUserQuizResults = Model.ToList()[2] as List<Elearner.Models.UserQuizResult>;
     List<Elearner.Models.QuizContentSpecifiedAnswer> lstQuizContentSpeciedAnswer = Model.ToList()[3] as List<Elearner.Models.QuizContentSpecifiedAnswer>;
-    List<Elearner.Models.UserQuiz> lstUserQuizzes = Model.ToList()[4] as List<Elearner.Models.UserQuiz>;
+    List<Elearner.Models.UserQuiz> lstUserQuizzes = Model.ToList()[4] as List<Elearner.Models.UserQuiz>;    
 }
 
 @using PagedList.Mvc;
@@ -30,6 +30,20 @@
         <h3>
             @lstQuizContents.First(f=>f.QuestionId == question.QuestionId).Quiz.QuizName
         </h3>
+
+        if (lstUserQuizzes.SingleOrDefault().DateTimeCompleted != DateTime.Parse("1900-01-01"))
+        {
+            <h4>
+                Quiz No: @lstUserQuizzes.SingleOrDefault().QuizNo. Date Completed: @lstUserQuizzes.SingleOrDefault().DateTimeCompleted.ToString("dd/MM/yyyy")
+            </h4>
+        }
+        else
+        {
+            <h4>
+                Quiz No: @lstUserQuizzes.SingleOrDefault().QuizNo.
+            </h4>
+        }
+
         <br />
         <h4>
             @question.Question.QuestionOder. @question.Question.QuestionText
@@ -54,8 +68,9 @@
                         var questionId = question.QuestionId;
                         var specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId;
                         var user = User.Identity.GetUserId();
-                        var userQuizId = lstUserQuizzes.FirstOrDefault(x => x.Id == User.Identity.GetUserId() && x.QuizId == question.QuizId);
-                        var quizid = lstUserQuizzes.FirstOrDefault(x => x.Id == User.Identity.GetUserId() && x.QuizId == question.QuizId).QuizId;
+                        var userQuizId = lstUserQuizzes.FirstOrDefault(x => x.Id == user && x.QuizId == question.QuizId);
+                        var quizid = lstUserQuizzes.FirstOrDefault(x => x.Id == user && x.QuizId == question.QuizId).QuizId;
+                        var quizNo = lstUserQuizzes.FirstOrDefault(x => x.Id == user && x.QuizId == question.QuizId).QuizNo;
 
                         if (lstUserQuizResults.Any(x => x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
                         {
@@ -73,7 +88,8 @@
                                         specifiedAnswerId = specifiedAnswerId,
                                         user = user,
                                         userQuizId = userQuizId.UserQuizId,
-                                        quizid = quizid
+                                        quizid = quizid,
+                                        quizNo = quizNo
                                     })'">
                                 @answer.SpecifiedAnswer.AnswerText
                             </button>
@@ -112,7 +128,7 @@
     <br />
     Question @(lstQuestions.PageCount < lstQuestions.PageNumber ? 0 : lstQuestions.PageNumber) of @lstQuestions.PageCount
 
-    @Html.PagedListPager(lstQuestions, page => Url.Action("Index", new { page }))
+    @Html.PagedListPager(lstQuestions, page => Url.Action("Index", new { page, quizNo = lstUserQuizzes.SingleOrDefault().QuizNo }))
 
     @foreach (var question in lstQuestions)
     {

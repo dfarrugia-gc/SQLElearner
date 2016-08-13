@@ -29,6 +29,7 @@ namespace Elearner.Models
         [ForeignKey("QuizId")]
         public virtual Quiz Quiz{ get; set; }
         public DateTime DateTimeCompleted { get; set; }
+        public int QuizNo { get; set; }
     }
   
     public class Question

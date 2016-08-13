@@ -25,13 +25,14 @@
     {
         var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
         var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
-
-        <h2>
+        <br />
+        <br />
+        <h4>
             @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
-        </h2>
-        <h3>
+        </h4>
+        <h4>
             Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
-        </h3>
+        </h4>
             @courseTopicSection.TopicSectionText
             <br />
         if (courseTopicSection.TopicSectionInstruction == null)

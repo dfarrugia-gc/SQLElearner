@@ -14,17 +14,22 @@ namespace SQLElearner.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: QuizViewer
-        public ActionResult Index(int? id, int? page)
+        public ActionResult Index(int? id, int? page, int? quizNo)
         {
             var user = User.Identity.GetUserId();
+            //var quizNumber = from q in db.UserQuizs
+            //             where q.Id == user &&
+            //             q.QuizId == id &&
+            //             q.QuizNo == db.UserQuizs.Max(m => m.QuizNo)
+            //             select q.QuizNo;
 
-            List<object> myModel = new List<object>();
-            var quiz = db.Quizs.Where(q => q.QuizId == id).ToList();
+            List < object > myModel = new List<object>();
+            var quiz = db.Quizs.SingleOrDefault(q => q.QuizId == id).QuizId;
             var quizContents = db.QuizContents.Where(qc => qc.QuizId == id).ToList();            
             var quizContentSpecifiedAnswers = db.QuizContentSpecifiedAnswers.Where(x=>x.QuizContent.QuizId == id).ToList();
-            var userQuizes = db.UserQuizs.Where(uq=>uq.QuizId == id).ToList();
+            var userQuizes = db.UserQuizs.Where(uq=>uq.QuizId == id && uq.QuizNo == quizNo && uq.Id == user).ToList();
 
-            var userQuizResults = db.UserQuizResults.Where(uqr => uqr.UserQuiz.QuizId == id && uqr.Id.Equals(user)).ToList();
+            var userQuizResults = db.UserQuizResults.Where(uqr => uqr.UserQuiz.QuizId == id && uqr.Id.Equals(user) && uqr.UserQuiz.QuizNo == quizNo).ToList();
 
             var currentquestion = userQuizResults.Find(f => f.QuestionId == userQuizResults.Max(m => m.QuestionId));
 

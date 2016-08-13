@@ -30,7 +30,7 @@ namespace Elearner.Controllers
         }
 
         // GET: EnrollQuiz/Create
-        public ActionResult Create(int? id, string user)
+        public ActionResult Create(int? id, string user, bool retake, int? quizNo)
         {
             if(string.IsNullOrEmpty(user))
             {
@@ -38,27 +38,52 @@ namespace Elearner.Controllers
             }
             else
             {
+                var existingUserQuiz = db.UserQuizs.Where(q => q.Quiz.CourseId == id && q.Id == user).ToList();
                 var quiz = db.Quizs.SingleOrDefault(q => q.CourseId == id);
-                
-                var userQuiz = new UserQuiz()
-                {
-                    Id = user,
-                    DateTimeCompleted = DateTime.Parse("1900-01-01"),
-                    QuizId = quiz.QuizId
-                };
 
-                bool userQuizExists = db.UserQuizs.Any(x => x.QuizId == quiz.QuizId
-                & x.Id.Equals(user));
-                
-                if (!userQuizExists)
+                if (retake == true)
                 {
-                    db.UserQuizs.Add(userQuiz);
+                    var userQuiz = db.UserQuizs.Where(q => q.Quiz.CourseId == id);
+                    var getLastUserQuizNo = existingUserQuiz.Max(q => q.QuizNo);
+                    int newQuizNo = getLastUserQuizNo + 1;
+
+                    var retakeUserQuiz = new UserQuiz()
+                    {
+                        Id = user,
+                        DateTimeCompleted = DateTime.Parse("1900-01-01"),
+                        QuizId = quiz.QuizId,
+                        QuizNo = newQuizNo
+                    };
+
+                    db.UserQuizs.Add(retakeUserQuiz);
                     db.SaveChanges();
-                }
-                return RedirectToAction("Index", "QuizViewer", new { id = userQuiz.QuizId});
 
+                    return RedirectToAction("Index", "QuizViewer", new { id = retakeUserQuiz.QuizId, quizNo = newQuizNo });
+                }
+                else
+                {
+                    bool userQuizExists = db.UserQuizs.Any(x => x.QuizId == quiz.QuizId
+                    && x.QuizNo == quizNo
+                    && x.Id.Equals(user));
+
+                    if (!userQuizExists)
+                    {
+                        var userQuiz = new UserQuiz()
+                        {
+                            Id = user,
+                            DateTimeCompleted = DateTime.Parse("1900-01-01"),
+                            QuizId = quiz.QuizId,
+                            QuizNo = 1
+                        };
+
+                        db.UserQuizs.Add(userQuiz);
+                        db.SaveChanges();
+
+                        return RedirectToAction("Index", "QuizViewer", new { id = userQuiz.QuizId, userQuiz.QuizNo });
+                    }
+                }              
             }
-            
+            return RedirectToAction("Index", "QuizViewer", new { id = id, quizNo = quizNo });
         }
 
         public ActionResult MarkAsComplete(int? id, string user)

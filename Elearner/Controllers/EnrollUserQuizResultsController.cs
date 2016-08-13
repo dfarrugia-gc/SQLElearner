@@ -18,7 +18,7 @@ namespace Elearner.Controllers
 
 
         // GET: EnrollUserQuizResults/Create
-        public ActionResult Create(int questionId, int specifiedAnswerId, string user, int userQuizId, int quizId)
+        public ActionResult Create(int questionId, int specifiedAnswerId, string user, int userQuizId, int quizId, int quizNo)
         {
             if(string.IsNullOrEmpty(user))
             {
@@ -53,7 +53,7 @@ namespace Elearner.Controllers
                     uqr.SpecifiedAnswerId = specifiedAnswerId;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index", "QuizViewer", new { id = quizId});
+                return RedirectToAction("Index", "QuizViewer", new { id = quizId, quizNo = quizNo });
             }
         }
 
@@ -68,6 +68,8 @@ namespace Elearner.Controllers
 
                 db.Entry(userquiz).State = EntityState.Modified;
                 db.SaveChanges();
+
+                var markAsComplete = new EnrollCourseController().MarkAsComplete(userquiz.Quiz.CourseId, user);
             }
             return RedirectToAction("Index", "CourseTopicViewer", new { id = userquiz.Quiz.CourseId });
         }
