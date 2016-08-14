@@ -7,6 +7,7 @@
     List<Elearner.Models.UserTopic> lstUserTopics = Model.ToList()[4] as List<Elearner.Models.UserTopic>;
     List<Elearner.Models.UserTopicSection> lstUserTopicSection = Model.ToList()[5] as List<Elearner.Models.UserTopicSection>;
     List<Elearner.Models.CourseTopicSection> lstCourseTopicSections = Model.ToList()[6] as List<Elearner.Models.CourseTopicSection>;
+    List<Elearner.Models.UserQuizResult> lstUserQuizResults = Model.ToList()[7] as List<Elearner.Models.UserQuizResult>;
 }
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,20 +15,6 @@
 @{
     ViewBag.Title = "ELearner Home Page";
 }
-
-<!-- jQuery code for progress bar % calculation -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $('.progressbar').each(function () {
-            var val = $(this).attr('rel');
-            $(this).progressbar({ value: parseInt(val) });
-        });
-    });
-</script>
 
 <body id="page-top" class="index">
     
@@ -38,30 +25,30 @@
         var currentUser = manager.FindById(User.Identity.GetUserId());
         var user_courses = lstUserCourses.Any(uc => uc.Id == currentUser.Id);
 
-        <section id="user_course" class="text-center">
-            <div class="container text-center" style="height:100vh">
+        <section id="user_course">
+            <div class="container">
                 <div class="row text-center">
                     <div class="col-lg-12 text-center">
-                        <h2>Welcome Back @currentUser.FirstName</h2>
+                        <h3>Welcome Back @currentUser.FirstName</h3>
                         @if (user_courses == true)
                         {
-                            <h4>You are currently enrolled in the below courses<br />Click Continue to resume your course</h4>
-                        }                        
-                        <hr class="star-primary">
+                            <h5 class="text-muted">You are currently enrolled in the below courses<br />Click Continue to resume your course</h5>
+                        }
+                        <br />
                     </div>
-                </div>
+                </div>                
                 <div class="row text-center">                    
                     @if (user_courses == false)
                     {
                         <div class="caption-centred">
                             <div class="col-lg-12 text-center">
-                                <h3>
+                                <h5>
                                     You have no courses in progress
-                                </h3>
-                                <h4>
+                                </h5>
+                                <h5>
                                     Please see our Courses and start your free course
-                                </h4>
-                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-default">
+                                </h5>
+                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
                                     Courses
                                 </a>
                             </div>                            
@@ -78,41 +65,64 @@
                                 double totalCourseTopicSections = (double)lstCourseTopicSections.Where(w => w.CourseTopic.CourseId == c.CourseId).Count();
 
                                 double progress = userTopicSectionsCount / totalCourseTopicSections * 100;
-                                if(userTopicSectionsCount == 0)
+                                if (userTopicSectionsCount == 0)
                                 {
                                     progress = 0;
-                                }else
+                                }
+                                else
                                 {
                                     progress = Math.Round(progress, 0);
                                 }
-
-                                <div class="col-lg-12 text-center">
-                                    <div class="caption-centred">
+                                
+                                <div>
+                                    <div>
                                         <div class="skills">
-                                            <h3>
+                                            <h4>
                                                 @c.CourseName
-                                            </h3>
-                                            <h6>
+                                            </h4>
+                                            <h6 class="text-muted">
                                                 Percentage Complete
                                             </h6>
-                                        </div>                           
+                                        </div>
                                     </div>
-                                    <div class="progressbar" style="text-align:center" rel="@progress">
-                                        <span style="position:absolute; margin-left:10px; margin-top:2px"><strong class="text-info">@progress %</strong></span>
-                                    </div>
-                                    <div class="caption-content">
-                                        <br>@Html.ActionLink("Continue", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-s btn-info" })
-                                    </div>
-                                </div>
-                            }
+
+                                    <progress id="progressbar" value="@progress" max="100"></progress> @progress%
+
+                                    @*@if (lstUserQuizResults.Any(x => x.UserQuiz.Quiz.CourseId == c.CourseId && x.Id == User.Identity.GetUserId() && x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
+                                    {
+                                        <div>
+                                            <button class="btn btn-xs btn-info btn-success" type="button" id="enrollCourse"
+                                                    onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = c.CourseId })'">
+                                                Completed <span class="glyphicon glyphicon-check"></span>
+                                            </button>
+                                        </div>
+                                    }*@
+                                    @if (lstUserCourses.Any(m => m.CourseId.Equals(c.CourseId) && m.Id == User.Identity.GetUserId() && m.Completed == true))
+                                    {
+                                        <div>
+                                            <button class="btn btn-xs btn-info btn-success" type="button" id="enrollCourse"
+                                                    onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = c.CourseId })'">
+                                                Completed <span class="glyphicon glyphicon-check"></span>
+                                            </button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            @Html.ActionLink("Continue", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-xs btn-default text-info" })
+                                        </div>
+                                    }
+                                    <br />
+                                    <br />
+                                </div>                       
+                            }                            
                         }
                         <div class="caption-content">
                             <div class="col-lg-12 text-center">
-                                <hr class="star-light">
-                                <h4>
+                                <h5>
                                     Please see our other Courses and start your free course
-                                </h4>
-                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-default">
+                                </h5>
+                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
                                     Courses
                                 </a>
                             </div>
@@ -157,7 +167,7 @@
                     <br />
                 </p>
                 <div class="col-lg-12 text-center">
-                    <h2>Our Courses</h2>
+                    <h3>Our Courses</h3>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -173,7 +183,7 @@
                                     <img src="~/Images/icon_004240_256-1024x1024.png" alt=""> @c.CourseName
                                 </h3>
                             </div>                            
-                            <p>@c.CourseInformation</p>
+                            <p class="text-muted">@c.CourseInformation</p>
                         </div>
                         @Html.ActionLink("More Information", "Index", "CourseTopicViewer", new { id = course_id }, new { @class = "btn btn-lg btn-info" })
                     </div>
@@ -183,7 +193,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="success" id="about" style="height:100vh">
+    <section class="success" id="about">
         <div class="container">
             <div class="row">
                 <p>

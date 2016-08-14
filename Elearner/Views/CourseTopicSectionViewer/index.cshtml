@@ -20,6 +20,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(function () {
+        $('#id_of_your_link').click(function () {
+            var value = $('#textdata').val();
+            $(this).attr('href', function () {
+                return this.href += '?param=' + encodeURIComponent(value);
+            });
+        });
+    });
+</script>
+
 <div class="container text-justify">
     @foreach (var courseTopicSection in lstCourseTopicSection)
     {
@@ -27,62 +38,83 @@
         var studyingSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId) & f.Completed == false);
         <br />
         <br />
+        <br />
         <h4>
-            @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
+            Topic: @courseTopicSection.CourseTopic.TopicOrder. @courseTopicSection.CourseTopic.Topic.TopicName
         </h4>
-        <h4>
+        <h5>
             Lesson @courseTopicSection.Order : @courseTopicSection.CourseTopicSectionName
-        </h4>
-            @courseTopicSection.TopicSectionText
+        </h5>
+        @courseTopicSection.TopicSectionText
+        <br />
+
+        <div class="form-group text-justify">
+            @if (courseTopicSection.TopicSectionInstruction == null)
+            {
             <br />
-        if (courseTopicSection.TopicSectionInstruction == null)
-        {
-            <br />
-        }
-        else
-        {
-            <h4>Instruction</h4>
+            }
+            else
+            {
+
+            <h5>Instruction</h5>
             @Html.Encode(courseTopicSection.TopicSectionInstruction.ToString())
             <br />
-
-            <h5>Code Editor</h5>
-
-            @Html.TextArea("SQLCommand", "SQL Command: ", 10, 500, new { rows = 10, columns = 500 })
-            <p></p>
-        }
-
+            using (Html.BeginForm("SQLQuery", "CourseTopicSectionViewer", FormMethod.Post))
+            {
+            <table border="0" width="100%" align="center">
+                <tr>
+                    <td align="center">
+                        <h6>SQL Code Editor</h6>
+                        @Html.TextArea("user_sql_query","Enter SQL syntax...",10,50, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="hidden" name="id" value="@courseTopicSection.CourseTopicId" />
+                        <input type="hidden" name="page" value="@lstCourseTopicSection.PageNumber" />                        
+                    </td>
+                    <td align="center">
+                        <div class="form-group">
+                            <input type="submit" value="Run SQL Code" class="btn btn-danger btn-s" />
+                        </div>
+                    </td>
+                    <td align="center">
+                        <h6>SQL Code Result</h6>
+                        @Html.TextArea("user_sql_result", "Result of SQL", 10, 50, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+            </table>
+            }
+            }
+        </div>
 
         if (lstUserTopicSection.Any(x => x.CourseTopicSectionId == courseTopicSection.CourseTopicSectionId && x.Completed == true))
         {
-            <button type="button" class="btn btn-s btn-info" disabled>
-                <span class="glyphicon glyphicon-check"></span> Completed
-            </button>
+                    <button type="button" class="btn btn-s btn-info" disabled>
+                        <span class="glyphicon glyphicon-check"></span> Completed
+                    </button>
         }
         else if (courseTopicSection.CourseTopicSectionId > studyingSection.CourseTopicSectionId)
         {
-            <button type="button" class="btn btn-s btn-info" disabled>
-                <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSection.Order first.
-            </button>
+                    <button type="button" class="btn btn-s btn-info" disabled>
+                        <span class="glyphicon glyphicon-exclamation-sign"></span> Please complete Lesson: @studyingSection.CourseTopicSection.Order first.
+                    </button>
         }
         else
         {
             if (lstCourseTopicSection.IsLastPage && courseTopicSection.CourseTopic.TopicOrder == lstCourseTopics.Max(m => m.TopicOrder))
             {
-                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
-                    Finish Topic
-                </button>
+                    <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                        Finish Topic
+                    </button>
             }
             else if (lstCourseTopicSection.IsLastPage)
             {
-                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId})'">
-                    Next Topic
-                </button>
+                    <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                        Next Topic
+                    </button>
             }
             else
             {
-                <button class="btn btn-s btn-info" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
-                    Mark as Complete
-                </button>
+                    <button class="btn btn-s btn-info" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollTopicSection", new { id = courseTopicSection.CourseTopicSectionId })'">
+                        Mark as Complete
+                    </button>
             }
         }
     }

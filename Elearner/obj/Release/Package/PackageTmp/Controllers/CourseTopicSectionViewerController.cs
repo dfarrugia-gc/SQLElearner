@@ -23,6 +23,7 @@ namespace SQLElearner.Controllers
             var courseTopicSections = db.CourseTopicSections.Where(cts => cts.CourseTopicId == id).OrderBy(cts => cts.Order).ToList();
             var userTopicSections = db.UserTopicSections.Where(uts => uts.CourseTopicSection.CourseTopicId == id && uts.Id.Equals(user)).ToList();
             var courseTopics = db.CourseTopics.Where(ct => ct.CourseTopicId == id).OrderBy(ct => ct.TopicOrder).ToList();
+
             var currentSection = userTopicSections.Find(f => f.CourseTopicSectionId == userTopicSections.Max(m => m.CourseTopicSectionId));
             try
             {

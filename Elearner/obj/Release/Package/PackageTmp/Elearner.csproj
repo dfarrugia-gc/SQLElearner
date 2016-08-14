@@ -258,8 +258,11 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseTopicsController.cs" />
     <Compile Include="Controllers\CourseTopicSectionsController.cs" />
+    <Compile Include="Controllers\EnrollUserQuizResultsController.cs" />
+    <Compile Include="Controllers\QuizViewerController.cs" />
     <Compile Include="Controllers\CourseTopicSectionViewerController.cs" />
     <Compile Include="Controllers\CourseTopicViewerController.cs" />
+    <Compile Include="Controllers\EnrollQuizController.cs" />
     <Compile Include="Controllers\EnrollTopicSectionController.cs" />
     <Compile Include="Controllers\EnrollTopicController.cs" />
     <Compile Include="Controllers\EnrollCourseController.cs" />
@@ -435,7 +438,6 @@
     <Content Include="less\mixins.less" />
     <Content Include="less\variables.less" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Views\Home\Index.cshtml.old" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -586,6 +588,7 @@
     <Content Include="Views\UserQuizResults\Details.cshtml" />
     <Content Include="Views\UserQuizResults\Edit.cshtml" />
     <Content Include="Views\UserQuizResults\Index.cshtml" />
+    <Content Include="Views\QuizViewer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,14 +7,21 @@ using System.Web.Mvc;
 using PagedList;
 using Elearner.Controllers;
 using System.Web;
+using Elearner;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace SQLElearner.Controllers
 {
     public class CourseTopicSectionViewerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private SQLEL_WorkingDatabaseEntities workingdb = new SQLEL_WorkingDatabaseEntities();
+        
         // GET: CourseTopicSectionViewer
-        public ActionResult Index(int? id, int? page)
+        public ActionResult Index(int? id, int? page, DataTable resultTable)
         {
             var user = User.Identity.GetUserId();
 
@@ -42,6 +49,19 @@ namespace SQLElearner.Controllers
             {
                 return new HttpNotFoundResult("Content Not Found");
             }
+        }
+
+        [HttpPost]
+        public ActionResult SQLQuery(int? id, int? page, string user_sql_query)
+        {
+            DataTable table = new DataTable();
+            using (SqlConnection connection = new SqlConnection(workingdb.Database.Connection.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand(user_sql_query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+            {
+                adapter.Fill(table);
+            }
+            return RedirectToAction("Index","CourseTopicSectionViewer",new { id = id , page = page, resultTable = table});
         }
 
         // GET: CourseTopicSectionViewer/Details/5

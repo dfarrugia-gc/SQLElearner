@@ -302,8 +302,30 @@
     <Compile Include="Models\CourseModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\WorkingDatabaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WorkingDatabase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkingDatabase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkingDatabase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkingDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkingDatabase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkingDatabase.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -391,7 +413,21 @@
     <Content Include="fonts\font-awesome\scss\_screen-reader.scss" />
     <Content Include="fonts\font-awesome\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
+    <Content Include="WorkingDatabase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WorkingDatabase.edmx</DependentUpon>
+      <LastGenOutput>WorkingDatabase.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="WorkingDatabase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WorkingDatabase.edmx</DependentUpon>
+      <LastGenOutput>WorkingDatabase.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\Elearner - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -438,7 +474,6 @@
     <Content Include="less\mixins.less" />
     <Content Include="less\variables.less" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Views\Home\Index.cshtml.old" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -590,6 +625,13 @@
     <Content Include="Views\UserQuizResults\Edit.cshtml" />
     <Content Include="Views\UserQuizResults\Index.cshtml" />
     <Content Include="Views\QuizViewer\Index.cshtml" />
+    <EntityDeploy Include="WorkingDatabase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WorkingDatabase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="WorkingDatabase.edmx.diagram">
+      <DependentUpon>WorkingDatabase.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

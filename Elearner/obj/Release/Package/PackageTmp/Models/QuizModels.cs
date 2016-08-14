@@ -21,11 +21,15 @@ namespace Elearner.Models
     public class UserQuiz
     {
         [Key]
-        public int UserQuizId { get; set;}
+        public int UserQuizId { get; set;}        
         public string Id { get; set; }
         [ForeignKey("Id")]
         public virtual ApplicationUser User { get; set; }
+        public int? QuizId { get; set; }
+        [ForeignKey("QuizId")]
+        public virtual Quiz Quiz{ get; set; }
         public DateTime DateTimeCompleted { get; set; }
+        public int QuizNo { get; set; }
     }
   
     public class Question
@@ -107,7 +111,7 @@ namespace Elearner.Models
         public virtual UserQuiz UserQuiz { get; set; }
         public int QuestionId { get; set; }
         [ForeignKey("QuestionId")]
-        public virtual QuizContent QuizContentQuestion { get; set; }
+        public virtual Question Question { get; set; }
         public int SpecifiedAnswerId { get; set; }
         [ForeignKey("SpecifiedAnswerId")]
         public virtual SpecifiedAnswer ResponseSpecifiedAnswer { get; set; }
