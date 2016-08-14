@@ -1,19 +1,17 @@
-﻿@model IEnumerable<object>
+﻿@using System.Data;
+@using PagedList.Mvc;
+
+@model IEnumerable<object>
 @{   
     PagedList.IPagedList<Elearner.Models.CourseTopicSection> lstCourseTopicSection = Model.ToList()[0] as PagedList.IPagedList<Elearner.Models.CourseTopicSection>;
     List<Elearner.Models.UserTopicSection> lstUserTopicSection = Model.ToList()[1] as List<Elearner.Models.UserTopicSection>;
     List<Elearner.Models.CourseTopic> lstCourseTopics = Model.ToList()[2] as List<Elearner.Models.CourseTopic>;
     List<Elearner.Models.CourseTopicSection> lstTotalCourseTopics = Model.ToList()[3] as List<Elearner.Models.CourseTopicSection>;
+    DataTable dataList = Model.ToList()[4] as DataTable;
+    String userSQLSyntax = Model.ToList()[5] as String;
 }
 
-@using PagedList.Mvc;
-@using PagedList;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
-
-@using Microsoft.AspNet.Identity;
-@using Microsoft.AspNet.Identity.EntityFramework;
-@using Elearner.Models
 
 @{
     ViewBag.Title = "Course Topic Sections";
@@ -59,28 +57,61 @@
             <h5>Instruction</h5>
             @Html.Encode(courseTopicSection.TopicSectionInstruction.ToString())
             <br />
-            using (Html.BeginForm("SQLQuery", "CourseTopicSectionViewer", FormMethod.Post))
-            {
-            <table border="0" width="100%" align="center">
-                <tr>
-                    <td align="center">
-                        <h6>SQL Code Editor</h6>
-                        @Html.TextArea("user_sql_query","Enter SQL syntax...",10,50, new { htmlAttributes = new { @class = "form-control" } })
-                        <input type="hidden" name="id" value="@courseTopicSection.CourseTopicId" />
-                        <input type="hidden" name="page" value="@lstCourseTopicSection.PageNumber" />                        
-                    </td>
-                    <td align="center">
-                        <div class="form-group">
-                            <input type="submit" value="Run SQL Code" class="btn btn-danger btn-s" />
-                        </div>
-                    </td>
-                    <td align="center">
-                        <h6>SQL Code Result</h6>
-                        @Html.TextArea("user_sql_result", "Result of SQL", 10, 50, new { htmlAttributes = new { @class = "form-control" } })
-                    </td>
-                </tr>
-            </table>
-            }
+                using (Html.BeginForm("SQLQuery", "CourseTopicSectionViewer", FormMethod.Post))
+                {
+                    <table border="0" width="100%" align="center">
+                        <tr>
+                            <td align="left">
+                                <h6>SQL Code Editor</h6>
+                                @if (userSQLSyntax != null)
+                                {
+                                    @Html.TextArea("user_sql_query", userSQLSyntax, 10, 50, new { htmlAttributes = new { @class = "form-control" } })                            
+                                }
+                                else
+                                {
+                                    @Html.TextArea("user_sql_query", "Enter SQL syntax...", 10, 50, new { htmlAttributes = new { @class = "form-control" } })
+                                }
+                                <input type="hidden" name="id" value="@courseTopicSection.CourseTopicId" />
+                                <input type="hidden" name="page" value="@lstCourseTopicSection.PageNumber" />
+                                <div class="form-group">
+                                    <input type="submit" value="Run SQL Code" class="btn btn-danger btn-s" />
+                                </div>
+                            </td>
+                            <td align="right" valign="top">
+                                <h6>SQL Code Result</h6>
+                                
+                                    @if (dataList == null)
+                                    {
+                                        @Html.TextArea("user_sql_result", "SQL result...", 10, 50, new { htmlAttributes = new { @class = "form-control" } })
+                                    }
+                                    else
+                                    {
+                                        <table class="table-striped" border="1" cellpadding="5" width="100%" height="100%">
+                                            <thead>
+                                                <tr>
+                                                    @foreach (System.Data.DataColumn col in dataList.Columns)
+                                                    {
+                                                        <th>@col.Caption</th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (System.Data.DataRow row in dataList.Rows)
+                                                {
+                                                    <tr>
+                                                        @foreach (var cell in row.ItemArray)
+                                                        {
+                                                            <td>@cell.ToString()</td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }                                
+                            </td>
+                        </tr>
+                    </table>
+                }
             }
         </div>
 

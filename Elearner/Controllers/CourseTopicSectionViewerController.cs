@@ -18,10 +18,10 @@ namespace SQLElearner.Controllers
     public class CourseTopicSectionViewerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private SQLEL_WorkingDatabaseEntities workingdb = new SQLEL_WorkingDatabaseEntities();
+        
         
         // GET: CourseTopicSectionViewer
-        public ActionResult Index(int? id, int? page, DataTable resultTable)
+        public ActionResult Index(int? id, int? page, string user_sql_syntax)
         {
             var user = User.Identity.GetUserId();
 
@@ -38,10 +38,14 @@ namespace SQLElearner.Controllers
                 var pageNumber = (page ?? currentSection.CourseTopicSection.Order);
                 var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
 
+                DataTable resultDataTable = (DataTable) Session["resultList"];
+
                 myModel.Add(courseTopicSectionsPages);
                 myModel.Add(userTopicSections);
                 myModel.Add(courseTopics);
                 myModel.Add(totalCourseTopicSections);
+                myModel.Add(resultDataTable);
+                myModel.Add(user_sql_syntax);
 
                 return View(myModel);
             }
@@ -54,14 +58,22 @@ namespace SQLElearner.Controllers
         [HttpPost]
         public ActionResult SQLQuery(int? id, int? page, string user_sql_query)
         {
+            SQLEL_WorkingDatabaseEntities workingdb = new SQLEL_WorkingDatabaseEntities();
             DataTable table = new DataTable();
+
             using (SqlConnection connection = new SqlConnection(workingdb.Database.Connection.ConnectionString))
             using (SqlCommand cmd = new SqlCommand(user_sql_query, connection))
             using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
             {
                 adapter.Fill(table);
             }
-            return RedirectToAction("Index","CourseTopicSectionViewer",new { id = id , page = page, resultTable = table});
+            
+            DataTable cloneDT = new DataTable();
+            cloneDT = table.Copy();
+
+            Session["resultList"] = cloneDT;
+            
+            return RedirectToAction("Index","CourseTopicSectionViewer",new { id = id , page = page, user_sql_syntax = user_sql_query });
         }
 
         // GET: CourseTopicSectionViewer/Details/5
