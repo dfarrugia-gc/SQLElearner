@@ -41,6 +41,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserCourseTopics/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
@@ -53,6 +54,7 @@ namespace Elearner.Controllers
         // POST: UserCourseTopics/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId,Completed,Grade")] UserCourse userCourse)
@@ -90,9 +92,9 @@ namespace Elearner.Controllers
         // POST: UserCourseTopics/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "UserCourseTopicId,Id,CourseId,TopicId,Completed,Grade")] UserCourse userCourseTopic)
         {
             if (ModelState.IsValid)

@@ -1,0 +1,139 @@
+﻿@model IEnumerable<object>
+@{   
+    PagedList.IPagedList<Elearner.Models.QuizContent> lstQuestions = Model.ToList()[0] as PagedList.IPagedList<Elearner.Models.QuizContent>;
+    List<Elearner.Models.QuizContent> lstQuizContents = Model.ToList()[1] as List<Elearner.Models.QuizContent>;
+    List<Elearner.Models.UserQuizResult> lstUserQuizResults = Model.ToList()[2] as List<Elearner.Models.UserQuizResult>;
+    List<Elearner.Models.QuizContentSpecifiedAnswer> lstQuizContentSpeciedAnswer = Model.ToList()[3] as List<Elearner.Models.QuizContentSpecifiedAnswer>;
+    List<Elearner.Models.UserQuiz> lstUserQuizzes = Model.ToList()[4] as List<Elearner.Models.UserQuiz>;    
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Elearner.Models
+
+@{
+    ViewBag.Title = "Quiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container text-justify">
+
+    @foreach (var question in lstQuestions)
+    {
+        <br />
+        <br />
+        <h3>
+            @lstQuizContents.First(f=>f.QuestionId == question.QuestionId).Quiz.QuizName
+        </h3>
+
+        if (lstUserQuizzes.SingleOrDefault().DateTimeCompleted != DateTime.Parse("1900-01-01"))
+        {
+            <h4>
+                Quiz No: @lstUserQuizzes.SingleOrDefault().QuizNo. Date Completed: @lstUserQuizzes.SingleOrDefault().DateTimeCompleted.ToString("dd/MM/yyyy")
+            </h4>
+        }
+        else
+        {
+            <h4>
+                Quiz No: @lstUserQuizzes.SingleOrDefault().QuizNo.
+            </h4>
+        }
+
+        <br />
+        <h4>
+            @question.Question.QuestionOder. @question.Question.QuestionText
+        </h4>
+        <br />
+        if (question.QuestionTypeId == 1)
+        {
+
+            foreach (var answer in lstQuizContentSpeciedAnswer)
+            {
+                if (answer.QuizContent.QuestionId == question.QuestionId)
+                {
+                    if (lstUserQuizResults.Any(x => x.SpecifiedAnswerId == answer.SpecifiedAnswer.SpecifiedAnswerId))
+                    {
+                        <button type="button" class="btn btn-s btn-info" disabled>
+                            @answer.SpecifiedAnswer.AnswerText  <span class="glyphicon glyphicon-record"></span>
+                        </button>
+                        <br />
+                    }
+                    else
+                    {
+                        var questionId = question.QuestionId;
+                        var specifiedAnswerId = answer.SpecifiedAnswer.SpecifiedAnswerId;
+                        var user = User.Identity.GetUserId();
+                        var userQuizId = lstUserQuizzes.FirstOrDefault(x => x.Id == user && x.QuizId == question.QuizId);
+                        var quizid = lstUserQuizzes.FirstOrDefault(x => x.Id == user && x.QuizId == question.QuizId).QuizId;
+                        var quizNo = lstUserQuizzes.FirstOrDefault(x => x.Id == user && x.QuizId == question.QuizId).QuizNo;
+
+                        if (lstUserQuizResults.Any(x => x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
+                        {
+                            <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" disabled>
+                                @answer.SpecifiedAnswer.AnswerText
+                            </button>
+                            <br />
+                        }
+                        else
+                        {
+                            <button class="btn btn-s btn-link" type="button" id="enrollTopicSection" onclick="location.href=
+                                    '@Url.Action("Create", "EnrollUserQuizResults",
+                                    new {
+                                        questionId = questionId ,
+                                        specifiedAnswerId = specifiedAnswerId,
+                                        user = user,
+                                        userQuizId = userQuizId.UserQuizId,
+                                        quizid = quizid,
+                                        quizNo = quizNo
+                                    })'">
+                                @answer.SpecifiedAnswer.AnswerText
+                            </button>
+                            <br />
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+           @Html.TextArea("Answer", "Insert Answer Here...", 10, 500, new { rows = 10, columns = 500 })
+            <p></p>
+        }
+
+        if (lstQuestions.IsLastPage && question.Question.QuestionOder == lstQuizContents.Max(m => m.Question.QuestionOder) 
+            && lstUserQuizResults.Any(x=>x.QuestionId == lstQuizContents.Max(m => m.Question.QuestionId)))
+        {
+            <br />
+            <br />
+            if (lstUserQuizResults.Any(x => x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
+            {
+                //show nothing
+            }
+            else
+            {
+                var userQuizId = lstUserQuizzes.FirstOrDefault(x => x.Id == User.Identity.GetUserId() && x.QuizId == question.QuizId);
+                <button class="btn btn-s btn-success" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("MarkAsComplete", "EnrollUserQuizResults", new {id = userQuizId.UserQuizId, user = User.Identity.GetUserId() })'">
+                    Finish Quiz
+                </button>
+            }
+
+        }
+    }
+    <br />
+    <br />
+    Question @(lstQuestions.PageCount < lstQuestions.PageNumber ? 0 : lstQuestions.PageNumber) of @lstQuestions.PageCount
+
+    @Html.PagedListPager(lstQuestions, page => Url.Action("Index", new { page, quizNo = lstUserQuizzes.SingleOrDefault().QuizNo }))
+
+    @foreach (var question in lstQuestions)
+    {
+        <button class="btn btn-s btn-default" type="button" id="enrollTopicSection" onclick="location.href='@Url.Action("Index", "CourseTopicViewer", new { id = question.Quiz.CourseId})'">
+            < Go Back
+        </button>
+    }
+</div>

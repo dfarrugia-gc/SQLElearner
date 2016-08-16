@@ -56,24 +56,7 @@ namespace Elearner.Controllers
                 db.SaveChanges();
             }
             return View("Index", "CourseTopicSectionViewer");
-        }
-
-        // POST: EnrollCourse/Create
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        }        
 
         public ActionResult MarkAsComplete(int? id)
         {
@@ -123,7 +106,7 @@ namespace Elearner.Controllers
                 else
                 {
                     var enrollNextTopic = new EnrollTopicController().Create(nextTopic.CourseTopicId, user);
-                    var newNextTopicSection = db.CourseTopicSections.SingleOrDefault(x => x.CourseTopicId == nextTopic.CourseTopicId);
+                    var newNextTopicSection = db.CourseTopicSections.FirstOrDefault(x => x.CourseTopicId == nextTopic.CourseTopicId);
                     if (newNextTopicSection == null)
                     {
                         return RedirectToAction("Index", "CourseTopicViewer", new { id = userTopicSection.CourseTopicSection.CourseTopic.CourseId, page = id });
@@ -136,54 +119,6 @@ namespace Elearner.Controllers
                 
             }                     
             
-        }
-
-        // GET: EnrollCourse/Edit/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: EnrollCourse/Edit/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EnrollCourse/Delete/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EnrollCourse/Delete/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        }        
     }
 }

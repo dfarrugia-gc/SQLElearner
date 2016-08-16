@@ -26,12 +26,6 @@ namespace Elearner.Controllers
             return View(myModel);
         }
 
-        //// GET: Courses
-        //public async Task<ActionResult> Index()
-        //{
-        //    return View(await db.Courses.ToListAsync());
-        //}
-
         // GET: ManageCourses
         [Authorize(Roles = "Admin")]
         public ActionResult ManageCourses()

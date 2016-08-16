@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Elearner.Models.CourseTopicSection>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTopic.CourseTopicId)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTopic.Topic.TopicName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTopicSectionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicSectionText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicSectionInstruction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseTopic.CourseTopicId)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseTopic.Topic.TopicName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseTopicSectionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicSectionText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicSectionInstruction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CourseTopicSectionId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CourseTopicSectionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CourseTopicSectionId })
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@Html.ActionLink("Back to Manage Courses", "ManageCourses", "Courses")

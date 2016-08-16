@@ -21,14 +21,7 @@ namespace Elearner.Controllers
         {
             return View();
         }
-
-        // GET: EnrollQuiz/Details/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+                
         // GET: EnrollQuiz/Create
         public ActionResult Create(int? id, string user, bool retake, int? quizNo)
         {
@@ -99,71 +92,6 @@ namespace Elearner.Controllers
                 db.SaveChanges();
             }
             return null;
-        }
-
-        // POST: EnrollQuiz/Create
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EnrollQuiz/Edit/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: EnrollQuiz/Edit/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EnrollQuiz/Delete/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EnrollQuiz/Delete/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
