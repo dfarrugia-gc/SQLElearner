@@ -29,7 +29,7 @@
     });
 </script>
 
-<div class="container text-justify">
+<div class="container text-justify" style="height:100vh">
     @foreach (var courseTopicSection in lstCourseTopicSection)
     {
         var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));

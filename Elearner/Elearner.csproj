@@ -423,6 +423,7 @@
       <DependentUpon>WorkingDatabase.edmx</DependentUpon>
       <LastGenOutput>WorkingDatabase.cs</LastGenOutput>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\Elearner - Web Deploy %282%29.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

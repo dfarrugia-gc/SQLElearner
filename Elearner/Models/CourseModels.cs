@@ -64,7 +64,6 @@ namespace Elearner.Models
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
         public bool Completed { get; set; }
-        public int Grade { get; set; }
     }
 
     public class UserTopic
