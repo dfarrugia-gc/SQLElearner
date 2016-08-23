@@ -335,13 +335,6 @@
     <Content Include="Content\css\freelancer.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content.old\bootstrap-theme.css" />
-    <Content Include="Content.old\bootstrap-theme.min.css" />
-    <Content Include="Content.old\bootstrap.css" />
-    <Content Include="Content.old\bootstrap.css.def" />
-    <Content Include="Content.old\bootstrap.min.css" />
-    <Content Include="Content.old\PagedList.css" />
-    <Content Include="Content.old\Site.css" />
     <Content Include="E-1024x1024.ico" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.ico.def" />
@@ -376,8 +369,6 @@
     <Content Include="Scripts\contact_me.js" />
     <Content Include="Scripts\freelancer.js" />
     <Content Include="Scripts\freelancer.min.js" />
-    <Content Include="Content.old\bootstrap-theme.css.map" />
-    <Content Include="Content.old\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.eot" />
@@ -482,8 +473,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content.old\bootstrap.css.map" />
-    <Content Include="Content.old\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\Elearner - Web Deploy.pubxml" />
     <Content Include="Scripts\jqBootstrapValidation.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

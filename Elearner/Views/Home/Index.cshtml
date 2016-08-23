@@ -81,12 +81,12 @@
                                                 @c.CourseName
                                             </h4>
                                             <h6 class="text-muted">
-                                                Progress
+                                                Progress - @progress%
                                             </h6>
                                         </div>
                                     </div>
 
-                                    <progress id="progressbar" value="@progress" max="100"></progress> @progress%
+                                    <progress id="progressbar" value="@progress" max="100"></progress> 
 
                                     @*@if (lstUserQuizResults.Any(x => x.UserQuiz.Quiz.CourseId == c.CourseId && x.Id == User.Identity.GetUserId() && x.UserQuiz.DateTimeCompleted != DateTime.Parse("1900-01-01")))
                                     {
@@ -193,7 +193,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="success" id="about">
+    <section class="success" id="about" style="height:100vh">
         <div class="container">
             <div class="row">
                 <p>
