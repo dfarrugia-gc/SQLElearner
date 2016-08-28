@@ -16,12 +16,14 @@ namespace SQLElearner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Questions
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Questions.ToListAsync());
         }
 
         // GET: Questions/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Questions/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +48,7 @@ namespace SQLElearner.Controllers
         // POST: Questions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "QuestionId,QuestionText,QuestionOder")] Question question)
@@ -60,6 +64,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Questions/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,6 +82,7 @@ namespace SQLElearner.Controllers
         // POST: Questions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "QuestionId,QuestionText,QuestionOder")] Question question)
@@ -91,6 +97,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: Questions/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -106,6 +113,7 @@ namespace SQLElearner.Controllers
         }
 
         // POST: Questions/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

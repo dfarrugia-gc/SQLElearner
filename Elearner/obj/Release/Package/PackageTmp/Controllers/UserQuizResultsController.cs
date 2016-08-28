@@ -16,6 +16,7 @@ namespace Elearner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: UserQuizResults
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             var userQuizResult = db.UserQuizResults.Include(u => u.Question).Include(u => u.ResponseSpecifiedAnswer).Include(u => u.User).Include(u => u.UserQuiz);
@@ -23,6 +24,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserQuizResults/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserQuizResults/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.QuestionId = new SelectList(db.QuizContents, "QuizContentId", "QuizContentId");
@@ -50,6 +53,7 @@ namespace Elearner.Controllers
         // POST: UserQuizResults/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "UserQuizResultId,Id,UserQuizId,QuestionId,SpecifiedAnswerId")] UserQuizResult userQuizResult)
@@ -69,6 +73,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserQuizResults/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,6 +95,7 @@ namespace Elearner.Controllers
         // POST: UserQuizResults/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "UserQuizResultId,Id,UserQuizId,QuestionId,SpecifiedAnswerId")] UserQuizResult userQuizResult)
@@ -108,6 +114,7 @@ namespace Elearner.Controllers
         }
 
         // GET: UserQuizResults/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,6 +130,7 @@ namespace Elearner.Controllers
         }
 
         // POST: UserQuizResults/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

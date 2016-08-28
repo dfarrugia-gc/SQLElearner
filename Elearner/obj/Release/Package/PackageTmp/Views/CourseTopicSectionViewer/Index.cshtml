@@ -29,7 +29,7 @@
     });
 </script>
 
-<div class="container text-justify">
+<div class="container text-justify" style="height:100vh">
     @foreach (var courseTopicSection in lstCourseTopicSection)
     {
         var currentSection = lstUserTopicSection.Find(f => f.CourseTopicSectionId == lstUserTopicSection.Max(m => m.CourseTopicSectionId));
@@ -74,7 +74,7 @@
                                 <input type="hidden" name="id" value="@courseTopicSection.CourseTopicId" />
                                 <input type="hidden" name="page" value="@lstCourseTopicSection.PageNumber" />
                                 <div class="form-group">
-                                    <input type="submit" value="Run SQL Code" class="btn btn-danger btn-s" />
+                                    <input type="submit" value="Run SQL Code" class="btn btn-danger btn-xs" />
                                 </div>
                             </td>
                             <td align="right" valign="top">

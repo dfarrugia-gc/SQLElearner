@@ -109,23 +109,4 @@ namespace Elearner.Models
         public virtual CourseTopicSection CourseTopicSection { get; set; }
         public bool Completed { get; set; }
     }
-
-    //public class CourseDbContext :  DbContext
-    //{
-    //    public CourseDbContext()
-    //        : base("DefaultConnection")
-    //    {
-    //    }
-
-    //    public DbSet<Course> Courses { get; set; }
-    //    public DbSet<Topic> Topics { get; set; }
-    //    public DbSet<TopicType> TopicTypes { get; set; }
-    //    public DbSet<CourseTopic> CourseTopics { get; set; }
-    //    public DbSet<UserCourseTopic> UserCourseTopics { get; set; }
-
-    //    public static CourseDbContext Create()
-    //    {
-    //        return new CourseDbContext();
-    //    }
-    //}
 }

@@ -19,7 +19,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">    
+<div class="container" style="height:50vh">    
 
     @if (User.Identity.IsAuthenticated)
     {
@@ -238,23 +238,24 @@
             }
         </h3>
 
-        <h4>
-            @foreach (var c in lstCourses)
-            {
-                @Html.DisplayFor(modelItem => c.CourseInformation);
-            }
-        </h4>
+        foreach (var c in lstCourses)
+        {
+            <p>Description: @Html.DisplayFor(modelItem => c.CourseInformation);</p>
+        }
 
-        <h5>The topics covering this course are:</h5>
+
+        <p>The topics covering this course are:</p>
 
         foreach (var ct in lstCourseTopics)
         {
             <div class="caption-centred">
                 <div class="caption-content">                    
-                    <h5>@ct.TopicOrder. @ct.Topic.TopicName</h5>
-                    <div class="caption-content">
+                    <p class="text-info text-uppercase">
+                        @ct.TopicOrder. @ct.Topic.TopicName
+                    </p>
+                    <p>
                         @ct.Topic.TopicInformation
-                    </div>                    
+                    </p>
                 </div>
             </div>
         }

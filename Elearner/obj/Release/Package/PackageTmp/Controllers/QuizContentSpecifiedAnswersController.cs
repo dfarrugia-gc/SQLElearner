@@ -16,6 +16,7 @@ namespace SQLElearner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: QuizContentSpecifiedAnswers
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             var quizContentSpecifiedAnswers = db.QuizContentSpecifiedAnswers.Include(q => q.QuizContent).Include(q => q.SpecifiedAnswer);
@@ -23,6 +24,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuizContentSpecifiedAnswers/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuizContentSpecifiedAnswers/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.QuizContentId = new SelectList(db.QuizContents, "QuizContentId", "QuizContentId");
@@ -48,6 +51,7 @@ namespace SQLElearner.Controllers
         // POST: QuizContentSpecifiedAnswers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "QuizContentId,SpecifiedAnswerId,QuizContentSpecifiedAnswerId")] QuizContentSpecifiedAnswer quizContentSpecifiedAnswer)
@@ -65,6 +69,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuizContentSpecifiedAnswers/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +89,7 @@ namespace SQLElearner.Controllers
         // POST: QuizContentSpecifiedAnswers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "QuizContentId,SpecifiedAnswerId,QuizContentSpecifiedAnswerId")] QuizContentSpecifiedAnswer quizContentSpecifiedAnswer)
@@ -100,6 +106,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuizContentSpecifiedAnswers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -115,6 +122,7 @@ namespace SQLElearner.Controllers
         }
 
         // POST: QuizContentSpecifiedAnswers/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

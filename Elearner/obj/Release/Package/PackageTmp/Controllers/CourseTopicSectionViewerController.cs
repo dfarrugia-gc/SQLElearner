@@ -38,15 +38,26 @@ namespace SQLElearner.Controllers
                 var pageNumber = (page ?? currentSection.CourseTopicSection.Order);
                 var courseTopicSectionsPages = courseTopicSections.ToPagedList(pageNumber, 1);
 
-                DataTable resultDataTable = (DataTable) Session["resultList"];
+                if (user_sql_syntax == null)
+                {
+                    myModel.Add(courseTopicSectionsPages);
+                    myModel.Add(userTopicSections);
+                    myModel.Add(courseTopics);
+                    myModel.Add(totalCourseTopicSections);
+                    myModel.Add(null);
+                    myModel.Add(user_sql_syntax);
+                }
+                else
+                {
+                    DataTable resultDataTable = (DataTable)Session["resultList"];
 
-                myModel.Add(courseTopicSectionsPages);
-                myModel.Add(userTopicSections);
-                myModel.Add(courseTopics);
-                myModel.Add(totalCourseTopicSections);
-                myModel.Add(resultDataTable);
-                myModel.Add(user_sql_syntax);
-
+                    myModel.Add(courseTopicSectionsPages);
+                    myModel.Add(userTopicSections);
+                    myModel.Add(courseTopics);
+                    myModel.Add(totalCourseTopicSections);
+                    myModel.Add(resultDataTable);
+                    myModel.Add(user_sql_syntax);                    
+                }
                 return View(myModel);
             }
             catch
@@ -74,94 +85,6 @@ namespace SQLElearner.Controllers
             Session["resultList"] = cloneDT;
             
             return RedirectToAction("Index","CourseTopicSectionViewer",new { id = id , page = page, user_sql_syntax = user_sql_query });
-        }
-
-        // GET: CourseTopicSectionViewer/Details/5
-        [Authorize(Roles = "Admin")]
-        public async System.Threading.Tasks.Task<ActionResult> Details(int id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CourseTopicSection courseTopicSections = await db.CourseTopicSections.FindAsync(id);
-            if (courseTopicSections == null)
-            {
-                return HttpNotFound();
-            }
-            return View(courseTopicSections);
-        }
-
-        // GET: CourseTopicSectionViewer/Create
-        [Authorize(Roles = "Admin")]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CourseTopicSectionViewer/Create
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseTopicSectionViewer/Edit/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseTopicSectionViewer/Edit/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseTopicSectionViewer/Delete/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseTopicSectionViewer/Delete/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

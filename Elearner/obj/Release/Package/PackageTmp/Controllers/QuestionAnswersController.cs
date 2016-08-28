@@ -16,12 +16,16 @@ namespace SQLElearner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: QuestionAnswers
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             return View(await db.QuestionAnswers.ToListAsync());
         }
 
+
         // GET: QuestionAnswers/Details/5
+
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +41,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuestionAnswers/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +52,7 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind(Include = "QuestionAnswerId,QuestionAnswerText")] QuestionAnswer questionAnswer)
         {
             if (ModelState.IsValid)
@@ -60,6 +66,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuestionAnswers/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,6 +86,7 @@ namespace SQLElearner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "QuestionAnswerId,QuestionAnswerText")] QuestionAnswer questionAnswer)
         {
             if (ModelState.IsValid)
@@ -91,6 +99,7 @@ namespace SQLElearner.Controllers
         }
 
         // GET: QuestionAnswers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -108,6 +117,7 @@ namespace SQLElearner.Controllers
         // POST: QuestionAnswers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             QuestionAnswer questionAnswer = await db.QuestionAnswers.FindAsync(id);

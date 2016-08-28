@@ -17,11 +17,6 @@ namespace SQLElearner.Controllers
         public ActionResult Index(int? id, int? page, int? quizNo)
         {
             var user = User.Identity.GetUserId();
-            //var quizNumber = from q in db.UserQuizs
-            //             where q.Id == user &&
-            //             q.QuizId == id &&
-            //             q.QuizNo == db.UserQuizs.Max(m => m.QuizNo)
-            //             select q.QuizNo;
 
             List < object > myModel = new List<object>();
             var quiz = db.Quizs.SingleOrDefault(q => q.QuizId == id).QuizId;
@@ -63,23 +58,6 @@ namespace SQLElearner.Controllers
                     return new HttpNotFoundResult("No Quiz Setup fo this Course");
                 }
             }
-            //else if(nextQuestion == null)
-            //{
-            //    try
-            //    {
-            //        myModel.Add(questionPages);
-            //        myModel.Add(quizContents);
-            //        myModel.Add(userQuizResults);
-            //        myModel.Add(quizContentSpecifiedAnswers);
-            //        myModel.Add(userQuizes);
-
-            //        return View(myModel);
-            //    }
-            //    catch
-            //    {
-            //        return new HttpNotFoundResult("Content Not Found");
-            //    }
-            //}
             else
             {
                 try
