@@ -26,35 +26,30 @@
         var user_courses = lstUserCourses.Any(uc => uc.Id == currentUser.Id);
 
         <section id="user_course">
-            <div class="container"  style="height:85vh">
+            <div class="container">
                 <div class="row text-center">
                     <div class="col-lg-12 text-center">
-                        <h3>Welcome Back @currentUser.FirstName</h3>
+                        <h3>Welcome @currentUser.FirstName</h3>
                         @if (user_courses == true)
                         {
                             <h5 class="text-muted">You are currently enrolled in the below courses<br />Click Continue to resume your course</h5>
                         }
+                        else
+                        {
+                            <h5>
+                                You have no courses in progress<br />
+                                Please see our Courses and start your free course
+                            </h5>
+                        
+                            <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
+                                Courses
+                            </a>
+                        }
                         <br />
                     </div>
                 </div>                
-                <div class="row text-center">                    
-                    @if (user_courses == false)
-                    {
-                        <div class="caption-centred">
-                            <div class="col-lg-12 text-center">
-                                <h5>
-                                    You have no courses in progress
-                                </h5>
-                                <h5>
-                                    Please see our Courses and start your free course
-                                </h5>
-                                <a href="@Url.Action("Index", "Home")#courses" class="btn btn-info">
-                                    Courses
-                                </a>
-                            </div>                            
-                        </div>
-                    }
-                    else
+                <div class="row text-center" style="height:60vh">                    
+                    @if (user_courses == true)
                     {
                         foreach (var c in lstCourses)
                         {
