@@ -259,3 +259,4 @@ C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.Migrations.Init.resources
 C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.csproj.GenerateResource.Cache
 C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.dll
 C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.pdb
+C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.csprojResolveAssemblyReference.cache
