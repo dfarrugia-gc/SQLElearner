@@ -253,7 +253,6 @@ C:\My Projects\Elearner\Elearner\bin\Microsoft.Owin.Security.OAuth.xml
 C:\My Projects\Elearner\Elearner\bin\Microsoft.Owin.Security.Google.xml
 C:\My Projects\Elearner\Elearner\bin\Microsoft.Owin.Security.Twitter.xml
 C:\My Projects\Elearner\Elearner\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.csprojResolveAssemblyReference.cache
 C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.Migrations.InitialCreate.resources
 C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.Migrations.FirstName.resources
 C:\My Projects\Elearner\Elearner\obj\Debug\Elearner.Migrations.Init.resources
